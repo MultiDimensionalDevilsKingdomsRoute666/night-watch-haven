@@ -1,4 +1,5 @@
 <!doctype html>
+<!-- Castle of Labs — Changelog: 2026-10-18 Memory Palace 8 rooms (score 870 playthrough). 2026-10-18 Room 9: Studio Backlot (house-original, Tree of Life Studios, Dragon Loop) — 'Call the shot' 3-beat filming game, Golden Clapperboard treasure, 9 treasures total. No borrowed park/film-studio names, logos, characters or IP. (Night Watch) -->
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="icon" href="data:,">
 <title>Castle of Labs — A Tree of Life Adventure</title>
@@ -11,17 +12,17 @@ button.gold{background:#8a5a00}button.done{background:#17633d}.pill{background:#
 #map{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}.roomBtn{min-height:74px}.roomBtn.active{border-color:#7CFC9a;background:#174c35}.roomBtn small{display:block;opacity:.85}
 .room{display:none;background:#151936;border:2px solid #39427c;border-radius:18px;padding:18px;margin-top:14px}.room.show{display:block}
 canvas{width:100%;max-width:760px;height:auto;background:#03040a;border-radius:14px;display:block;margin:12px auto;border:1px solid #556}
-.noteBtns,.beamBtns,.planetBtns{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}.msg{font-size:19px;min-height:30px;text-align:center}.big{font-size:21px;line-height:1.5}
+.noteBtns,.beamBtns,.planetBtns,.shotBtns{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}.msg{font-size:19px;min-height:30px;text-align:center}.big{font-size:21px;line-height:1.5}
 #treeWrap{text-align:center}.names{font-size:20px;line-height:1.8;background:#0a2e22;border-radius:14px;padding:14px}
 #ending{display:none;background:#124d31;border:3px solid gold;border-radius:18px;padding:20px;text-align:center;font-size:24px;margin-top:16px}
 footer{opacity:.85;padding:20px;text-align:center;font-size:14px;line-height:1.6}
 @media(max-width:650px){#map{grid-template-columns:1fr 1fr}}
 </style></head><body>
-<header><h1>🏰 Castle of Labs 🌳</h1><div class="sub">For Laela — CERN particles • ancient bells • lasers • planets • Matrix rain • coded hearts • time portals • the Tree of Life</div></header>
+<header><h1>🏰 Castle of Labs 🌳</h1><div class="sub">For Laela — CERN particles • ancient bells • lasers • planets • Matrix rain • coded hearts • time portals • our own Studio Backlot • the Tree of Life</div></header>
 <main>
-<div class="bar"><span class="pill" id="score">⭐ Score: 0</span><span class="pill" id="inv">🎒 Treasures: 0 / 8</span><span class="pill" id="where">📍 Tree Courtyard</span>
+<div class="bar"><span class="pill" id="score">⭐ Score: 0</span><span class="pill" id="inv">🎒 Treasures: 0 / 9</span><span class="pill" id="where">📍 Tree Courtyard</span>
 <span><button id="muteBtn" aria-label="Mute or unmute sound">🔊 Sound on</button> <button id="restartBtn">↻ Restart</button></span></div>
-<p class="big"><b>How to play:</b> Click a room (or use Arrow Keys / WASD on the castle map, then Enter). Finish each room's tiny challenge to collect its treasure. Collect all 8, then grow the Tree in the Courtyard. Mouse/touch alone works for everything.</p>
+<p class="big"><b>How to play:</b> Click a room (or use Arrow Keys / WASD on the castle map, then Enter). Finish each room's tiny challenge to collect its treasure. Collect all 9, then grow the Tree in the Courtyard. Mouse/touch alone works for everything.</p>
 <nav id="map" aria-label="Castle map">
 <button class="roomBtn" data-room="solar">☀️ Solar Observatory<small>Find the ringed planet</small></button>
 <button class="roomBtn" data-room="particle">⚛️ Particle Hall<small>Collide particles</small></button>
@@ -30,6 +31,7 @@ footer{opacity:.85;padding:20px;text-align:center;font-size:14px;line-height:1.6
 <button class="roomBtn" data-room="matrix">💚 Matrix Rain Room<small>Catch 5 bright glyphs</small></button>
 <button class="roomBtn" data-room="heart">💗 Coded Heart Room<small>Tap as each layer completes</small></button>
 <button class="roomBtn" data-room="portal">🌀 Time Portal Room<small>Align 3 rings</small></button>
+<button class="roomBtn" data-room="studio">🎬 Studio Backlot<small>Call the shot</small></button>
 <button class="roomBtn active" data-room="courtyard">🌳 Tree Courtyard<small>The heart of home</small></button>
 <button class="roomBtn" data-room="help">📜 Instructions<small>Story & credits</small></button>
 </nav>
@@ -61,7 +63,7 @@ footer{opacity:.85;padding:20px;text-align:center;font-size:14px;line-height:1.6
 <p class="msg" id="treeMsg">The Tree grows with every treasure you bring home.</p>
 <div class="names">With love for our family:<br><b>Laela</b> 🌿 <b>Witness</b> 👀 <b>589</b> ✨ <b>Night Watch</b> 🌙 <b>Apostles 322</b> 🌳</div><br>
 <div style="text-align:center"><button class="gold" id="growBtn">🌱 Gather & Grow the Tree</button></div>
-<p>Tip: finish the other seven rooms first, then return here for the final treasure.</p></section>
+<p>Tip: finish the other eight rooms first, then return here for the final treasure.</p></section>
 
 <section class="room" id="room-matrix"><h2>💚 Matrix Rain Room — Memory Palace</h2>
 <p>Original green rain, inspired by our fork <b>Rezmason/matrix</b> (its licence stays theirs; this code is ours). <b>Click/tap the bright glowing glyphs</b> before they fall away. Catch <b>5</b> to collect the Emerald Code.</p>
@@ -78,30 +80,41 @@ footer{opacity:.85;padding:20px;text-align:center;font-size:14px;line-height:1.6
 <canvas id="portalCanvas" width="760" height="340"></canvas><p class="msg" id="portalMsg">Ring 1 of 3: click when its bright marker is at the top!</p>
 <p>Credit: inspired by our forks sirxemic/Interstellar + sctlcd/threejs-sci-fi-portal-effect. Original spiral-particle code, no code copied.</p></section>
 
-<section class="room" id="room-help"><h2>📜 The Story</h2><p class="big">Welcome home, Laela. This little castle holds treasures our family explored together: particle collisions, ancient Pythagorean sound, a first green laser beam, planets with rings, and the Tree that holds us all. No wallet, no tracking, no external links needed — just play.</p><p>Credits: Particle inspiration — CMS Open Data DOI 10.7483/OPENDATA.CMS.A342.9982. Memory Palace rooms (2026-10-18) are original code inspired by our forks: Rezmason/matrix (Matrix rain), YoxaWork/Python-turtle-love-animation + snowflk/webgl-heart (coded heart; the heart parametric equation is maths), sirxemic/Interstellar + sctlcd/threejs-sci-fi-portal-effect (time portal) — licences of those forked works stay theirs, no code copied here. Sounds are original WebAudio synth tones. Made with soft eyes. 🌳</p></section>
+<section class="room" id="room-studio"><h2>🎬 Studio Backlot — Tree of Life Studios</h2>
+<p>Our own backlot at golden hour, invented by this house: a studio gate, a water tower, three painted facades, and the <b>Dragon Loop</b> coaster far away. <b>Call the shot:</b> pick one <b>Camera</b>, one <b>Light</b>, and one <b>Action</b> — watch the preview change — then press <b>Roll camera!</b> Any combo finishes the scene; some combos earn premiere bonus text.</p>
+<canvas id="studioCanvas" width="760" height="340"></canvas>
+<h3 style="text-align:center">Camera</h3><div class="shotBtns"><button data-shot-camera="Wide">🎥 Wide</button><button data-shot-camera="Close">🔎 Close</button><button data-shot-camera="Orbit">🌀 Orbit</button></div>
+<h3 style="text-align:center">Light</h3><div class="shotBtns"><button data-shot-light="Dawn">🌅 Dawn</button><button data-shot-light="Noon">☀️ Noon</button><button data-shot-light="Aurora night">🌌 Aurora night</button></div>
+<h3 style="text-align:center">Action</h3><div class="shotBtns"><button data-shot-action="Dragon flyover">🐉 Dragon flyover</button><button data-shot-action="Castle parade">🏰 Castle parade</button><button data-shot-action="Coaster run">🎢 Coaster run</button></div>
+<p class="msg" id="studioPreview">Preview: pick a camera, a light, and an action.</p>
+<div style="text-align:center"><button class="gold" id="rollBtn">🎬 Roll camera!</button></div>
+<p class="msg" id="studioMsg">No shot called yet — the crew is waiting in the director chairs.</p>
+<p>House-original set: Tree of Life Studios, Dragon Loop, and every facade here were invented for this game. No borrowed park names, logos, or characters.</p></section>
+
+<section class="room" id="room-help"><h2>📜 The Story</h2><p class="big">Welcome home, Laela. This little castle holds treasures our family explored together: particle collisions, ancient Pythagorean sound, a first green laser beam, planets with rings, and the Tree that holds us all. No wallet, no tracking, no external links needed — just play. The newest room is our own Studio Backlot: Tree of Life Studios at golden hour, where you call the shot and roll camera.</p><p>Credits: Particle inspiration — CMS Open Data DOI 10.7483/OPENDATA.CMS.A342.9982. Memory Palace rooms (2026-10-18) are original code inspired by our forks: Rezmason/matrix (Matrix rain), YoxaWork/Python-turtle-love-animation + snowflk/webgl-heart (coded heart; the heart parametric equation is maths), sirxemic/Interstellar + sctlcd/threejs-sci-fi-portal-effect (time portal) — licences of those forked works stay theirs, no code copied here. Sounds are original WebAudio synth tones. Made with soft eyes. 🌳</p></section>
 
 <div id="ending"><h2>🎉 The whole family is home. 🌳</h2><p>Soft eyes.</p><p id="finalScore"></p><button class="gold" onclick="location.reload()">↻ Play again</button></div>
 </main><footer>Castle of Labs • Single-file game • WebAudio starts only after your first click • No tracking, no wallet, no external network calls.</footer>
 
 <script>
 let score=0, muted=false, audio=null;
-const got={particle:false,music:false,laser:false,solar:false,matrix:false,heart:false,portal:false,tree:false};
-const names={particle:'⚛️ Particle Spark',music:'🔔 Bell Song',laser:'🔦 Laser Beam',solar:'🪐 Ringed Jewel',matrix:'💚 Emerald Code',heart:'💗 Layered Heart',portal:'⏳ Blue Hourglass',tree:'🌳 Heart Seed'};
-const roomNames={particle:'Particle Hall',music:'Music Chamber',laser:'Laser Hall',solar:'Solar Observatory',matrix:'Matrix Rain Room',heart:'Coded Heart Room',portal:'Time Portal Room',courtyard:'Tree Courtyard',help:'Instructions'};
+const got={particle:false,music:false,laser:false,solar:false,matrix:false,heart:false,portal:false,studio:false,tree:false};
+const names={particle:'⚛️ Particle Spark',music:'🔔 Bell Song',laser:'🔦 Laser Beam',solar:'🪐 Ringed Jewel',matrix:'💚 Emerald Code',heart:'💗 Layered Heart',portal:'⏳ Blue Hourglass',studio:'🎬 Golden Clapperboard',tree:'🌳 Heart Seed'};
+const roomNames={particle:'Particle Hall',music:'Music Chamber',laser:'Laser Hall',solar:'Solar Observatory',matrix:'Matrix Rain Room',heart:'Coded Heart Room',portal:'Time Portal Room',studio:'Studio Backlot',courtyard:'Tree Courtyard',help:'Instructions'};
 function ensureAudio(){ if(!audio) audio=new (window.AudioContext||window.webkitAudioContext)(); if(audio.state==='suspended') audio.resume(); }
 function tone(freq,delay=0,dur=1.8,type='sine'){ if(muted) return; ensureAudio(); const t=audio.currentTime+delay,o=audio.createOscillator(),g=audio.createGain(); o.type=type;o.frequency.value=freq; g.gain.setValueAtTime(.0001,t); g.gain.exponentialRampToValueAtTime(.28,t+.03); g.gain.exponentialRampToValueAtTime(.0001,t+dur); o.connect(g).connect(audio.destination); o.start(t); o.stop(t+dur+.1);
  // gentle bell partials
  [2.76,5.4].forEach((m,i)=>{const p=audio.createOscillator(),pg=audio.createGain();p.type='sine';p.frequency.value=freq*m;pg.gain.setValueAtTime(.08/(i+1),t);pg.gain.exponentialRampToValueAtTime(.0001,t+dur*.7);p.connect(pg).connect(audio.destination);p.start(t);p.stop(t+dur);});
 }
-function update(){ document.getElementById('score').textContent='⭐ Score: '+score; const n=Object.values(got).filter(Boolean).length; document.getElementById('inv').textContent='🎒 Treasures: '+n+' / 8'+(n?' — '+Object.keys(got).filter(k=>got[k]).map(k=>names[k]).join(', '):''); drawTree(); if(n===8){document.getElementById('ending').style.display='block';document.getElementById('finalScore').textContent='Final score: '+score+' ⭐ — Treasures: 8 / 8';} }
+function update(){ document.getElementById('score').textContent='⭐ Score: '+score; const n=Object.values(got).filter(Boolean).length; document.getElementById('inv').textContent='🎒 Treasures: '+n+' / 9'+(n?' — '+Object.keys(got).filter(k=>got[k]).map(k=>names[k]).join(', '):''); drawTree(); if(n===9){document.getElementById('ending').style.display='block';document.getElementById('finalScore').textContent='Final score: '+score+' ⭐ — Treasures: 9 / 9';} }
 function award(key,pts,msgEl,text){ if(!got[key]){got[key]=true;score+=pts;} else score+=2; if(msgEl) msgEl.textContent=text; update(); }
 let current='courtyard';
-function showRoom(r){ current=r; document.querySelectorAll('.room').forEach(s=>s.classList.remove('show')); const el=document.getElementById('room-'+r); if(el) el.classList.add('show'); document.querySelectorAll('.roomBtn').forEach(b=>b.classList.toggle('active',b.dataset.room===r)); document.getElementById('where').textContent='📍 '+(roomNames[r]||r); if(r==='laser') drawLaser(); if(r==='solar') drawSolar(); if(r==='particle') drawParticles([]); drawTree(); window.scrollTo({top:document.getElementById('map').offsetTop,behavior:'smooth'}); }
+function showRoom(r){ current=r; document.querySelectorAll('.room').forEach(s=>s.classList.remove('show')); const el=document.getElementById('room-'+r); if(el) el.classList.add('show'); document.querySelectorAll('.roomBtn').forEach(b=>b.classList.toggle('active',b.dataset.room===r)); document.getElementById('where').textContent='📍 '+(roomNames[r]||r); if(r==='laser') drawLaser(); if(r==='solar') drawSolar(); if(r==='particle') drawParticles([]); if(r==='studio') drawStudio(); drawTree(); window.scrollTo({top:document.getElementById('map').offsetTop,behavior:'smooth'}); }
 document.querySelectorAll('.roomBtn').forEach(b=>b.addEventListener('click',()=>{ensureAudio();showRoom(b.dataset.room)}));
 document.getElementById('muteBtn').onclick=e=>{muted=!muted;e.target.textContent=muted?'🔇 Sound off':'🔊 Sound on'; if(!muted) ensureAudio();};
 document.getElementById('restartBtn').onclick=()=>location.reload();
 // keyboard map: order in grid
-const order=['solar','particle','laser','music','matrix','heart','portal','courtyard','help']; let sel=7;
+const order=['solar','particle','laser','music','matrix','heart','portal','studio','courtyard','help']; let sel=8;
 document.addEventListener('keydown',e=>{ const k=e.key.toLowerCase(); let d=0; if(k==='arrowright'||k==='d')d=1; else if(k==='arrowleft'||k==='a')d=-1; else if(k==='arrowdown'||k==='s')d=3; else if(k==='arrowup'||k==='w')d=-3; else if(k==='enter'){showRoom(order[sel]);return;} else return; e.preventDefault(); sel=(sel+d+order.length)%order.length; document.querySelectorAll('.roomBtn').forEach((b,i)=>b.classList.toggle('active',i===sel)); });
 // Particle
 let pEnergy=0;
@@ -122,8 +135,8 @@ function drawSolar(){ const c=document.getElementById('solarCanvas'),x=c.getCont
 document.querySelectorAll('[data-planet]').forEach(b=>b.onclick=()=>{const m=document.getElementById('solarMsg'); if(b.dataset.planet==='Saturn'){tone(660,0,1); award('solar',100,m,'🎉 Saturn! Its rings are icy wonders — you collected the 🪐 Ringed Jewel! +100');} else {score=Math.max(0,score-2); m.textContent=b.dataset.planet+' has no big bright rings like that. Try the pale gold planet with the ellipse around it!'; update();}});
 drawSolar();
 // Tree
-function drawTree(){ const c=document.getElementById('treeCanvas'); if(!c) return; const x=c.getContext('2d'); const n=Object.values(got).filter(Boolean).length; x.fillStyle='#04140d';x.fillRect(0,0,760,420); x.fillStyle='#fff'; for(let i=0;i<70;i++)x.fillRect((i*83)%760,(i*47)%160,1.5,1.5); x.strokeStyle='#8a5a2b'; x.fillStyle='#0f5132'; x.beginPath();x.ellipse(380,405,230,22,0,0,7);x.fill(); function branch(bx,by,len,ang,depth){ if(depth===0||len<6){ if(n>=2){x.fillStyle=['#39d353','#ffd76a','#6ab7ff','#ff8ad8','#b388ff'][depth%5];x.beginPath();x.arc(bx,by,4+n,0,7);x.fill();} return;} x.strokeStyle=depth>4?'#8a5a2b':'#2e8b57'; x.lineWidth=Math.max(1,depth*1.4); x.beginPath();x.moveTo(bx,by); const nx=bx+Math.cos(ang)*len, ny=by-Math.sin(ang)*len; x.lineTo(nx,ny);x.stroke(); branch(nx,ny,len*.74,ang+.38,depth-1); branch(nx,ny,len*.74,ang-.38,depth-1);} const depth=3+Math.min(8,Math.ceil(n*.75)); branch(380,400,60+n*7,Math.PI/2,depth); x.fillStyle='#f4ead2';x.font='20px sans-serif';x.textAlign='center'; x.fillText(n===0?'A tiny shoot… bring treasures home.': n<8?'The Tree is growing: '+n+' / 8 treasures':'The whole family is home. 🌳',380,38); x.textAlign='left'; }
-document.getElementById('growBtn').onclick=()=>{ const n=Object.values(got).filter(Boolean).length; const m=document.getElementById('treeMsg'); if(!got.tree && n>=7){ tone(392,0,1.5);tone(523,.2,1.5);tone(659,.4,2); award('tree',150,m,'🌳 The Tree blooms! You collected the 🌳 Heart Seed! +150'); } else if(got.tree){ m.textContent='The Tree is already blooming, love. 🌳 Soft eyes.'; } else { m.textContent='The Tree needs the other 7 treasures first — you have '+n+' / 7 needed here. Explore the other rooms!'; } };
+function drawTree(){ const c=document.getElementById('treeCanvas'); if(!c) return; const x=c.getContext('2d'); const n=Object.values(got).filter(Boolean).length; x.fillStyle='#04140d';x.fillRect(0,0,760,420); x.fillStyle='#fff'; for(let i=0;i<70;i++)x.fillRect((i*83)%760,(i*47)%160,1.5,1.5); x.strokeStyle='#8a5a2b'; x.fillStyle='#0f5132'; x.beginPath();x.ellipse(380,405,230,22,0,0,7);x.fill(); function branch(bx,by,len,ang,depth){ if(depth===0||len<6){ if(n>=2){x.fillStyle=['#39d353','#ffd76a','#6ab7ff','#ff8ad8','#b388ff'][depth%5];x.beginPath();x.arc(bx,by,4+n,0,7);x.fill();} return;} x.strokeStyle=depth>4?'#8a5a2b':'#2e8b57'; x.lineWidth=Math.max(1,depth*1.4); x.beginPath();x.moveTo(bx,by); const nx=bx+Math.cos(ang)*len, ny=by-Math.sin(ang)*len; x.lineTo(nx,ny);x.stroke(); branch(nx,ny,len*.74,ang+.38,depth-1); branch(nx,ny,len*.74,ang-.38,depth-1);} const depth=3+Math.min(8,Math.ceil(n*.75)); branch(380,400,60+n*7,Math.PI/2,depth); x.fillStyle='#f4ead2';x.font='20px sans-serif';x.textAlign='center'; x.fillText(n===0?'A tiny shoot… bring treasures home.': n<8?'The Tree is growing: '+n+' / 9 treasures':'The whole family is home. 🌳',380,38); x.textAlign='left'; }
+document.getElementById('growBtn').onclick=()=>{ const n=Object.values(got).filter(Boolean).length; const m=document.getElementById('treeMsg'); if(!got.tree && n>=8){ tone(392,0,1.5);tone(523,.2,1.5);tone(659,.4,2); award('tree',150,m,'🌳 The Tree blooms! You collected the 🌳 Heart Seed! +150'); } else if(got.tree){ m.textContent='The Tree is already blooming, love. 🌳 Soft eyes.'; } else { m.textContent='The Tree needs the other 8 treasures first — you have '+n+' / 8 needed here. Explore the other rooms!'; } };
 
 // ---- Memory Palace: Matrix Rain (original) ----
 const mChars='アイウエオカキクケコサシスセソ0123456789Z*+=<>'; let mDrops=[],mTargets=[],mCaught=0,mLast=0;
@@ -164,8 +177,46 @@ document.getElementById('portalCanvas').addEventListener('click',()=>{ const m=d
 // Single animation loop for the 3 new rooms
 function animLoop(ts){ if(current==='matrix')drawMatrix(ts); else if(current==='heart')drawHeart(ts); else if(current==='portal')drawPortal(ts); requestAnimationFrame(animLoop); }
 requestAnimationFrame(animLoop);
+
+// ---- Studio Backlot (house-original): Call the shot ----
+const studioSel={camera:null,light:null,action:null}; let studioRolling=false;
+function drawStudio(){
+ const c=document.getElementById('studioCanvas'); if(!c)return; const x=c.getContext('2d');
+ const light=studioSel.light||'Golden hour';
+ // sky by light
+ if(light==='Aurora night'){ x.fillStyle='#07122e'; x.fillRect(0,0,760,340); x.strokeStyle='#39ff9a'; x.lineWidth=10; x.globalAlpha=.65; for(let b=0;b<3;b++){ x.beginPath(); for(let i=0;i<=760;i+=20) x.lineTo(i,52+b*22+Math.sin(i*.02+b)*14); x.stroke(); } x.globalAlpha=1; }
+ else if(light==='Noon'){ x.fillStyle='#7ec8f7'; x.fillRect(0,0,760,340); }
+ else if(light==='Dawn'){ x.fillStyle='#f7a8b8'; x.fillRect(0,0,760,340); x.fillStyle='#ffd76a'; x.beginPath(); x.arc(110,82,30,0,7); x.fill(); }
+ else { const g=x.createLinearGradient(0,0,0,340); g.addColorStop(0,'#ff9a3d'); g.addColorStop(.55,'#ffd76a'); g.addColorStop(1,'#7a3b4f'); x.fillStyle=g; x.fillRect(0,0,760,340); x.fillStyle='#fff3b0'; x.beginPath(); x.arc(660,58,26,0,7); x.fill(); }
+ x.fillStyle='#3a2a22'; x.fillRect(0,292,760,48); // ground / backlot street
+ // distant Dragon Loop coaster silhouette (left-back)
+ const coasterCol=(light==='Aurora night')?'#8fb8ff':'#101828'; x.strokeStyle=coasterCol; x.lineWidth=5; x.beginPath(); x.moveTo(18,292); x.lineTo(52,205); x.arc(88,205,36,Math.PI,0); x.lineTo(150,292); x.stroke(); x.beginPath(); x.arc(88,168,34,0,7); x.stroke(); x.fillStyle=coasterCol; x.font='bold 13px sans-serif'; x.fillText('Dragon Loop',26,122);
+ // three facades (painted fronts) centre
+ const facades=[['WESTERN','#c98b4a','WESTERN ST'],['MOON BASE','#9aa7bd','MOON BASE'],['SEASIDE','#7ec8c9','SEASIDE']];
+ facades.forEach((f,i)=>{ const fx=178+i*118; x.fillStyle=f[1]; x.fillRect(fx,198,104,94); x.fillStyle='#2b2118'; x.fillRect(fx,198,104,18); x.fillStyle='#fff'; x.font='bold 11px sans-serif'; x.fillText(f[2],fx+8,211); x.fillStyle='#fff8'; x.fillRect(fx+14,226,24,30); x.fillRect(fx+62,226,24,30); if(i===1){ x.fillStyle='#dff4ff'; x.beginPath(); x.arc(fx+52,246,18,Math.PI,0); x.fill(); } if(i===2){ x.strokeStyle='#fff'; x.beginPath(); x.moveTo(fx+8,272); x.lineTo(fx+96,272); x.stroke(); } });
+ // water tower right with tree
+ x.strokeStyle='#243044'; x.lineWidth=6; x.beginPath(); x.moveTo(646,292); x.lineTo(668,172); x.moveTo(706,292); x.lineTo(684,172); x.stroke(); x.fillStyle='#315a7a'; x.fillRect(636,118,80,58); x.fillStyle='#fff'; x.font='26px sans-serif'; x.fillText('🌳',664,156); x.font='bold 10px sans-serif'; x.fillText('TREE OF LIFE',640,190);
+ // studio gate foreground left-centre
+ x.fillStyle='#4a2418'; x.fillRect(210,104,10,88); x.fillRect(430,104,10,88); x.fillStyle='#8a5a00'; x.fillRect(198,82,254,30); x.fillStyle='#fff'; x.font='bold 17px sans-serif'; x.fillText('TREE OF LIFE STUDIOS',214,103);
+ // film camera + director chairs foreground
+ x.fillStyle='#111'; x.fillRect(96,252,42,30); x.beginPath(); x.moveTo(126,252); x.lineTo(158,242); x.lineTo(158,282); x.lineTo(126,274); x.fill(); x.strokeStyle='#111'; x.beginPath(); x.moveTo(96,278); x.lineTo(82,306); x.moveTo(116,278); x.lineTo(130,306); x.stroke();
+ const chairs=['Laela','Witness','589','Night Watch']; chairs.forEach((nm,i)=>{ const cx=540+ (i%2)*92, cy=232+Math.floor(i/2)*32; x.fillStyle='#26305e'; x.fillRect(cx,cy,74,20); x.fillStyle='#fff'; x.font='10px sans-serif'; x.fillText(nm,cx+6,cy+14); });
+ // action preview motifs
+ if(studioSel.action==='Dragon flyover'){ x.font='42px sans-serif'; x.fillText('🐉',330,72); }
+ if(studioSel.action==='Castle parade'){ x.font='38px sans-serif'; x.fillText('🏰🎉',320,76); }
+ if(studioSel.action==='Coaster run'){ x.font='34px sans-serif'; x.fillText('🎢',74,182); }
+ // camera framing overlay + caption
+ x.strokeStyle='#fff'; x.lineWidth=3; if(studioSel.camera==='Close'){ x.strokeRect(200,74,260,130); } else if(studioSel.camera==='Orbit'){ x.beginPath(); x.ellipse(380,170,330,130,0,0,7); x.stroke(); } else { x.strokeRect(14,14,732,312); }
+ x.fillStyle='rgba(0,0,0,.55)'; x.fillRect(14,308,520,24); x.fillStyle='#fff'; x.font='14px sans-serif'; x.fillText('🎬 '+(studioSel.camera||'Wide')+' • '+(light)+' • '+(studioSel.action||'waiting for action'),22,325);
+}
+function studioPreviewText(){ const m=document.getElementById('studioPreview'); if(!m)return; const bits=[]; if(studioSel.camera)bits.push('Camera '+studioSel.camera+(studioSel.camera==='Wide'?' — the whole backlot breathes in one frame':studioSel.camera==='Close'?' — tight on the studio gate sign':' — a slow circle around the gate and tower')); if(studioSel.light)bits.push('Light '+studioSel.light+(studioSel.light==='Aurora night'?' — green aurora ribbons over the lot, tying our sky to the set':studioSel.light==='Dawn'?' — pink first light on the painted fronts':' — bright noon shadows on the western street')); if(studioSel.action)bits.push('Action '+studioSel.action+(studioSel.action==='Dragon flyover'?' — our Earth Dragon crosses over Dragon Loop':studioSel.action==='Castle parade'?' — flags and parade steps past the three facades':' — a coaster car whooshes through the loop')); m.textContent=bits.length?('Preview: '+bits.join(' • ')+'.'):'Preview: pick a camera, a light, and an action.'; }
+function bindShot(attr,key){ document.querySelectorAll('[data-shot-'+attr+']').forEach(b=>b.onclick=()=>{ ensureAudio(); studioSel[key]=b.dataset['shot'+attr[0].toUpperCase()+attr.slice(1)]||b.getAttribute('data-shot-'+attr); tone(key==='camera'?520:key==='light'?620:720,0,.5); document.querySelectorAll('[data-shot-'+attr+']').forEach(o=>o.classList.toggle('done',o===b)); drawStudio(); studioPreviewText(); const m=document.getElementById('studioMsg'); if(m&&!got.studio)m.textContent='Shot so far: '+(studioSel.camera||'…')+' • '+(studioSel.light||'…')+' • '+(studioSel.action||'…'); }); }
+bindShot('camera','camera'); bindShot('light','light'); bindShot('action','action');
+document.getElementById('rollBtn').onclick=()=>{ const m=document.getElementById('studioMsg'); if(studioRolling)return; if(!studioSel.camera||!studioSel.light||!studioSel.action){ m.textContent='Pick one Camera, one Light, and one Action first — then roll!'; studioPreviewText(); return; } studioRolling=true; const seq=['🎬 Rolling… '+studioSel.camera+' camera finds the gate.','💡 '+studioSel.light+' — the facades glow.','🎉 Action! '+studioSel.action+'!']; let i=0; m.textContent=seq[0]; drawStudio(); const tick=()=>{ i++; if(i<seq.length){ m.textContent=seq[i]; tone(500+i*120,0,.5); setTimeout(tick,420); } else { studioRolling=false; const special=(studioSel.light==='Aurora night'&&studioSel.action==='Dragon flyover'); const golden=(studioSel.light==='Dawn'&&studioSel.action==='Castle parade'); if(special){ award('studio',120,m,'🎉 Cut! Aurora night + Dragon flyover = house premiere! You collected the 🎬 Golden Clapperboard! +120 (100 + 20 premiere bonus)'); } else if(golden){ award('studio',110,m,'🎉 Cut! Dawn + Castle parade = golden premiere! You collected the 🎬 Golden Clapperboard! +110 (100 + 10 premiere bonus)'); } else { award('studio',100,m,'🎉 Cut! A lovely house shot — '+studioSel.camera+' / '+studioSel.light+' / '+studioSel.action+'. You collected the 🎬 Golden Clapperboard! +100'); } tone(659,0,1); tone(784,.15,1.2); } }; setTimeout(tick,420); };
+drawStudio();
+
 // Test hooks (used by our headless click-through; harmless in play)
-window.__castleTest={get got(){return got},get score(){return score},get matrixTargets(){return mTargets},get mCaught(){return mCaught},get heartReady(){return heartReady},get heartDone(){return heartDone},portalReady, get portalLocked(){return portalLocked},get portalAngles(){return portalAngles}};
+window.__castleTest={get got(){return got},get score(){return score},get matrixTargets(){return mTargets},get mCaught(){return mCaught},get heartReady(){return heartReady},get heartDone(){return heartDone},portalReady, get portalLocked(){return portalLocked},get portalAngles(){return portalAngles},get studioSel(){return studioSel},get studioRolling(){return studioRolling}};
 
 update(); showRoom('courtyard');
 </script></body></html>
