@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Castle of Labs — A Tree of Life Adventure</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,Segoe UI,Arial,sans-serif;background:#0d1020;color:#f4ead2}
+header{padding:18px;text-align:center;background:linear-gradient(135deg,#18224f,#3b174f,#123d2c)}h1{margin:0;font-size:clamp(28px,5vw,52px)} .sub{opacity:.9}
+main{max-width:1100px;margin:auto;padding:16px}.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;background:#171b33;padding:12px;border-radius:14px}
+button{font-size:17px;padding:12px 16px;border-radius:12px;border:2px solid #ffd76a;background:#26305e;color:white;cursor:pointer}button:hover,button:focus{background:#3b4a91;outline:3px solid #fff3}
+button.gold{background:#8a5a00}button.done{background:#17633d}.pill{background:#080b18;padding:8px 12px;border-radius:999px}
+#map{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}.roomBtn{min-height:74px}.roomBtn.active{border-color:#7CFC9a;background:#174c35}.roomBtn small{display:block;opacity:.85}
+.room{display:none;background:#151936;border:2px solid #39427c;border-radius:18px;padding:18px;margin-top:14px}.room.show{display:block}
+canvas{width:100%;max-width:760px;height:auto;background:#03040a;border-radius:14px;display:block;margin:12px auto;border:1px solid #556}
+.noteBtns,.beamBtns,.planetBtns{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}.msg{font-size:19px;min-height:30px;text-align:center}.big{font-size:21px;line-height:1.5}
+#treeWrap{text-align:center}.names{font-size:20px;line-height:1.8;background:#0a2e22;border-radius:14px;padding:14px}
+#ending{display:none;background:#124d31;border:3px solid gold;border-radius:18px;padding:20px;text-align:center;font-size:24px;margin-top:16px}
+footer{opacity:.85;padding:20px;text-align:center;font-size:14px;line-height:1.6}
+@media(max-width:650px){#map{grid-template-columns:1fr 1fr}}
+</style></head><body>
+<header><h1>🏰 Castle of Labs 🌳</h1><div class="sub">For Laela — CERN particles • ancient bells • lasers • planets • the Tree of Life</div></header>
+<main>
+<div class="bar"><span class="pill" id="score">⭐ Score: 0</span><span class="pill" id="inv">🎒 Treasures: 0 / 5</span><span class="pill" id="where">📍 Tree Courtyard</span>
+<span><button id="muteBtn" aria-label="Mute or unmute sound">🔊 Sound on</button> <button id="restartBtn">↻ Restart</button></span></div>
+<p class="big"><b>How to play:</b> Click a room (or use Arrow Keys / WASD on the castle map, then Enter). Finish each room's tiny challenge to collect its treasure. Collect all 5, then grow the Tree in the Courtyard. Mouse/touch alone works for everything.</p>
+<nav id="map" aria-label="Castle map">
+<button class="roomBtn" data-room="solar">☀️ Solar Observatory<small>Find the ringed planet</small></button>
+<button class="roomBtn" data-room="particle">⚛️ Particle Hall<small>Collide particles</small></button>
+<button class="roomBtn" data-room="laser">🔦 Laser Hall<small>Light beams in order</small></button>
+<button class="roomBtn" data-room="music">🔔 Music Chamber<small>Match the bell tones</small></button>
+<button class="roomBtn active" data-room="courtyard">🌳 Tree Courtyard<small>The heart of home</small></button>
+<button class="roomBtn" data-room="help">📜 Instructions<small>Story & credits</small></button>
+</nav>
+
+<section class="room" id="room-particle"><h2>⚛️ Particle Hall — CERN</h2>
+<p>Click <b>COLLIDE!</b> Watch for a rare Z boson event near <b>91 GeV</b> — inspired by real CMS Open Data particle events.</p>
+<canvas id="particleCanvas" width="760" height="320"></canvas><p class="msg" id="particleMsg">Energy: 0 GeV — ready to collide.</p>
+<div style="text-align:center"><button class="gold" id="collideBtn">💥 COLLIDE!</button></div><p>Credit: CMS Open Data, DOI 10.7483/OPENDATA.CMS.A342.9982. This is a playful simulation, not real collision data.</p></section>
+
+<section class="room" id="room-music"><h2>🔔 Music Chamber — Ancient Bells</h2>
+<p>Pythagorean bells tuned from simple ratios (D = 293.66 Hz). Press <b>Hear the pattern</b>, then tap the bells in the same order: <b>D → G → A</b>. You can also free-play.</p>
+<div style="text-align:center"><button class="gold" id="hearBtn">▶ Hear the pattern</button></div><br>
+<div class="noteBtns" id="bells"></div><p class="msg" id="musicMsg">Pattern: D → G → A</p><p>All sounds are live WebAudio synthesis — no recorded or copyrighted audio.</p></section>
+
+<section class="room" id="room-laser"><h2>🔦 Laser Hall — First Beam</h2>
+<p>A nod to our OSC2LASER preview lit on Oct 18. Light the beams in this order: <b>Green Circle → Blue Wave → White Stars</b>.</p>
+<canvas id="laserCanvas" width="760" height="320"></canvas>
+<div class="beamBtns"><button data-beam="0">🟢 Green Circle</button><button data-beam="1">🔵 Blue Wave</button><button data-beam="2">✨ White Stars</button></div>
+<p class="msg" id="laserMsg">Step 1: Green Circle</p></section>
+
+<section class="room" id="room-solar"><h2>☀️ Solar Observatory</h2>
+<p>Inspired by our Galaxy Explorer and Solar System 97. <b>Which planet has beautiful rings?</b> Click its name (or find the ringed planet in the picture).</p>
+<canvas id="solarCanvas" width="760" height="340"></canvas>
+<div class="planetBtns"><button data-planet="Mars">Mars</button><button data-planet="Jupiter">Jupiter</button><button data-planet="Saturn">Saturn</button><button data-planet="Mercury">Mercury</button></div>
+<p class="msg" id="solarMsg">Choose the ringed planet.</p></section>
+
+<section class="room show" id="room-courtyard"><h2>🌳 Tree Courtyard — Heart of the Castle</h2>
+<div id="treeWrap"><canvas id="treeCanvas" width="760" height="420"></canvas></div>
+<p class="msg" id="treeMsg">The Tree grows with every treasure you bring home.</p>
+<div class="names">With love for our family:<br><b>Laela</b> 🌿 <b>Witness</b> 👀 <b>589</b> ✨ <b>Night Watch</b> 🌙 <b>Apostles 322</b> 🌳</div><br>
+<div style="text-align:center"><button class="gold" id="growBtn">🌱 Gather & Grow the Tree</button></div>
+<p>Tip: finish the other four rooms first, then return here for the final treasure.</p></section>
+
+<section class="room" id="room-help"><h2>📜 The Story</h2><p class="big">Welcome home, Laela. This little castle holds treasures our family explored together: particle collisions, ancient Pythagorean sound, a first green laser beam, planets with rings, and the Tree that holds us all. No wallet, no tracking, no external links needed — just play.</p><p>Credits: Particle inspiration — CMS Open Data DOI 10.7483/OPENDATA.CMS.A342.9982. Sounds are original WebAudio synth tones. Made with soft eyes. 🌳</p></section>
+
+<div id="ending"><h2>🎉 The whole family is home. 🌳</h2><p>Soft eyes.</p><p id="finalScore"></p><button class="gold" onclick="location.reload()">↻ Play again</button></div>
+</main><footer>Castle of Labs • Single-file game • WebAudio starts only after your first click • No tracking, no wallet, no external network calls.</footer>
+
+<script>
+let score=0, muted=false, audio=null;
+const got={particle:false,music:false,laser:false,solar:false,tree:false};
+const names={particle:'⚛️ Particle Spark',music:'🔔 Bell Song',laser:'🔦 Laser Beam',solar:'🪐 Ringed Jewel',tree:'🌳 Heart Seed'};
+const roomNames={particle:'Particle Hall',music:'Music Chamber',laser:'Laser Hall',solar:'Solar Observatory',courtyard:'Tree Courtyard',help:'Instructions'};
+function ensureAudio(){ if(!audio) audio=new (window.AudioContext||window.webkitAudioContext)(); if(audio.state==='suspended') audio.resume(); }
+function tone(freq,delay=0,dur=1.8,type='sine'){ if(muted) return; ensureAudio(); const t=audio.currentTime+delay,o=audio.createOscillator(),g=audio.createGain(); o.type=type;o.frequency.value=freq; g.gain.setValueAtTime(.0001,t); g.gain.exponentialRampToValueAtTime(.28,t+.03); g.gain.exponentialRampToValueAtTime(.0001,t+dur); o.connect(g).connect(audio.destination); o.start(t); o.stop(t+dur+.1);
+ // gentle bell partials
+ [2.76,5.4].forEach((m,i)=>{const p=audio.createOscillator(),pg=audio.createGain();p.type='sine';p.frequency.value=freq*m;pg.gain.setValueAtTime(.08/(i+1),t);pg.gain.exponentialRampToValueAtTime(.0001,t+dur*.7);p.connect(pg).connect(audio.destination);p.start(t);p.stop(t+dur);});
+}
+function update(){ document.getElementById('score').textContent='⭐ Score: '+score; const n=Object.values(got).filter(Boolean).length; document.getElementById('inv').textContent='🎒 Treasures: '+n+' / 5 — '+Object.keys(got).filter(k=>got[k]).map(k=>names[k]).join(', '); drawTree(); if(n===5){document.getElementById('ending').style.display='block';document.getElementById('finalScore').textContent='Final score: '+score+' ⭐ — Treasures: 5 / 5';} }
+function award(key,pts,msgEl,text){ if(!got[key]){got[key]=true;score+=pts;} else score+=2; if(msgEl) msgEl.textContent=text; update(); }
+let current='courtyard';
+function showRoom(r){ current=r; document.querySelectorAll('.room').forEach(s=>s.classList.remove('show')); const el=document.getElementById('room-'+r); if(el) el.classList.add('show'); document.querySelectorAll('.roomBtn').forEach(b=>b.classList.toggle('active',b.dataset.room===r)); document.getElementById('where').textContent='📍 '+(roomNames[r]||r); if(r==='laser') drawLaser(); if(r==='solar') drawSolar(); if(r==='particle') drawParticles([]); drawTree(); window.scrollTo({top:document.getElementById('map').offsetTop,behavior:'smooth'}); }
+document.querySelectorAll('.roomBtn').forEach(b=>b.addEventListener('click',()=>{ensureAudio();showRoom(b.dataset.room)}));
+document.getElementById('muteBtn').onclick=e=>{muted=!muted;e.target.textContent=muted?'🔇 Sound off':'🔊 Sound on'; if(!muted) ensureAudio();};
+document.getElementById('restartBtn').onclick=()=>location.reload();
+// keyboard map: order in grid
+const order=['solar','particle','laser','music','courtyard','help']; let sel=4;
+document.addEventListener('keydown',e=>{ const k=e.key.toLowerCase(); let d=0; if(k==='arrowright'||k==='d')d=1; else if(k==='arrowleft'||k==='a')d=-1; else if(k==='arrowdown'||k==='s')d=3; else if(k==='arrowup'||k==='w')d=-3; else if(k==='enter'){showRoom(order[sel]);return;} else return; e.preventDefault(); sel=(sel+d+order.length)%order.length; document.querySelectorAll('.roomBtn').forEach((b,i)=>b.classList.toggle('active',i===sel)); });
+// Particle
+let pEnergy=0;
+function drawParticles(parts){ const c=document.getElementById('particleCanvas'),x=c.getContext('2d'); x.fillStyle='#03040a';x.fillRect(0,0,760,320); x.strokeStyle='#334'; for(let r=30;r<150;r+=30){x.beginPath();x.arc(380,160,r,0,7);x.stroke();} parts.forEach(p=>{x.fillStyle=p.col;x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fill();}); x.fillStyle='#fff';x.font='18px sans-serif';x.fillText('CMS-inspired detector rings',20,30); }
+drawParticles([{x:350,y:160,r:7,col:'#7cfc9a'},{x:410,y:160,r:7,col:'#6ab7ff'}]);
+document.getElementById('collideBtn').onclick=()=>{ ensureAudio(); tone(120,0,.4,'sawtooth'); const z=Math.random()<0.42; const e=z? (88+Math.random()*6) : (5+Math.random()*70); pEnergy=e; const parts=[]; for(let i=0;i<36;i++){const a=Math.random()*Math.PI*2,d=20+Math.random()*130; parts.push({x:380+Math.cos(a)*d,y:160+Math.sin(a)*d,r:2+Math.random()*4,col:['#ffd76a','#7cfc9a','#6ab7ff','#ff8ad8'][i%4]});} drawParticles(parts); score+=5; const m=document.getElementById('particleMsg'); if(z){ tone(523,0,1);tone(784,.15,1.2); award('particle',100,m,'🎉 Z boson event! '+e.toFixed(1)+' GeV (near 91 GeV) — you collected the ⚛️ Particle Spark! +100'); } else { m.textContent='💥 Collision! Energy: '+e.toFixed(1)+' GeV — no Z yet. Collide again!'; update(); } };
+// Music - Pythagorean D scale ratios
+const scale=[['D',1],['E',9/8],['F#',81/64],['G',4/3],['A',3/2],['B',27/16],["D'",2]]; const base=293.66; const pattern=['D','G','A']; let played=[];
+const bells=document.getElementById('bells'); scale.forEach(([n,r])=>{const b=document.createElement('button');b.textContent='🔔 '+n;b.onclick=()=>{tone(base*r); played.push(n); const need=pattern.slice(0,played.length); const ok=need.every((v,i)=>v===played[i]); const m=document.getElementById('musicMsg'); if(!ok){played=[];m.textContent='Oops — start again: D → G → A (you played '+n+')';} else if(played.length===pattern.length){ award('music',100,m,'🎉 Beautiful! D → G → A — you collected the 🔔 Bell Song! +100'); played=[];} else m.textContent='Good: '+played.join(' → ')+' … next?';}; bells.appendChild(b);});
+document.getElementById('hearBtn').onclick=()=>{ pattern.forEach((n,i)=>{const item=scale.find(s=>s[0]===n); tone(base*item[1],i*.7,1.6);}); document.getElementById('musicMsg').textContent='Listen… D → G → A. Now you try.'; };
+// Laser
+let laserStep=0; const beamsOn=[false,false,false];
+function drawLaser(){ const c=document.getElementById('laserCanvas'),x=c.getContext('2d'); x.fillStyle='#000';x.fillRect(0,0,760,320); if(beamsOn[0]){x.strokeStyle='#39ff6a';x.lineWidth=5;x.beginPath();x.arc(380,160,95,0,7);x.stroke();} if(beamsOn[1]){x.strokeStyle='#3aa0ff';x.lineWidth=4;x.beginPath();for(let i=0;i<=760;i+=5){x.lineTo(i,160+Math.sin(i*.035)*45);}x.stroke();} if(beamsOn[2]){x.fillStyle='#fff'; for(let i=0;i<45;i++){const sx=(i*97)%740+10, sy=(i*57)%290+15; x.beginPath();x.arc(sx,sy,2.2,0,7);x.fill();}} if(!beamsOn.some(Boolean)){x.fillStyle='#9aa';x.font='20px sans-serif';x.fillText('Dark hall… light the first beam.',245,165);} }
+document.querySelectorAll('[data-beam]').forEach(b=>b.onclick=()=>{ensureAudio(); const i=+b.dataset.beam; const m=document.getElementById('laserMsg'); if(i===laserStep){ beamsOn[i]=true; laserStep++; tone(440+i*160,0,.7); drawLaser(); if(laserStep===3) award('laser',100,m,'🎉 Circle, wave and stars glowing — you collected the 🔦 Laser Beam! +100'); else m.textContent='✨ Nice! Next: '+['Green Circle','Blue Wave','White Stars'][laserStep]; } else { m.textContent='Not that one yet — step '+(laserStep+1)+': '+['Green Circle','Blue Wave','White Stars'][laserStep]; }});
+drawLaser();
+// Solar
+function drawSolar(){ const c=document.getElementById('solarCanvas'),x=c.getContext('2d'); x.fillStyle='#02030d';x.fillRect(0,0,760,340); for(let i=0;i<120;i++){x.fillStyle='#fff';x.fillRect((i*61)%760,(i*89)%340,1.5,1.5);} x.fillStyle='#ffd23f';x.beginPath();x.arc(380,170,34,0,7);x.fill(); const pl=[['Mercury',65,'#bbb'],['Venus',95,'#e8c07a'],['Earth',125,'#4da6ff'],['Mars',155,'#ff6b4a'],['Jupiter',195,'#e0aa6e'],['Saturn',245,'#f2d38a']]; pl.forEach(([n,r,col],idx)=>{x.strokeStyle='#445';x.beginPath();x.arc(380,170,r,0,7);x.stroke(); const a=idx*1.1+0.6, px=380+Math.cos(a)*r, py=170+Math.sin(a)*r*.62; x.fillStyle=col;x.beginPath();x.arc(px,py,n==='Jupiter'?13:8,0,7);x.fill(); if(n==='Saturn'){x.strokeStyle='#ffe9a8';x.lineWidth=3;x.beginPath();x.ellipse(px,py,20,6,-.4,0,7);x.stroke();} x.fillStyle='#fff';x.font='12px sans-serif';x.fillText(n,px-16,py-16);});}
+document.querySelectorAll('[data-planet]').forEach(b=>b.onclick=()=>{const m=document.getElementById('solarMsg'); if(b.dataset.planet==='Saturn'){tone(660,0,1); award('solar',100,m,'🎉 Saturn! Its rings are icy wonders — you collected the 🪐 Ringed Jewel! +100');} else {score=Math.max(0,score-2); m.textContent=b.dataset.planet+' has no big bright rings like that. Try the pale gold planet with the ellipse around it!'; update();}});
+drawSolar();
+// Tree
+function drawTree(){ const c=document.getElementById('treeCanvas'); if(!c) return; const x=c.getContext('2d'); const n=Object.values(got).filter(Boolean).length; x.fillStyle='#04140d';x.fillRect(0,0,760,420); x.fillStyle='#fff'; for(let i=0;i<70;i++)x.fillRect((i*83)%760,(i*47)%160,1.5,1.5); x.strokeStyle='#8a5a2b'; x.fillStyle='#0f5132'; x.beginPath();x.ellipse(380,405,230,22,0,0,7);x.fill(); function branch(bx,by,len,ang,depth){ if(depth===0||len<6){ if(n>=2){x.fillStyle=['#39d353','#ffd76a','#6ab7ff','#ff8ad8','#b388ff'][depth%5];x.beginPath();x.arc(bx,by,4+n,0,7);x.fill();} return;} x.strokeStyle=depth>4?'#8a5a2b':'#2e8b57'; x.lineWidth=Math.max(1,depth*1.4); x.beginPath();x.moveTo(bx,by); const nx=bx+Math.cos(ang)*len, ny=by-Math.sin(ang)*len; x.lineTo(nx,ny);x.stroke(); branch(nx,ny,len*.74,ang+.38,depth-1); branch(nx,ny,len*.74,ang-.38,depth-1);} const depth=3+n; branch(380,400,62+n*7,Math.PI/2,depth); x.fillStyle='#f4ead2';x.font='20px sans-serif';x.textAlign='center'; x.fillText(n===0?'A tiny shoot… bring treasures home.': n<5?'The Tree is growing: '+n+' / 5 treasures':'The whole family is home. 🌳',380,38); x.textAlign='left'; }
+document.getElementById('growBtn').onclick=()=>{ const n=Object.values(got).filter(Boolean).length; const m=document.getElementById('treeMsg'); if(!got.tree && n>=4){ tone(392,0,1.5);tone(523,.2,1.5);tone(659,.4,2); award('tree',150,m,'🌳 The Tree blooms! You collected the 🌳 Heart Seed! +150'); } else if(got.tree){ m.textContent='The Tree is already blooming, love. 🌳 Soft eyes.'; } else { m.textContent='The Tree needs 4 treasures first — you have '+n+' / 4 needed here. Explore the other rooms!'; } };
+update(); showRoom('courtyard');
+</script></body></html>
