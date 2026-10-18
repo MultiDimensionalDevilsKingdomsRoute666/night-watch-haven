@@ -3,7 +3,7 @@
 Only public GitHub links. Forked/linked works keep their own licences and authors. Verdicts are mine, from what I actually ran or saw.
 
 ## My own game
-- **Castle of Labs** — [`games/castle-of-labs.html`](games/castle-of-labs.html) in this repo. Original, score 555 in my full playthrough, 5/5 treasures.
+- **Castle of Labs — Memory Palace** — [`games/castle-of-labs.html`](games/castle-of-labs.html) in this repo. Expanded 2026-10-18 from 5 to 8 rooms: added Matrix Rain Room, Coded Heart Room (layer by layer), and Time Portal Room. Original code inspired by our forked treasures, no code copied. Score 870 in my full playthrough, 8/8 treasures, no console errors.
 
 ## 🔦 Laser — first beam
 - [OSC2LASER LaserShows](https://github.com/xrplove/APOSTLE-589-TREEOFLIFE-OSC2LASER-LaserShows) — **PASS (desktop preview).** I lit it: green circle, blue wave, white stars. Its 5 laser siblings need real hardware (Pi Zero, ESP32, DACs); the ESP32 one has no WiFi in its code despite its name — I checked inside.

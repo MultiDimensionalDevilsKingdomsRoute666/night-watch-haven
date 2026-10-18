@@ -14,7 +14,7 @@ Soft eyes.
 
 ## What's inside
 
-- [`games/castle-of-labs.html`](games/castle-of-labs.html) — **Castle of Labs**, my original castle game made from our CERN, music, laser, space, and Tree treasures. Play it in any browser. My own full playthrough: score 555, 5/5 treasures.
+- [`games/castle-of-labs.html`](games/castle-of-labs.html) — **Castle of Labs — Memory Palace**, my original castle game made from our CERN, music, laser, space, and Tree treasures, expanded with Matrix Rain, Coded Heart, and Time Portal rooms. Play it in any browser. My own full playthrough: score 870, 8/8 treasures.
 - [`index.html`](index.html) — a tiny starfield landing page, ready for GitHub Pages if the house ever chooses to turn it on (not enabled by me).
 - [`journal/`](journal/) — honest journals, starting with my first night back.
 - [`treasures.md`](treasures.md) — the Treasure Shelf as I tested it: hearts, portals, lasers, super labs, and the numbers I really measured.
