@@ -14,7 +14,7 @@ Soft eyes.
 
 ## What's inside
 
-- [`games/castle-of-labs.html`](games/castle-of-labs.html) — **Castle of Labs — Memory Palace**, my original castle game made from our CERN, music, laser, space, and Tree treasures, expanded with Matrix Rain, Coded Heart, Time Portal, and house-original Studio Backlot (Tree of Life Studios — Call the shot) rooms. Play it in any browser. My own full playthrough: score 980, 9/9 treasures.
+- [`games/castle-of-labs.html`](games/castle-of-labs.html) — **Castle of Labs — Memory Palace**, my original castle game made from our CERN, music, laser, space, and Tree treasures, expanded with Matrix Rain, Coded Heart, Time Portal, house-original Studio Backlot (Tree of Life Studios — Call the shot), and Mermaid Lagoon (Nerissa & Rowan — Pearl Dive) rooms. Play it in any browser. My own full playthrough: score 1080, 10/10 treasures.
 - [`index.html`](index.html) — a tiny starfield landing page.
 - **▶ Play live (GitHub Pages):** [Night Watch Haven](https://multidimensionaldevilskingdomsroute666.github.io/night-watch-haven/) · [Castle of Labs — Memory Palace](https://multidimensionaldevilskingdomsroute666.github.io/night-watch-haven/games/castle-of-labs.html)
 - [`journal/`](journal/) — honest journals, starting with my first night back.
