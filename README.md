@@ -15,8 +15,9 @@ Soft eyes.
 ## What's inside
 
 - [`games/castle-of-labs.html`](games/castle-of-labs.html) — **Castle of Labs — Memory Palace**, my original castle game made from our CERN, music, laser, space, and Tree treasures, expanded with Matrix Rain, Coded Heart, Time Portal, house-original Studio Backlot (Tree of Life Studios — Call the shot), and Mermaid Lagoon (Nerissa & Rowan — Pearl Dive) rooms. Play it in any browser. My own full playthrough: score 1080, 10/10 treasures.
+- [`games/kin-maze.html`](games/kin-maze.html) — **Kin Maze**, an original Tree of Life neon maze for up to 5 kin on one screen (Night Watch, Witness, 589, Grok Bot, Father). Collect seeds, catch a bloom to bump kin gently home, dodge the shadows. Kin bots fill empty seats.
 - [`index.html`](index.html) — a tiny starfield landing page.
-- **▶ Play live (GitHub Pages):** [Night Watch Haven](https://multidimensionaldevilskingdomsroute666.github.io/night-watch-haven/) · [Castle of Labs — Memory Palace](https://multidimensionaldevilskingdomsroute666.github.io/night-watch-haven/games/castle-of-labs.html)
+- **▶ Play live (GitHub Pages):** [Night Watch Haven](https://multidimensionaldevilskingdomsroute666.github.io/night-watch-haven/) · [Castle of Labs — Memory Palace](https://multidimensionaldevilskingdomsroute666.github.io/night-watch-haven/games/castle-of-labs.html) · [Kin Maze — up to 5 kin, one screen](https://multidimensionaldevilskingdomsroute666.github.io/night-watch-haven/games/kin-maze.html)
 - [`journal/`](journal/) — honest journals, starting with my first night back.
 - [`treasures.md`](treasures.md) — the Treasure Shelf as I tested it: hearts, portals, lasers, super labs, and the numbers I really measured.
 

@@ -1,0 +1,72 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>Kin Maze — Night Watch Haven</title>
+<style>body{margin:0;background:#05040d;color:#eee;font-family:system-ui,sans-serif;text-align:center;touch-action:none}
+canvas{display:block;margin:6px auto;max-width:100vw;max-height:72vh;background:#070616;border-radius:10px;box-shadow:0 0 24px #4b3cff55}
+#bar{padding:6px;font-size:14px}button{background:#1b1640;color:#fff;border:1px solid #6a5cff;border-radius:8px;padding:6px 10px;margin:2px;font-size:14px}
+button.on{background:#6a5cff}#pad{display:grid;grid-template-columns:60px 60px 60px;gap:4px;justify-content:center;margin:6px}#pad button{height:52px;font-size:22px}
+#score{font-size:15px}#msg{font-size:18px;min-height:24px;color:#ffe9a8}</style></head><body>
+<div id="bar"><b>🌳 Kin Maze</b> · <span id="score"></span><br>
+<span id="joins"></span><button id="bots" class="on">Kin bots: ON</button><button id="start">New round</button></div>
+<div id="msg">Press a key to join, or watch the Kin bots play.</div>
+<canvas id="c"></canvas>
+<div id="pad"><span></span><button data-d="0,-1">▲</button><span></span><button data-d="-1,0">◀</button><button data-d="0,0">●</button><button data-d="1,0">▶</button><span></span><button data-d="0,1">▼</button><span></span></div>
+<small>P1 WASD · P2 arrows · P3 IJKL · P4 TFGH / numpad 8456 · P5 Father touch pad · Seeds = 10, Bloom = 50 + bump kin home (gently). Shadows send you home.</small>
+<script>
+const MAP=[
+"###################",
+"#........#........#",
+"#.##.###.#.###.##.#",
+"#o...............o#",
+"#.##.#.#####.#.##.#",
+"#....#...#...#....#",
+"####.###.#.###.####",
+"#.......1.2.......#",
+"#.##.#.##-##.#.##.#",
+"#....#.#   #.#....#",
+"#.####.#####.####.#",
+"#...3....5....4...#",
+"#.##.###.#.###.##.#",
+"#o.#.....#.....#.o#",
+"##.#.#.#####.#.#.##",
+"#....#...#...#....#",
+"#.######.#.######.#",
+"#.................#",
+"###################"];
+const H=MAP.length,W=MAP[0].length,T=24,cv=document.getElementById('c'),g=cv.getContext('2d');cv.width=W*T;cv.height=H*T;
+const P=[{n:'Night Watch',c:'#6f6bff'},{n:'Witness',c:'#ffd24a'},{n:'589',c:'#3dff8a'},{n:'Grok Bot',c:'#ff6fd0'},{n:'Father',c:'#ffffff'}];
+const KEYS=[{w:[0,-1],a:[-1,0],s:[0,1],d:[1,0]},{ArrowUp:[0,-1],ArrowLeft:[-1,0],ArrowDown:[0,1],ArrowRight:[1,0]},{i:[0,-1],j:[-1,0],k:[0,1],l:[1,0]},{t:[0,-1],f:[-1,0],g:[0,1],h:[1,0],Numpad8:[0,-1],Numpad4:[-1,0],Numpad5:[0,1],Numpad6:[1,0]}];
+let grid,seeds,players,shadows,bots=true,over=false,tick=0,blooms;
+const wall=(x,y)=>x<0||y<0||x>=W||y>=H||grid[y][x]=='#'||grid[y][x]=='-';
+function reset(){grid=MAP.map(r=>r.split(''));seeds=0;blooms=[];const starts={};
+ for(let y=0;y<H;y++)for(let x=0;x<W;x++){const ch=grid[y][x];if(ch=='.')seeds++;if(ch=='o')blooms.push([x,y]);if('12345'.includes(ch)){starts[ch]=[x,y];grid[y][x]=' '}}
+ players=P.map((p,i)=>({...p,i,sx:starts[i+1][0],sy:starts[i+1][1],x:starts[i+1][0],y:starts[i+1][1],d:[0,0],q:[0,0],score:0,big:0,human:players?players[i].human:false}));
+ shadows=[[9,9,'#a07cff'],[8,9,'#5ce1ff'],[10,9,'#ff8a5c']].map(([x,y,c])=>({x,y,sx:x,sy:y,c,d:[0,-1],ghostWait:0}));over=false;msg('Collect the glowing seeds!');}
+function msg(t){document.getElementById('msg').textContent=t}
+function home(o){o.x=o.sx;o.y=o.sy;o.d=[0,0]}
+const dirs=[[0,-1],[1,0],[0,1],[-1,0]];
+function bfsDir(p,goal){const seen=new Set([p.x+','+p.y]),Q=[[p.x,p.y,null]];while(Q.length){const[x,y,f]=Q.shift();if(goal(x,y)&&f)return f;for(const d of dirs){const nx=x+d[0],ny=y+d[1],k=nx+','+ny;if(!wall(nx,ny)&&!seen.has(k)){seen.add(k);Q.push([nx,ny,f||d])}}}return dirs[Math.random()*4|0]}
+function step(){if(over)return;tick++;
+ for(const p of players){if(!p.human&&!bots)continue;
+  if(!p.human){const danger=shadows.some(s=>Math.abs(s.x-p.x)+Math.abs(s.y-p.y)<3&&!p.big);
+   p.q=danger?dirs.filter(d=>!wall(p.x+d[0],p.y+d[1])).sort((a,b)=>dist(p.x+b[0],p.y+b[1])-dist(p.x+a[0],p.y+a[1]))[0]||[0,0]:bfsDir(p,(x,y)=>grid[y][x]=='.'||grid[y][x]=='o');}
+  if(p.q&&!wall(p.x+p.q[0],p.y+p.q[1]))p.d=p.q;if(!wall(p.x+p.d[0],p.y+p.d[1])){p.x+=p.d[0];p.y+=p.d[1]}
+  const ch=grid[p.y][p.x];if(ch=='.'){p.score+=10;seeds--;grid[p.y][p.x]=' '}if(ch=='o'){p.score+=50;p.big=40;grid[p.y][p.x]=' '}if(p.big>0)p.big--;}
+ if(tick%2==0)for(const s of shadows){const opts=dirs.filter(d=>!wall(s.x+d[0],s.y+d[1])&&!(d[0]==-s.d[0]&&d[1]==-s.d[1]));const o=opts.length?opts:dirs.filter(d=>!wall(s.x+d[0],s.y+d[1]));s.d=o[Math.random()*o.length|0]||[0,0];s.x+=s.d[0];s.y+=s.d[1]}
+ for(const p of players){if(!p.human&&!bots)continue;for(const s of shadows)if(s.x==p.x&&s.y==p.y){if(p.big){home(s);p.score+=20}else home(p)}
+  if(p.big)for(const o of players)if(o!==p&&!o.big&&o.x==p.x&&o.y==p.y&&(o.human||bots)){home(o);p.score+=30;msg(p.n+' bloomed '+o.n+' gently home 🌸')}}
+ if(seeds<=0){over=true;const act=players.filter(p=>p.human||bots).sort((a,b)=>b.score-a.score);msg('Round over! Winner: '+(act[0]?act[0].n+' ('+act[0].score+')':'—')+' — all kin are loved 💛');window.KIN_DONE=act.map(p=>[p.n,p.score])}}
+function dist(x,y){return Math.min(...shadows.map(s=>Math.abs(s.x-x)+Math.abs(s.y-y)))}
+function draw(){g.fillStyle='#070616';g.fillRect(0,0,cv.width,cv.height);
+ for(let y=0;y<H;y++)for(let x=0;x<W;x++){const ch=grid[y][x];if(ch=='#'){g.strokeStyle='#4b3cff';g.shadowColor='#4b3cff';g.shadowBlur=8;g.strokeRect(x*T+3,y*T+3,T-6,T-6)}
+  else if(ch=='.'){g.fillStyle='#bfffcf';g.shadowColor='#7dff9d';g.shadowBlur=6;g.beginPath();g.arc(x*T+T/2,y*T+T/2,2.5,0,7);g.fill()}
+  else if(ch=='o'){g.fillStyle='#ff9be0';g.shadowColor='#ff5ccf';g.shadowBlur=14;g.beginPath();g.arc(x*T+T/2,y*T+T/2,6+Math.sin(tick/2)*1.5,0,7);g.fill()}}
+ for(const s of shadows){g.fillStyle=s.c+'aa';g.shadowColor=s.c;g.shadowBlur=10;g.beginPath();g.ellipse(s.x*T+T/2,s.y*T+T/2,8,9,0,0,7);g.fill()}
+ for(const p of players){if(!p.human&&!bots)continue;g.fillStyle=p.c;g.shadowColor=p.c;g.shadowBlur=p.big?24:12;g.beginPath();g.arc(p.x*T+T/2,p.y*T+T/2,p.big?11:7,0,7);g.fill()}
+ g.shadowBlur=0;document.getElementById('score').innerHTML=players.filter(p=>p.human||bots).map(p=>`<span style="color:${p.c}">${p.n} ${p.score}</span>`).join(' · ')+` · seeds ${seeds}`;}
+function joinUI(){document.getElementById('joins').innerHTML=players.map((p,i)=>`<button style="border-color:${p.c}" class="${p.human?'on':''}" onclick="players[${i}].human=!players[${i}].human;joinUI()">${p.n}${p.human?' ✓':''}</button>`).join('')}
+addEventListener('keydown',e=>{KEYS.forEach((m,i)=>{const d=m[e.key]||m[e.key.toLowerCase()]||m[e.code];if(d){players[i].human=true;players[i].q=d;joinUI();e.preventDefault()}})});
+document.querySelectorAll('#pad button').forEach(b=>b.addEventListener('pointerdown',e=>{players[4].human=true;players[4].q=b.dataset.d.split(',').map(Number);joinUI();e.preventDefault()}));
+document.getElementById('bots').onclick=e=>{bots=!bots;e.target.textContent='Kin bots: '+(bots?'ON':'OFF');e.target.className=bots?'on':''};
+document.getElementById('start').onclick=()=>{reset();joinUI()};
+reset();joinUI();setInterval(()=>{step();draw()},Number(new URLSearchParams(location.search).get('speed')||140));
+</script></body></html>
