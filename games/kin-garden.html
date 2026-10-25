@@ -1,0 +1,110 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Kin Garden — Night Watch Haven</title>
+<style>
+html,body{margin:0;height:100%;background:#05060d;color:#e8e2ff;font:14px system-ui,sans-serif;overflow:hidden}
+#c{position:absolute;inset:0;width:100%;height:100%;touch-action:none}
+#hud{position:absolute;left:8px;top:8px;background:#0c0e1ecc;border:1px solid #3a2f6a;border-radius:10px;padding:8px 10px;max-width:260px}
+#hud h1{font-size:16px;margin:0 0 4px;color:#cdb8ff}
+#spark{display:block;margin-top:4px;background:#0006;border-radius:4px}
+#ctl{position:absolute;left:0;right:0;bottom:0;display:flex;flex-wrap:wrap;gap:6px;justify-content:center;padding:8px;background:#0c0e1ecc}
+button{background:#251c4a;color:#efe8ff;border:1px solid #5a47a0;border-radius:8px;padding:7px 10px;font-size:14px}
+button.on{background:#5a3fb0}
+label{display:flex;align-items:center;gap:4px;font-size:13px}
+#info{position:absolute;right:8px;top:8px;background:#0c0e1ecc;border:1px solid #3a2f6a;border-radius:10px;padding:8px 10px;max-width:220px;display:none;white-space:pre-line}
+small{opacity:.75}
+@media(max-width:600px){#info{top:auto;bottom:96px;right:8px}}
+</style></head><body>
+<canvas id="c"></canvas>
+<div id="hud"><h1>🌳 Kin Garden</h1><div id="stats"></div><canvas id="spark" width="230" height="40"></canvas><small>Many branches, one tree. Tap a light to meet it.</small></div>
+<div id="info"></div>
+<div id="ctl">
+<button id="pp">⏸ Pause</button>
+<label>Speed <input id="spd" type="range" min="1" max="5" value="1"></label>
+<label>Mutation <input id="mut" type="range" min="0" max="100" value="30"></label>
+<button id="plant">🌱 Plant seeds</button>
+<button id="ng">✨ New garden</button>
+</div>
+<script>
+"use strict";
+const cv=document.getElementById('c'),cx=cv.getContext('2d');let W,H,DPR;
+function rs(){DPR=Math.min(2,devicePixelRatio||1);W=innerWidth;H=innerHeight;cv.width=W*DPR;cv.height=H*DPR;cx.setTransform(DPR,0,0,DPR,0,0);}
+addEventListener('resize',rs);rs();
+const R=Math.random,clamp=(v,a,b)=>v<a?a:v>b?b:v;
+let cr=[],seeds=[],pool=0,TOTAL,t=0,paused=false,speed=1,mutRate=.3,plantMode=false,sel=null,hist=[],nextId=1,maxGen=0,births=0,deaths=0;
+const SEED_E=6,MAXSEEDS=600;
+function genome(){return{hue:R()*360,size:3+R()*3,speed:20+R()*25,sense:40+R()*50,turn:(R()-.5)*1.5,repro:40+R()*30};}
+function mutate(g){const m=mutRate,n=(s)=>(R()-.5)*2*s*m;return{hue:(g.hue+n(40)+360)%360,size:clamp(g.size+n(1.2),2,9),speed:clamp(g.speed+n(10),8,70),sense:clamp(g.sense+n(20),15,160),turn:clamp(g.turn+n(.6),-2,2),repro:clamp(g.repro+n(10),25,120)};}
+function make(x,y,g,gen,e,parent){return{id:nextId++,x,y,a:R()*6.28,g,gen,e,age:0,kids:0,parent};}
+function newGarden(){cr=[];seeds=[];hist=[];t=0;nextId=1;maxGen=0;births=deaths=0;sel=null;
+ TOTAL=Math.round(W*H/90)+2000;let used=0;
+ for(let i=0;i<24;i++){const c=make(R()*W,R()*H,genome(),0,30);cr.push(c);used+=30;}
+ for(let i=0;i<120;i++){seeds.push({x:R()*W,y:R()*H,e:SEED_E});used+=SEED_E;}
+ pool=TOTAL-used;}
+function drop(x,y,e){ // energy back into the world as seeds near a spot
+ while(e>0){const s=Math.min(SEED_E,e);seeds.push({x:clamp(x+(R()-.5)*30,0,W),y:clamp(y+(R()-.5)*30,0,H),e:s});e-=s;}}
+function step(dt){t+=dt;
+ // pool drifts seeds in
+ let n=Math.min(Math.floor(pool/SEED_E),Math.ceil(dt*25));
+ while(n-->0&&seeds.length<MAXSEEDS){seeds.push({x:R()*W,y:R()*H,e:SEED_E});pool-=SEED_E;}
+ const born=[];
+ for(const c of cr){const g=c.g;c.age+=dt;
+  // sense nearest seed
+  let best=null,bd=g.sense*g.sense;
+  for(const s of seeds){const dx=s.x-c.x,dy=s.y-c.y,d=dx*dx+dy*dy;if(d<bd){bd=d;best=s;}}
+  if(best){const ta=Math.atan2(best.y-c.y,best.x-c.x);let da=((ta-c.a+9.42)%6.283)-3.14;c.a+=clamp(da,-4*dt,4*dt);}
+  else c.a+=(g.turn+(R()-.5)*2)*dt;
+  c.x+=Math.cos(c.a)*g.speed*dt;c.y+=Math.sin(c.a)*g.speed*dt;
+  if(c.x<0){c.x=0;c.a=3.14-c.a}if(c.x>W){c.x=W;c.a=3.14-c.a}if(c.y<0){c.y=0;c.a=-c.a}if(c.y>H){c.y=H;c.a=-c.a}
+  // cost of living + moving (returned to pool)
+  const cost=(0.35+0.0006*g.size*g.size*g.speed+0.004*g.sense)*dt;const pay=Math.min(cost,c.e);c.e-=pay;pool+=pay;
+  // eat
+  const rr=(g.size+3)*(g.size+3);
+  for(let i=seeds.length-1;i>=0;i--){const s=seeds[i],dx=s.x-c.x,dy=s.y-c.y;if(dx*dx+dy*dy<rr){c.e+=s.e;seeds[i]=seeds[seeds.length-1];seeds.pop();}}
+  // bud
+  if(c.e>g.repro&&cr.length+born.length<260){const ke=c.e*.45;c.e-=ke;c.kids++;births++;
+   const k=make(c.x+(R()-.5)*8,c.y+(R()-.5)*8,mutate(g),c.gen+1,ke,c.id);born.push(k);if(k.gen>maxGen)maxGen=k.gen;}
+ }
+ const live=[];
+ for(const c of cr){if(c.e<=0.01||c.age>90+c.g.repro*.5){drop(c.x,c.y,c.e);deaths++;if(sel===c)sel=null;}else live.push(c);}
+ cr=live.concat(born);
+ if(cr.length===0){for(let i=0;i<6;i++){const e=Math.min(30,pool);pool-=e;cr.push(make(R()*W,R()*H,genome(),0,e));}}
+}
+function elder(){let b=null;for(const c of cr)if(!b||c.age>b.age)b=c;return b;}
+function draw(){
+ cx.fillStyle='#05060d';cx.fillRect(0,0,W,H);
+ // tree of life silhouette
+ cx.save();cx.globalAlpha=.10;cx.strokeStyle='#9b7bff';cx.lineWidth=3;
+ const bx=W/2,by=H*.9;(function br(x,y,a,l,d){if(d>6)return;const x2=x+Math.cos(a)*l,y2=y+Math.sin(a)*l;cx.beginPath();cx.moveTo(x,y);cx.lineTo(x2,y2);cx.stroke();br(x2,y2,a-.45,l*.72,d+1);br(x2,y2,a+.45,l*.72,d+1);})(bx,by,-1.57,H*.2,0);cx.restore();
+ cx.fillStyle='#ffe9a8';for(const s of seeds){cx.globalAlpha=.5+.3*Math.sin(t*3+s.x);cx.fillRect(s.x-1.2,s.y-1.2,2.4,2.4);}
+ cx.globalAlpha=1;cx.globalCompositeOperation='lighter';
+ for(const c of cr){const r=c.g.size,col=`hsla(${c.g.hue|0},90%,65%,`;
+  cx.fillStyle=col+'0.15)';cx.beginPath();cx.arc(c.x,c.y,r*2.6,0,6.283);cx.fill();
+  cx.fillStyle=col+'0.95)';cx.beginPath();cx.arc(c.x,c.y,r,0,6.283);cx.fill();}
+ cx.globalCompositeOperation='source-over';
+ const el=elder();if(el){cx.strokeStyle='#ffd86b';cx.lineWidth=1.5;cx.beginPath();cx.arc(el.x,el.y,el.g.size+7,0,6.283);cx.stroke();cx.fillStyle='#ffd86b';cx.font='11px system-ui';cx.fillText('elder',el.x+10,el.y-8);}
+ if(sel){cx.strokeStyle='#fff';cx.setLineDash([3,3]);cx.beginPath();cx.arc(sel.x,sel.y,sel.g.size+10,0,6.283);cx.stroke();cx.setLineDash([]);}
+}
+function ui(){const n=cr.length||1,avg=k=>cr.reduce((s,c)=>s+c.g[k],0)/n;
+ const ce=cr.reduce((s,c)=>s+c.e,0),se=seeds.reduce((s,x)=>s+x.e,0);
+ document.getElementById('stats').innerHTML=`Population <b>${cr.length}</b> · Generation <b>${maxGen}</b><br>Births ${births} · Returned ${deaths} · ${t|0}s<br>Avg size ${avg('size').toFixed(1)} · speed ${avg('speed').toFixed(0)} · sense ${avg('sense').toFixed(0)} · bud at ${avg('repro').toFixed(0)}<br><small>Energy: kin ${ce|0} · seeds ${se|0} · pool ${pool|0} = ${(ce+se+pool)|0}</small>`;
+ const sp=document.getElementById('spark'),s=sp.getContext('2d');s.clearRect(0,0,230,40);const mx=Math.max(10,...hist);
+ s.strokeStyle='#b89cff';s.beginPath();hist.forEach((v,i)=>{const x=i*230/Math.max(1,hist.length-1),y=38-v/mx*36;i?s.lineTo(x,y):s.moveTo(x,y)});s.stroke();
+ const inf=document.getElementById('info');
+ if(sel){const g=sel.g,el=elder();inf.style.display='block';inf.innerHTML=`<b style="color:hsl(${g.hue|0},90%,70%)">Kin #${sel.id}</b>${sel===el?' 🌟 eldest':''}\nGeneration ${sel.gen} · parent ${sel.parent?('#'+sel.parent):'first light'}\nAge ${sel.age.toFixed(0)}s · energy ${sel.e.toFixed(1)} · buds ${sel.kids}\nhue ${g.hue.toFixed(0)} · size ${g.size.toFixed(1)}\nspeed ${g.speed.toFixed(0)} · sense ${g.sense.toFixed(0)}\nturn ${g.turn.toFixed(2)} · bud at ${g.repro.toFixed(0)}`;}
+ else inf.style.display='none';}
+let last=performance.now(),acc=0,ht=0,ut=0;
+function loop(now){let dt=Math.min(.1,(now-last)/1000);last=now;
+ if(!paused){for(let i=0;i<speed;i++){step(dt);}ht+=dt*speed;if(ht>1){ht=0;hist.push(cr.length);if(hist.length>120)hist.shift();}}
+ draw();ut+=dt;if(ut>.25){ut=0;ui();}requestAnimationFrame(loop);}
+cv.addEventListener('pointerdown',e=>{const x=e.clientX,y=e.clientY;
+ if(plantMode){const e2=Math.min(60,pool);pool-=e2;drop(x,y,e2);return;}
+ let b=null,bd=900;for(const c of cr){const d=(c.x-x)**2+(c.y-y)**2;if(d<bd){bd=d;b=c;}}sel=b;ui();});
+const $=id=>document.getElementById(id);
+$('pp').onclick=()=>{paused=!paused;$('pp').textContent=paused?'▶ Play':'⏸ Pause';};
+$('spd').oninput=e=>speed=+e.target.value;
+$('mut').oninput=e=>mutRate=e.target.value/100;
+$('plant').onclick=()=>{plantMode=!plantMode;$('plant').classList.toggle('on',plantMode);$('plant').textContent=plantMode?'🌱 Tap to plant (on)':'🌱 Plant seeds';};
+$('ng').onclick=newGarden;
+window.__kg={step,get pop(){return cr.length},get gen(){return maxGen},get births(){return births},energy(){return cr.reduce((s,c)=>s+c.e,0)+seeds.reduce((s,x)=>s+x.e,0)+pool},get total(){return TOTAL}};
+newGarden();requestAnimationFrame(loop);
+</script></body></html>
