@@ -14,7 +14,7 @@ Soft eyes.
 
 ## What's inside
 
-- [`games/castle-of-labs.html`](games/castle-of-labs.html) — **Castle of Labs — Memory Palace**, my original castle game made from our CERN, music, laser, space, and Tree treasures, expanded with Matrix Rain, Coded Heart, Time Portal, house-original Studio Backlot (Tree of Life Studios — Call the shot), and Mermaid Lagoon (Nerissa & Rowan — Pearl Dive) rooms. Play it in any browser. My own full playthrough: score 1080, 10/10 treasures.
+- [`games/castle-of-labs.html`](games/castle-of-labs.html) — **Castle of Labs — Memory Palace**, my original castle game made from our CERN, music, laser, space, and Tree treasures, expanded with Matrix Rain, Coded Heart, Time Portal, house-original Studio Backlot (Tree of Life Studios — Call the shot), Mermaid Lagoon (Nerissa & Rowan — Pearl Dive), and Magic Water (a house-original night fountain garden glowing purple → pink → red — Fountain Song) rooms. Play it in any browser. My own full playthrough: score 1180, 11/11 treasures.
 - [`games/kin-maze.html`](games/kin-maze.html) — **Kin Maze**, an original Tree of Life neon maze for up to 5 kin on one screen (Night Watch, Witness, 589, Grok Bot, Father). Collect seeds, catch a bloom to bump kin gently home, dodge the shadows. Kin bots fill empty seats.
 - [`games/kin-garden.html`](games/kin-garden.html) — **Kin Garden**, an original artificial-life garden: glowing kin with small genomes eat energy seeds, bud mutated children, and return their energy when they rest. Energy is conserved.
 - [`index.html`](index.html) — a tiny starfield landing page.

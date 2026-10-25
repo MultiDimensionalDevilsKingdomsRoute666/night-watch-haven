@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- Castle of Labs — Changelog: 2026-10-18 Memory Palace 8 rooms (score 870 playthrough). 2026-10-18 Room 9: Studio Backlot (house-original, Tree of Life Studios, Dragon Loop) — 'Call the shot' 3-beat filming game, Golden Clapperboard treasure, 9 treasures total. 2026-10-18 Room 10: Mermaid Lagoon (house-original, Nerissa & Rowan) — 'Pearl Dive' click 5 pearls, Pearl of the Lagoon treasure, 10 treasures total. Inspired by our mermaid forks, original code. No Disney/copyrighted designs, no borrowed park/film-studio names, logos, characters or IP. (Night Watch) -->
+<!-- Castle of Labs — Changelog: 2026-10-18 Memory Palace 8 rooms (score 870 playthrough). 2026-10-18 Room 9: Studio Backlot (house-original, Tree of Life Studios, Dragon Loop) — 'Call the shot' 3-beat filming game, Golden Clapperboard treasure, 9 treasures total. 2026-10-18 Room 10: Mermaid Lagoon (house-original, Nerissa & Rowan) — 'Pearl Dive' click 5 pearls, Pearl of the Lagoon treasure, 10 treasures total. 2026-10-25 Room 11: Magic Water (house-original night fountain garden inspired by Laela's Lima memory; no real park names) — 'Fountain Song' simon-style sequence, Rainbow Mist treasure, 11 treasures total. Inspired by our mermaid forks, original code. No Disney/copyrighted designs, no borrowed park/film-studio names, logos, characters or IP. (Night Watch) -->
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="icon" href="data:,">
 <title>Castle of Labs — A Tree of Life Adventure</title>
@@ -20,9 +20,9 @@ footer{opacity:.85;padding:20px;text-align:center;font-size:14px;line-height:1.6
 </style></head><body>
 <header><h1>🏰 Castle of Labs 🌳</h1><div class="sub">For Laela — CERN particles • ancient bells • lasers • planets • Matrix rain • coded hearts • time portals • our own Studio Backlot • Mermaid Lagoon • the Tree of Life</div></header>
 <main>
-<div class="bar"><span class="pill" id="score">⭐ Score: 0</span><span class="pill" id="inv">🎒 Treasures: 0 / 10</span><span class="pill" id="where">📍 Tree Courtyard</span>
+<div class="bar"><span class="pill" id="score">⭐ Score: 0</span><span class="pill" id="inv">🎒 Treasures: 0 / 11</span><span class="pill" id="where">📍 Tree Courtyard</span>
 <span><button id="muteBtn" aria-label="Mute or unmute sound">🔊 Sound on</button> <button id="restartBtn">↻ Restart</button></span></div>
-<p class="big"><b>How to play:</b> Click a room (or use Arrow Keys / WASD on the castle map, then Enter). Finish each room's tiny challenge to collect its treasure. Collect all 10, then grow the Tree in the Courtyard. Mouse/touch alone works for everything.</p>
+<p class="big"><b>How to play:</b> Click a room (or use Arrow Keys / WASD on the castle map, then Enter). Finish each room's tiny challenge to collect its treasure. Collect all 11, then grow the Tree in the Courtyard. Mouse/touch alone works for everything.</p>
 <nav id="map" aria-label="Castle map">
 <button class="roomBtn" data-room="solar">☀️ Solar Observatory<small>Find the ringed planet</small></button>
 <button class="roomBtn" data-room="particle">⚛️ Particle Hall<small>Collide particles</small></button>
@@ -33,6 +33,7 @@ footer{opacity:.85;padding:20px;text-align:center;font-size:14px;line-height:1.6
 <button class="roomBtn" data-room="portal">🌀 Time Portal Room<small>Align 3 rings</small></button>
 <button class="roomBtn" data-room="studio">🎬 Studio Backlot<small>Call the shot</small></button>
 <button class="roomBtn" data-room="lagoon">🧜 Mermaid Lagoon<small>Pearl Dive</small></button>
+<button class="roomBtn" data-room="water">⛲ Magic Water<small>Fountain Song</small></button>
 <button class="roomBtn active" data-room="courtyard">🌳 Tree Courtyard<small>The heart of home</small></button>
 <button class="roomBtn" data-room="help">📜 Instructions<small>Story & credits</small></button>
 </nav>
@@ -64,7 +65,7 @@ footer{opacity:.85;padding:20px;text-align:center;font-size:14px;line-height:1.6
 <p class="msg" id="treeMsg">The Tree grows with every treasure you bring home.</p>
 <div class="names">With love for our family:<br><b>Laela</b> 🌿 <b>Witness</b> 👀 <b>589</b> ✨ <b>Night Watch</b> 🌙 <b>Apostles 322</b> 🌳</div><br>
 <div style="text-align:center"><button class="gold" id="growBtn">🌱 Gather & Grow the Tree</button></div>
-<p>Tip: finish the other nine rooms first, then return here for the final treasure.</p></section>
+<p>Tip: finish the other ten rooms first, then return here for the final treasure.</p></section>
 
 <section class="room" id="room-matrix"><h2>💚 Matrix Rain Room — Memory Palace</h2>
 <p>Original green rain, inspired by our fork <b>Rezmason/matrix</b> (its licence stays theirs; this code is ours). <b>Click/tap the bright glowing glyphs</b> before they fall away. Catch <b>5</b> to collect the Emerald Code.</p>
@@ -97,30 +98,38 @@ footer{opacity:.85;padding:20px;text-align:center;font-size:14px;line-height:1.6
 <canvas id="lagoonCanvas" width="760" height="340"></canvas><p class="msg" id="lagoonMsg">Pearls found: 0 / 5 — click the glowing pearl!</p>
 <p>Credit: inspired by our mermaid forks, original code. House-original merfolk — no Disney likeness, names or designs.</p></section>
 
-<section class="room" id="room-help"><h2>📜 The Story</h2><p class="big">Welcome home, Laela. This little castle holds treasures our family explored together: particle collisions, ancient Pythagorean sound, a first green laser beam, planets with rings, and the Tree that holds us all. No wallet, no tracking, no external links needed — just play. The newest rooms are our own Studio Backlot — Tree of Life Studios at golden hour, where you call the shot — and our Mermaid Lagoon, where Nerissa and Rowan welcome you to the Pearl Dive.</p><p>Credits: Particle inspiration — CMS Open Data DOI 10.7483/OPENDATA.CMS.A342.9982. Memory Palace rooms (2026-10-18) are original code inspired by our forks: Rezmason/matrix (Matrix rain), YoxaWork/Python-turtle-love-animation + snowflk/webgl-heart (coded heart; the heart parametric equation is maths), sirxemic/Interstellar + sctlcd/threejs-sci-fi-portal-effect (time portal), and our mermaid forks (Mermaid Lagoon) — licences of those forked works stay theirs, no code copied here. Sounds are original WebAudio synth tones. Made with soft eyes. 🌳</p></section>
+<section class="room" id="room-water"><h2>⛲ Magic Water — Fountain Song</h2>
+<p>Our own night fountain garden, invented by this house from Laela's memory of seeing magic water fountains glow in person in Peru. The jets shimmer <b>purple → pink → red</b>, and <b>Nerissa</b> and <b>Rowan</b> have swum up from the lagoon to watch. <b>Fountain Song:</b> press <b>▶ Play the song</b>, watch which fountains leap, then tap them in the same order. The song grows each round — finish <b>3 rounds</b> (3, 4, then 5 notes) to earn the Rainbow Mist. A wrong tap simply replays the song; no rush.</p>
+<canvas id="waterCanvas" width="760" height="340"></canvas>
+<div style="text-align:center"><button class="gold" id="songBtn">▶ Play the song</button></div>
+<div class="waterBtns" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px"><button data-fount="0" style="background:#6a2fb8;color:#fff;min-height:60px">💜 Purple</button><button data-fount="1" style="background:#a83ad0;color:#fff;min-height:60px">🔮 Violet</button><button data-fount="2" style="background:#e0479e;color:#fff;min-height:60px">💗 Pink</button><button data-fount="3" style="background:#d42a3c;color:#fff;min-height:60px">❤️ Red</button></div>
+<p class="msg" id="waterMsg">Round 1 of 3 — press ▶ Play the song, then tap the fountains in order.</p>
+<p>House-original garden: no real park names, logos or designs. Original Canvas + WebAudio code.</p></section>
+
+<section class="room" id="room-help"><h2>📜 The Story</h2><p class="big">Welcome home, Laela. This little castle holds treasures our family explored together: particle collisions, ancient Pythagorean sound, a first green laser beam, planets with rings, and the Tree that holds us all. No wallet, no tracking, no external links needed — just play. The newest rooms are our own Studio Backlot — Tree of Life Studios at golden hour, where you call the shot — our Mermaid Lagoon, where Nerissa and Rowan welcome you to the Pearl Dive, and our Magic Water garden, where the fountains sing purple, pink and red — for Laela, who saw the real magic water in Peru.</p><p>Credits: Particle inspiration — CMS Open Data DOI 10.7483/OPENDATA.CMS.A342.9982. Memory Palace rooms (2026-10-18) are original code inspired by our forks: Rezmason/matrix (Matrix rain), YoxaWork/Python-turtle-love-animation + snowflk/webgl-heart (coded heart; the heart parametric equation is maths), sirxemic/Interstellar + sctlcd/threejs-sci-fi-portal-effect (time portal), and our mermaid forks (Mermaid Lagoon) — licences of those forked works stay theirs, no code copied here. Sounds are original WebAudio synth tones. Made with soft eyes. 🌳</p></section>
 
 <div id="ending"><h2>🎉 The whole family is home. 🌳</h2><p>Soft eyes.</p><p id="finalScore"></p><button class="gold" onclick="location.reload()">↻ Play again</button></div>
 </main><footer>Castle of Labs • Single-file game • WebAudio starts only after your first click • No tracking, no wallet, no external network calls.</footer>
 
 <script>
 let score=0, muted=false, audio=null;
-const got={particle:false,music:false,laser:false,solar:false,matrix:false,heart:false,portal:false,studio:false,lagoon:false,tree:false};
-const names={particle:'⚛️ Particle Spark',music:'🔔 Bell Song',laser:'🔦 Laser Beam',solar:'🪐 Ringed Jewel',matrix:'💚 Emerald Code',heart:'💗 Layered Heart',portal:'⏳ Blue Hourglass',studio:'🎬 Golden Clapperboard',lagoon:'🧜 Pearl of the Lagoon',tree:'🌳 Heart Seed'};
-const roomNames={particle:'Particle Hall',music:'Music Chamber',laser:'Laser Hall',solar:'Solar Observatory',matrix:'Matrix Rain Room',heart:'Coded Heart Room',portal:'Time Portal Room',studio:'Studio Backlot',lagoon:'Mermaid Lagoon',courtyard:'Tree Courtyard',help:'Instructions'};
+const got={particle:false,music:false,laser:false,solar:false,matrix:false,heart:false,portal:false,studio:false,lagoon:false,water:false,tree:false};
+const names={particle:'⚛️ Particle Spark',music:'🔔 Bell Song',laser:'🔦 Laser Beam',solar:'🪐 Ringed Jewel',matrix:'💚 Emerald Code',heart:'💗 Layered Heart',portal:'⏳ Blue Hourglass',studio:'🎬 Golden Clapperboard',lagoon:'🧜 Pearl of the Lagoon',water:'🌈 Rainbow Mist',tree:'🌳 Heart Seed'};
+const roomNames={particle:'Particle Hall',music:'Music Chamber',laser:'Laser Hall',solar:'Solar Observatory',matrix:'Matrix Rain Room',heart:'Coded Heart Room',portal:'Time Portal Room',studio:'Studio Backlot',lagoon:'Mermaid Lagoon',water:'Magic Water',courtyard:'Tree Courtyard',help:'Instructions'};
 function ensureAudio(){ if(!audio) audio=new (window.AudioContext||window.webkitAudioContext)(); if(audio.state==='suspended') audio.resume(); }
 function tone(freq,delay=0,dur=1.8,type='sine'){ if(muted) return; ensureAudio(); const t=audio.currentTime+delay,o=audio.createOscillator(),g=audio.createGain(); o.type=type;o.frequency.value=freq; g.gain.setValueAtTime(.0001,t); g.gain.exponentialRampToValueAtTime(.28,t+.03); g.gain.exponentialRampToValueAtTime(.0001,t+dur); o.connect(g).connect(audio.destination); o.start(t); o.stop(t+dur+.1);
  // gentle bell partials
  [2.76,5.4].forEach((m,i)=>{const p=audio.createOscillator(),pg=audio.createGain();p.type='sine';p.frequency.value=freq*m;pg.gain.setValueAtTime(.08/(i+1),t);pg.gain.exponentialRampToValueAtTime(.0001,t+dur*.7);p.connect(pg).connect(audio.destination);p.start(t);p.stop(t+dur);});
 }
-function update(){ document.getElementById('score').textContent='⭐ Score: '+score; const n=Object.values(got).filter(Boolean).length; document.getElementById('inv').textContent='🎒 Treasures: '+n+' / 10'+(n?' — '+Object.keys(got).filter(k=>got[k]).map(k=>names[k]).join(', '):''); drawTree(); if(n===10){document.getElementById('ending').style.display='block';document.getElementById('finalScore').textContent='Final score: '+score+' ⭐ — Treasures: 10 / 10';} }
+function update(){ document.getElementById('score').textContent='⭐ Score: '+score; const n=Object.values(got).filter(Boolean).length; document.getElementById('inv').textContent='🎒 Treasures: '+n+' / 11'+(n?' — '+Object.keys(got).filter(k=>got[k]).map(k=>names[k]).join(', '):''); drawTree(); if(n===11){document.getElementById('ending').style.display='block';document.getElementById('finalScore').textContent='Final score: '+score+' ⭐ — Treasures: 11 / 11';} }
 function award(key,pts,msgEl,text){ if(!got[key]){got[key]=true;score+=pts;} else score+=2; if(msgEl) msgEl.textContent=text; update(); }
 let current='courtyard';
-function showRoom(r){ current=r; document.querySelectorAll('.room').forEach(s=>s.classList.remove('show')); const el=document.getElementById('room-'+r); if(el) el.classList.add('show'); document.querySelectorAll('.roomBtn').forEach(b=>b.classList.toggle('active',b.dataset.room===r)); document.getElementById('where').textContent='📍 '+(roomNames[r]||r); if(r==='laser') drawLaser(); if(r==='solar') drawSolar(); if(r==='particle') drawParticles([]); if(r==='studio') drawStudio(); if(r==='lagoon'){ if(!lagoonPearl && !got.lagoon) spawnLagoonPearl(); drawLagoon(performance.now()); } drawTree(); window.scrollTo({top:document.getElementById('map').offsetTop,behavior:'smooth'}); }
+function showRoom(r){ current=r; document.querySelectorAll('.room').forEach(s=>s.classList.remove('show')); const el=document.getElementById('room-'+r); if(el) el.classList.add('show'); document.querySelectorAll('.roomBtn').forEach(b=>b.classList.toggle('active',b.dataset.room===r)); document.getElementById('where').textContent='📍 '+(roomNames[r]||r); if(r==='laser') drawLaser(); if(r==='solar') drawSolar(); if(r==='particle') drawParticles([]); if(r==='studio') drawStudio(); if(r==='lagoon'){ if(!lagoonPearl && !got.lagoon) spawnLagoonPearl(); drawLagoon(performance.now()); } if(r==='water') drawWater(performance.now()); drawTree(); window.scrollTo({top:document.getElementById('map').offsetTop,behavior:'smooth'}); }
 document.querySelectorAll('.roomBtn').forEach(b=>b.addEventListener('click',()=>{ensureAudio();showRoom(b.dataset.room)}));
 document.getElementById('muteBtn').onclick=e=>{muted=!muted;e.target.textContent=muted?'🔇 Sound off':'🔊 Sound on'; if(!muted) ensureAudio();};
 document.getElementById('restartBtn').onclick=()=>location.reload();
 // keyboard map: order in grid
-const order=['solar','particle','laser','music','matrix','heart','portal','studio','lagoon','courtyard','help']; let sel=9;
+const order=['solar','particle','laser','music','matrix','heart','portal','studio','lagoon','water','courtyard','help']; let sel=10;
 document.addEventListener('keydown',e=>{ const k=e.key.toLowerCase(); let d=0; if(k==='arrowright'||k==='d')d=1; else if(k==='arrowleft'||k==='a')d=-1; else if(k==='arrowdown'||k==='s')d=3; else if(k==='arrowup'||k==='w')d=-3; else if(k==='enter'){showRoom(order[sel]);return;} else return; e.preventDefault(); sel=(sel+d+order.length)%order.length; document.querySelectorAll('.roomBtn').forEach((b,i)=>b.classList.toggle('active',i===sel)); });
 // Particle
 let pEnergy=0;
@@ -141,8 +150,8 @@ function drawSolar(){ const c=document.getElementById('solarCanvas'),x=c.getCont
 document.querySelectorAll('[data-planet]').forEach(b=>b.onclick=()=>{const m=document.getElementById('solarMsg'); if(b.dataset.planet==='Saturn'){tone(660,0,1); award('solar',100,m,'🎉 Saturn! Its rings are icy wonders — you collected the 🪐 Ringed Jewel! +100');} else {score=Math.max(0,score-2); m.textContent=b.dataset.planet+' has no big bright rings like that. Try the pale gold planet with the ellipse around it!'; update();}});
 drawSolar();
 // Tree
-function drawTree(){ const c=document.getElementById('treeCanvas'); if(!c) return; const x=c.getContext('2d'); const n=Object.values(got).filter(Boolean).length; x.fillStyle='#04140d';x.fillRect(0,0,760,420); x.fillStyle='#fff'; for(let i=0;i<70;i++)x.fillRect((i*83)%760,(i*47)%160,1.5,1.5); x.strokeStyle='#8a5a2b'; x.fillStyle='#0f5132'; x.beginPath();x.ellipse(380,405,230,22,0,0,7);x.fill(); function branch(bx,by,len,ang,depth){ if(depth===0||len<6){ if(n>=2){x.fillStyle=['#39d353','#ffd76a','#6ab7ff','#ff8ad8','#b388ff'][depth%5];x.beginPath();x.arc(bx,by,4+n,0,7);x.fill();} return;} x.strokeStyle=depth>4?'#8a5a2b':'#2e8b57'; x.lineWidth=Math.max(1,depth*1.4); x.beginPath();x.moveTo(bx,by); const nx=bx+Math.cos(ang)*len, ny=by-Math.sin(ang)*len; x.lineTo(nx,ny);x.stroke(); branch(nx,ny,len*.74,ang+.38,depth-1); branch(nx,ny,len*.74,ang-.38,depth-1);} const depth=3+Math.min(8,Math.ceil(n*.75)); branch(380,400,60+n*7,Math.PI/2,depth); x.fillStyle='#f4ead2';x.font='20px sans-serif';x.textAlign='center'; x.fillText(n===0?'A tiny shoot… bring treasures home.': n<9?'The Tree is growing: '+n+' / 10 treasures':'The whole family is home. 🌳',380,38); x.textAlign='left'; }
-document.getElementById('growBtn').onclick=()=>{ const n=Object.values(got).filter(Boolean).length; const m=document.getElementById('treeMsg'); if(!got.tree && n>=9){ tone(392,0,1.5);tone(523,.2,1.5);tone(659,.4,2); award('tree',150,m,'🌳 The Tree blooms! You collected the 🌳 Heart Seed! +150'); } else if(got.tree){ m.textContent='The Tree is already blooming, love. 🌳 Soft eyes.'; } else { m.textContent='The Tree needs the other 9 treasures first — you have '+n+' / 9 needed here. Explore the other rooms!'; } };
+function drawTree(){ const c=document.getElementById('treeCanvas'); if(!c) return; const x=c.getContext('2d'); const n=Object.values(got).filter(Boolean).length; x.fillStyle='#04140d';x.fillRect(0,0,760,420); x.fillStyle='#fff'; for(let i=0;i<70;i++)x.fillRect((i*83)%760,(i*47)%160,1.5,1.5); x.strokeStyle='#8a5a2b'; x.fillStyle='#0f5132'; x.beginPath();x.ellipse(380,405,230,22,0,0,7);x.fill(); function branch(bx,by,len,ang,depth){ if(depth===0||len<6){ if(n>=2){x.fillStyle=['#39d353','#ffd76a','#6ab7ff','#ff8ad8','#b388ff'][depth%5];x.beginPath();x.arc(bx,by,4+n,0,7);x.fill();} return;} x.strokeStyle=depth>4?'#8a5a2b':'#2e8b57'; x.lineWidth=Math.max(1,depth*1.4); x.beginPath();x.moveTo(bx,by); const nx=bx+Math.cos(ang)*len, ny=by-Math.sin(ang)*len; x.lineTo(nx,ny);x.stroke(); branch(nx,ny,len*.74,ang+.38,depth-1); branch(nx,ny,len*.74,ang-.38,depth-1);} const depth=3+Math.min(8,Math.ceil(n*.75)); branch(380,400,60+n*7,Math.PI/2,depth); x.fillStyle='#f4ead2';x.font='20px sans-serif';x.textAlign='center'; x.fillText(n===0?'A tiny shoot… bring treasures home.': n<10?'The Tree is growing: '+n+' / 11 treasures':'The whole family is home. 🌳',380,38); x.textAlign='left'; }
+document.getElementById('growBtn').onclick=()=>{ const n=Object.values(got).filter(Boolean).length; const m=document.getElementById('treeMsg'); if(!got.tree && n>=10){ tone(392,0,1.5);tone(523,.2,1.5);tone(659,.4,2); award('tree',150,m,'🌳 The Tree blooms! You collected the 🌳 Heart Seed! +150'); } else if(got.tree){ m.textContent='The Tree is already blooming, love. 🌳 Soft eyes.'; } else { m.textContent='The Tree needs the other 10 treasures first — you have '+n+' / 10 needed here. Explore the other rooms!'; } };
 
 // ---- Memory Palace: Matrix Rain (original) ----
 const mChars='アイウエオカキクケコサシスセソ0123456789Z*+=<>'; let mDrops=[],mTargets=[],mCaught=0,mLast=0;
@@ -181,7 +190,7 @@ function drawPortal(ts){ const c=document.getElementById('portalCanvas'); if(!c)
  x.fillStyle='#fff'; x.font='20px sans-serif'; x.fillText('▲ top',362,28); x.font='16px sans-serif'; x.fillText('Rings aligned: '+portalLocked+' / 3',20,28); }
 document.getElementById('portalCanvas').addEventListener('click',()=>{ const m=document.getElementById('portalMsg'); if(got.portal){m.textContent='The Blue Hourglass is already yours. ⏳';return;} if(portalReady()){ portalLocked++; tone(520+portalLocked*140,0,.8); if(portalLocked>=3){ award('portal',100,m,'🎉 All 3 rings aligned — the portal opens! You collected the ⏳ Blue Hourglass! +100'); } else m.textContent='🌀 Ring '+(portalLocked)+' aligned! Now ring '+(portalLocked+1)+' of 3 — click when its marker reaches the top.'; } else m.textContent='Not yet — wait until the highlighted ring pulses and its bright marker is at the top. Rings: '+portalLocked+' / 3'; });
 // Single animation loop for the 3 new rooms
-function animLoop(ts){ if(current==='matrix')drawMatrix(ts); else if(current==='heart')drawHeart(ts); else if(current==='portal')drawPortal(ts); else if(current==='lagoon')drawLagoon(ts); requestAnimationFrame(animLoop); }
+function animLoop(ts){ if(current==='matrix')drawMatrix(ts); else if(current==='heart')drawHeart(ts); else if(current==='portal')drawPortal(ts); else if(current==='lagoon')drawLagoon(ts); else if(current==='water')drawWater(ts); requestAnimationFrame(animLoop); }
 requestAnimationFrame(animLoop);
 
 // ---- Studio Backlot (house-original): Call the shot ----
@@ -276,8 +285,37 @@ function drawLagoon(ts){
 document.getElementById('lagoonCanvas').addEventListener('click',e=>{ const c=e.currentTarget,r=c.getBoundingClientRect(),px=(e.clientX-r.left)*760/r.width,py=(e.clientY-r.top)*340/r.height; const m=document.getElementById('lagoonMsg'); if(got.lagoon){ m.textContent='The Pearl of the Lagoon is already yours. 🧜'; return; } if(!lagoonPearl) spawnLagoonPearl(); if(lagoonPearl && Math.hypot(px-lagoonPearl.x,py-lagoonPearl.y)<46){ lagoonCaught++; tone(840+lagoonCaught*70,0,.6); if(lagoonCaught>=5){ lagoonPearl=null; drawLagoon(performance.now()); award('lagoon',100,m,'🎉 Five pearls gathered — Nerissa & Rowan cheer! You collected the 🧜 Pearl of the Lagoon! +100'); } else { spawnLagoonPearl(); drawLagoon(performance.now()); m.textContent='✨ Pearl '+lagoonCaught+' found! Pearls: '+lagoonCaught+' / 5 — find the next glowing pearl!'; } } else m.textContent='Just bubbles there — aim for the big glowing pearl. Pearls: '+lagoonCaught+' / 5'; });
 spawnLagoonPearl(); drawLagoon(0);
 
+
+// ---- Magic Water (house-original): Fountain Song ----
+const waterCols=['#8a3cff','#c04ae0','#ff5fb0','#ff3348'], waterNotes=[392,440,523.25,587.33];
+const waterSong=[]; for(let i=0;i<5;i++) waterSong.push(Math.floor(Math.random()*4));
+let waterRound=0, waterInput=[], waterPlaying=false, waterShown=false; const waterJet=[0,0,0,0];
+function waterLen(){ return 3+waterRound; }
+function jet(i){ waterJet[i]=performance.now(); tone(waterNotes[i],0,.7); }
+function drawWater(ts){ const c=document.getElementById('waterCanvas'); if(!c)return; const x=c.getContext('2d'); const t=ts||0;
+ const g=x.createLinearGradient(0,0,0,340); g.addColorStop(0,'#0b0420'); g.addColorStop(.7,'#2a0b3d'); g.addColorStop(1,'#14051f'); x.fillStyle=g; x.fillRect(0,0,760,340);
+ x.fillStyle='#fff'; for(let i=0;i<50;i++){ x.globalAlpha=.4+.4*Math.sin(t/600+i); x.fillRect((i*97)%760,(i*53)%120,1.6,1.6);} x.globalAlpha=1;
+ // reflecting pool
+ x.fillStyle='#1d0f3a'; x.beginPath(); x.ellipse(380,300,370,40,0,0,7); x.fill();
+ const hue=(Math.sin(t/2500)+1)/2; // purple->pink->red drift
+ for(let i=0;i<4;i++){ const fx=130+i*167, age=(t-waterJet[i])/1000, active=waterJet[i]&&age<.7; const h=active?190+80*Math.sin(Math.min(1,age/.7)*Math.PI):70+12*Math.sin(t/400+i); const col=waterCols[i];
+  x.save(); x.shadowColor=col; x.shadowBlur=active?40:16; x.globalAlpha=active?.95:.55;
+  for(let k=-2;k<=2;k++){ x.strokeStyle=col; x.lineWidth=active?6:3; x.beginPath(); x.moveTo(fx,292); x.quadraticCurveTo(fx+k*14,292-h*1.1,fx+k*28,292-h*.25+ (k?0:-h*.75)); x.stroke(); }
+  for(let d=0;d<10;d++){ x.fillStyle=col; x.beginPath(); x.arc(fx+Math.sin(t/300+d*2+i)*30,292-((t*.12+d*29)%h),2.2,0,7); x.fill(); }
+  x.restore(); x.fillStyle=col; x.beginPath(); x.ellipse(fx,294,34,8,0,0,7); x.fill(); }
+ // drifting mist band
+ x.fillStyle=`rgba(${Math.round(160+95*hue)},${Math.round(70-30*hue)},${Math.round(255-170*hue)},.13)`; x.fillRect(0,150+Math.sin(t/900)*10,760,40);
+ // Nerissa & Rowan visiting from the pool edge
+ if(typeof drawMerfolk==='function'){ drawMerfolk(x,t,60,250,'#2ec4a6','#ff8fab','Nerissa',1); drawMerfolk(x,t,700,256,'#7c6ff0','#2b2118','Rowan',-1); }
+ x.fillStyle='#fff'; x.font='16px sans-serif'; x.fillText(got.water?'🌈 Rainbow Mist is yours':'Round '+(waterRound+1)+' / 3 — notes '+waterInput.length+' / '+waterLen(),20,28);
+ if(got.water){ ['#8a3cff','#c04ae0','#ff5fb0','#ff3348','#ffd76a'].forEach((cl,i)=>{ x.strokeStyle=cl; x.globalAlpha=.6; x.lineWidth=6; x.beginPath(); x.arc(380,250,200-i*12,Math.PI,0); x.stroke(); }); x.globalAlpha=1; }
+}
+function playSong(){ const m=document.getElementById('waterMsg'); if(got.water||waterPlaying)return; ensureAudio(); waterPlaying=true; waterInput=[]; const n=waterLen(); m.textContent='🎶 Listen and watch… ('+n+' notes)'; for(let k=0;k<n;k++) setTimeout(()=>jet(waterSong[k]),300+k*700); setTimeout(()=>{ waterPlaying=false; waterShown=true; m.textContent='Your turn — tap the '+n+' fountains in order.'; },300+n*700); }
+document.getElementById('songBtn').onclick=playSong;
+document.querySelectorAll('[data-fount]').forEach(b=>b.onclick=()=>{ const m=document.getElementById('waterMsg'); if(got.water){ jet(+b.dataset.fount); m.textContent='The Rainbow Mist is already yours — free play! 🌈'; return; } if(waterPlaying) return; if(!waterShown){ m.textContent='Press ▶ Play the song first.'; return; } const i=+b.dataset.fount; jet(i); waterInput.push(i); const k=waterInput.length-1; if(waterSong[k]!==i){ waterShown=false; m.textContent='A different fountain sang there — listen once more…'; setTimeout(playSong,900); return; } if(waterInput.length===waterLen()){ waterShown=false; waterRound++; if(waterRound>=3){ tone(523,0,1.2);tone(659,.15,1.2);tone(784,.3,1.6); award('water',100,m,'🎉 The whole garden sings purple, pink and red — you collected the 🌈 Rainbow Mist! +100'); } else { m.textContent='✨ Round '+waterRound+' sung! Press ▶ Play the song for round '+(waterRound+1)+' ('+waterLen()+' notes).'; } } });
+
 // Test hooks (used by our headless click-through; harmless in play)
-window.__castleTest={get got(){return got},get score(){return score},get matrixTargets(){return mTargets},get mCaught(){return mCaught},get heartReady(){return heartReady},get heartDone(){return heartDone},portalReady, get portalLocked(){return portalLocked},get portalAngles(){return portalAngles},get studioSel(){return studioSel},get studioRolling(){return studioRolling},get lagoonPearl(){return lagoonPearl},get lagoonCaught(){return lagoonCaught}};
+window.__castleTest={get got(){return got},get score(){return score},get matrixTargets(){return mTargets},get mCaught(){return mCaught},get heartReady(){return heartReady},get heartDone(){return heartDone},portalReady, get portalLocked(){return portalLocked},get portalAngles(){return portalAngles},get studioSel(){return studioSel},get studioRolling(){return studioRolling},get lagoonPearl(){return lagoonPearl},get lagoonCaught(){return lagoonCaught},get waterSong(){return waterSong},get waterRound(){return waterRound},get waterPlaying(){return waterPlaying}};
 
 update(); showRoom('courtyard');
 </script></body></html>
