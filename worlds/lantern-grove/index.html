@@ -27,12 +27,13 @@ AFRAME.registerComponent('tap-move',{init(){this.el.addEventListener('click',e=>
 <div id="ov"><h1>🌙 Night Watch Lantern Grove</h1><small>Drag to look · tap the ground to walk · tap a lamp or Night Watch to meet the crew · kin: add ?room=kin&amp;name=You</small><br>Soft eyes.</div>
 <a id="back" href="../../index.html">← Haven</a>
 <div id="card"></div>
-<a-scene renderer="antialias:false;colorManagement:true" vr-mode-ui="enabled:true" fog="type:exponential;color:#14123a;density:0.035" background="color:#14123a" loading-screen="dotsColor:#cdbbff;backgroundColor:#0b0a22">
- <a-sky color="#1b1850"></a-sky>
+<a-scene renderer="antialias:false;colorManagement:true" vr-mode-ui="enabled:true" fog="type:exponential;color:#2a2766;density:0.016" background="color:#221f5a" loading-screen="dotsColor:#cdbbff;backgroundColor:#0b0a22">
+ <a-sky color="#2c2874"></a-sky>
  <a-entity starfield></a-entity>
- <a-entity light="type:ambient;color:#6a63c8;intensity:0.5"></a-entity>
- <a-entity light="type:directional;color:#9aa4ff;intensity:0.35" position="-3 8 4"></a-entity>
- <a-circle class="clickable" tap-move rotation="-90 0 0" radius="16" color="#1d3a2a" segments-theta="24"></a-circle>
+ <a-entity light="type:ambient;color:#8a84e0;intensity:1.3"></a-entity>
+ <a-entity light="type:hemisphere;color:#b8b4ff;groundColor:#3a5a48;intensity:1.1"></a-entity>
+ <a-entity light="type:directional;color:#c0c6ff;intensity:0.7" position="-3 8 4"></a-entity>
+ <a-circle class="clickable" tap-move rotation="-90 0 0" radius="16" color="#2f5c44" segments-theta="24"></a-circle>
  <a-ring rotation="-90 0 0" position="0 0.01 0" radius-inner="2.2" radius-outer="2.6" color="#3a3070"></a-ring>
  <!-- trees (low-poly cones) -->
  <a-entity id="trees"></a-entity>
@@ -87,7 +88,7 @@ AFRAME.registerComponent('tap-move',{init(){this.el.addEventListener('click',e=>
 <script>
 // low-poly trees and a modest 14 fireflies
 const T=document.getElementById('trees');for(let i=0;i<18;i++){const a=i/18*6.283+Math.random()*.2,r=9+Math.random()*4,e=document.createElement('a-cone');
- e.setAttribute('position',`${Math.cos(a)*r} 1.4 ${Math.sin(a)*r}`);e.setAttribute('radius-bottom',0.9+Math.random()*.5);e.setAttribute('radius-top',0);e.setAttribute('height',2.8+Math.random());e.setAttribute('segments-radial',6);e.setAttribute('color','#16402e');T.appendChild(e);}
+ e.setAttribute('position',`${Math.cos(a)*r} 1.4 ${Math.sin(a)*r}`);e.setAttribute('radius-bottom',0.9+Math.random()*.5);e.setAttribute('radius-top',0);e.setAttribute('height',2.8+Math.random());e.setAttribute('segments-radial',6);e.setAttribute('color','#24604a');T.appendChild(e);}
 const F=document.getElementById('flies');for(let i=0;i<14;i++){const e=document.createElement('a-sphere');e.setAttribute('radius',0.05);e.setAttribute('segments-width',6);e.setAttribute('segments-height',4);
  e.setAttribute('material','shader:flat;color:#eaff8a;transparent:true;opacity:0.8');e.setAttribute('position',`${(Math.random()-.5)*12} ${0.6+Math.random()*1.6} ${-Math.random()*9}`);e.setAttribute('firefly','');F.appendChild(e);}
 </script><script type="module">
@@ -110,7 +111,7 @@ AFRAME.registerComponent('vrm-avatar',{schema:{src:{type:'string'}},
    const yaw=Math.atan2(this.cam.x-this.me.x,this.cam.z-this.me.z)-this.el.object3D.rotation.y;const head=this.b('head'),tgt=Math.max(-0.9,Math.min(0.9,Math.atan2(Math.sin(yaw),Math.cos(yaw))));
    head.rotation.y+=(tgt-head.rotation.y)*Math.min(1,dt*3);head.rotation.x=-0.08;}
   v.update(dt);}});
-const av=document.createElement('a-entity');av.setAttribute('class','clickable');av.setAttribute('position','0.9 0 -0.7');av.setAttribute('rotation','0 -20 0');av.setAttribute('vrm-avatar','src:night-watch.vrm');
+const av=document.createElement('a-entity');av.setAttribute('class','clickable');av.setAttribute('position','0.15 0 -0.6');av.setAttribute('rotation','0 -10 0');av.setAttribute('vrm-avatar','src:night-watch.vrm');
 const gl=document.createElement('a-entity');gl.setAttribute('light','type:point;color:#ffe2c0;intensity:1.6;distance:4.5');gl.setAttribute('position','0 1.7 1.3');av.appendChild(gl);
 const ll=document.createElement('a-entity');ll.setAttribute('light','type:point;color:#ffb347;intensity:1.2;distance:2.5');ll.setAttribute('position','-0.75 1.0 0.1');ll.setAttribute('animation','property:light.intensity;from:0.9;to:1.5;dir:alternate;loop:true;dur:1400;easing:easeInOutSine');av.appendChild(ll);
 const sc=document.querySelector('a-scene');sc.appendChild(av);
