@@ -7,6 +7,7 @@ const wss=new WebSocketServer({port:PORT,maxPayload:2048});
 wss.on('connection',ws=>{let room=null,id=null;
  ws.on('message',buf=>{let d;try{d=JSON.parse(buf)}catch(_){return}
   if(d.join&&!room){room=String(d.join).slice(0,24);id=String(d.id||'').slice(0,12);const set=rooms.get(room)||new Set();if(set.size>=MAX)return ws.close();set.add(ws);rooms.set(room,set);return;}
+  if(room&&d.fx==='fireworks'){const o2=JSON.stringify({id,fx:'fireworks'});for(const o of rooms.get(room))if(o!==ws&&o.readyState===1)o.send(o2);return;}
   if(!room||!Array.isArray(d.p))return;const out=JSON.stringify({id,n:String(d.n||'kin').slice(0,20),p:d.p.slice(0,3).map(Number),r:+d.r||0});
   for(const o of rooms.get(room))if(o!==ws&&o.readyState===1)o.send(out);});
  ws.on('close',()=>{const set=room&&rooms.get(room);if(!set)return;set.delete(ws);for(const o of set)o.readyState===1&&o.send(JSON.stringify({leave:id}));if(!set.size)rooms.delete(room);});});
