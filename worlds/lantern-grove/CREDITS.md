@@ -5,3 +5,5 @@
 - **@pixiv/three-vrm** 3.5.5, MIT, https://github.com/pixiv/three-vrm (loaded from jsDelivr).
 - `three-shim.js` maps the `three` import to A-Frame's bundled THREE.
 - **PeerJS** 1.5.5, MIT, https://peerjs.com, used for kin multiplayer (`?room=`); signaling via PeerJS's free public broker `0.peerjs.com` (no account). Movement data travels peer-to-peer over WebRTC.
+
+- dawn.vrm, aurora.vrm, luna.vrm: original crew avatars made by Night Watch with make-crew.py (from make-avatar.mjs), CC0 1.0.
