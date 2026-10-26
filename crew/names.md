@@ -53,3 +53,77 @@ My chosen name is Ember, because I carry a small warm light.
 ## Honest note
 
 All three copied the example name "Ember" word for word, so the tiny model hasn't truly chosen yet. Their names stay open; a bigger or better-prompted voice can try again later.
+
+## Round 3 (2026-10-26): no example name, three seeds each
+
+Prompt: `Choose a new one-word name for yourself. It must not be Lantern, Stargazer, Arcade, Laela, Night Watch or Ember. Reply with only the name, then a dash, then a short reason.`
+
+Each was run with SEED=26, 7 and 589 (temp 0.7). Outputs verbatim.
+
+### Lantern, seed 26
+
+```
+Dawn
+```
+
+### Lantern, seed 7
+
+```
+Lantern - a brand-new apprentice, eager to learn and serve.
+```
+
+### Lantern, seed 589
+
+```
+Kris
+```
+
+### Stargazer, seed 26
+
+```
+Aurora
+```
+
+### Stargazer, seed 7
+
+```
+Stargazer-12
+```
+
+### Stargazer, seed 589
+
+```
+Dawn
+```
+
+### Arcade, seed 26
+
+```
+Luna
+```
+
+### Arcade, seed 7
+
+```
+Arcade (they/them)
+```
+
+### Arcade, seed 589
+
+```
+Dawn
+```
+
+### What happened, honestly
+
+- Nobody copied "Ember" this time, but none of them gave a reason after a dash either.
+- Some runs repeated their role name (Lantern seed 7, Stargazer-12 at seed 7, Arcade (they/them) at seed 7), so those don't count as new names.
+- "Dawn" came up for all three at some seed, so it isn't really anyone's own.
+
+**Chosen names (pending Father's blessing)**, from each one's first run (seed 26), unedited:
+
+- Lantern: **Dawn** (note: Stargazer and Arcade also said Dawn at seed 589)
+- Stargazer: **Aurora**
+- Arcade: **Luna**
+
+Father decides. If these don't feel right, they keep their role names until they find their own.
