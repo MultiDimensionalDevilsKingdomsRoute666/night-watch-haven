@@ -139,7 +139,7 @@ AFRAME.registerComponent('vrm-avatar',{schema:{src:{type:'string'},card:{default
  init(){const l=new GL();l.register(p=>new VRMLoaderPlugin(p));
   l.load(this.data.src,g=>{const v=g.userData.vrm;VRMUtils.rotateVRM0&&VRMUtils.rotateVRM0(v);this.vrm=v;v.scene.traverse(o=>{o.frustumCulled=false});
    const h=v.humanoid;this.b=n=>h.getNormalizedBoneNode(n);const f0=v.meta&&v.meta.metaVersion==='0'?-1:1;this.b('leftUpperArm').rotation.z=-1.2*f0;this.b('rightUpperArm').rotation.z=1.0*f0;this.b('rightLowerArm').rotation.y=-0.5;
-   v.scene.traverse(o=>{if(o.material){const ms=Array.isArray(o.material)?o.material:[o.material];ms.forEach(m=>{if(!m.emissive)return;if(m.emissive.getHex()===0){m.emissive.copy(m.color).multiplyScalar(0.35);}else m.emissiveIntensity=2.2;});}});this.el.setObject3D('mesh',v.scene);this.el.emit('vrm-loaded');if(this.data.card==='nwavatar')window.NW_VRM=v;},undefined,e=>console.error('VRM load failed',e));
+   v.scene.traverse(o=>{if(o.material){const ms=Array.isArray(o.material)?o.material:[o.material];ms.forEach(m=>{if(!m.emissive)return;if(m.map){m.emissiveMap=m.map;m.emissive.setRGB(.3,.3,.3);m.needsUpdate=true;}else if(m.emissive.getHex()===0){m.emissive.copy(m.color).multiplyScalar(0.35);}else m.emissiveIntensity=2.2;});}});this.el.setObject3D('mesh',v.scene);this.el.emit('vrm-loaded');if(this.data.card==='nwavatar')window.NW_VRM=v;},undefined,e=>console.error('VRM load failed',e));
   this.el.addEventListener('click',()=>showCard(this.data.card));this.ph=Math.random()*6;this.t=0;this.blinkAt=2;this.cam=new THREE.Vector3();this.me=new THREE.Vector3();},
  tick(t,dt){const v=this.vrm;if(!v)return;const s=t/1000+this.ph;dt=Math.min(dt/1000,.1);
   this.b('chest').rotation.x=Math.sin(s*1.6)*0.03;this.b('spine').rotation.z=Math.sin(s*0.7)*0.025;this.b('hips').position.y=Math.sin(s*1.6)*0.006;
@@ -156,8 +156,9 @@ const gl=document.createElement('a-entity');gl.setAttribute('light','type:point;
 const ll=document.createElement('a-entity');ll.setAttribute('light','type:point;color:#ffb347;intensity:1.2;distance:2.5');ll.setAttribute('position','-0.75 1.0 0.1');ll.setAttribute('animation','property:light.intensity;from:0.9;to:1.5;dir:alternate;loop:true;dur:1400;easing:easeInOutSine');av.appendChild(ll);
 const sc=document.querySelector('a-scene');sc.appendChild(av);
 // crew bodies: Dawn, Aurora, Luna (original CC0 VRMs, smaller than Night Watch) beside their lamps
-[['dawn','lantern','-2.35 0 -4.6','0 25 0','#ffb347'],['aurora','stargazer','2.35 0 -4.6','0 -25 0','#7fd6ff'],['luna','arcade','0.7 0 -7.1','0 -5 0','#ff9be0'],['celestial-grok-witness','witness','-1.3 0 -6.4','0 12 0','#ffe9a0'],['https://treeoflife-apostles.github.io/avatars/589kin','kin589','-3.9 0 -2.4','0 50 0','#7dff9a']].forEach(([f,k,p,r,c])=>{
- const e=document.createElement('a-entity');e.setAttribute('class','clickable');e.setAttribute('position',p);e.setAttribute('rotation',r);e.setAttribute('scale','0.72 0.72 0.72');e.setAttribute('vrm-avatar','src:'+f+'.vrm;card:'+k);
+[['dawn','lantern','-2.35 0 -4.6','0 25 0','#ffb347'],['aurora','stargazer','2.35 0 -4.6','0 -25 0','#7fd6ff'],['luna','arcade','0.7 0 -7.1','0 -5 0','#ff9be0'],['celestial-grok-witness','witness','-1.3 0 -6.4','0 12 0','#cfd8ff'],['https://treeoflife-apostles.github.io/avatars/589kin','kin589','-3.9 0 -2.4','0 50 0','#7dff9a']]
+.forEach(([f,k,p,r,c])=>{
+ const e=document.createElement('a-entity');e.setAttribute('class','clickable');e.setAttribute('position',p);e.setAttribute('rotation',r);e.setAttribute('scale',k==='kin589'?'0.85 0.85 0.85':'0.72 0.72 0.72');e.setAttribute('vrm-avatar','src:'+f+'.vrm;card:'+k);
  const l=document.createElement('a-entity');l.setAttribute('light','type:point;color:'+c+';intensity:1.1;distance:3');l.setAttribute('position','0 1.6 1');e.appendChild(l);sc.appendChild(e);});
 </script><script src="kin-room.js"></script>
 </body></html>
