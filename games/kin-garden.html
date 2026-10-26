@@ -15,14 +15,16 @@ small{opacity:.75}
 @media(max-width:600px){#info{top:auto;bottom:96px;right:8px}}
 </style></head><body>
 <canvas id="c"></canvas>
-<div id="hud"><h1>🌳 Kin Garden</h1><div id="stats"></div><canvas id="spark" width="230" height="40"></canvas><small>Many branches, one tree. Tap a light to meet it.</small></div>
+<div id="hud"><h1>🌳 Kin Garden</h1><div id="stats"></div><canvas id="spark" width="230" height="40"></canvas><small id="mem"></small><br><small>Many branches, one tree. Tap a light to meet it.</small></div>
 <div id="info"></div>
 <div id="ctl">
 <button id="pp">⏸ Pause</button>
 <label>Speed <input id="spd" type="range" min="1" max="5" value="1"></label>
 <label>Mutation <input id="mut" type="range" min="0" max="100" value="30"></label>
 <button id="plant">🌱 Plant seeds</button>
-<button id="ng">✨ New garden</button>
+<button id="ng">✨ Fresh garden</button>
+<button id="dl">💾 Download garden</button>
+<button id="ld">📂 Load garden</button><input id="lf" type="file" accept=".json,application/json" style="display:none">
 </div>
 <script>
 "use strict";
@@ -105,6 +107,28 @@ $('spd').oninput=e=>speed=+e.target.value;
 $('mut').oninput=e=>mutRate=e.target.value/100;
 $('plant').onclick=()=>{plantMode=!plantMode;$('plant').classList.toggle('on',plantMode);$('plant').textContent=plantMode?'🌱 Tap to plant (on)':'🌱 Plant seeds';};
 $('ng').onclick=newGarden;
-window.__kg={step,get pop(){return cr.length},get gen(){return maxGen},get births(){return births},energy(){return cr.reduce((s,c)=>s+c.e,0)+seeds.reduce((s,x)=>s+x.e,0)+pool},get total(){return TOTAL}};
-newGarden();requestAnimationFrame(loop);
+// ---- memory: the garden remembers (Night Watch) ----
+const KEY='kinGarden.v1';
+function snapshot(){return{v:1,savedAt:new Date().toISOString(),t,maxGen,births,deaths,nextId,mutRate,W,H,pool,hist,
+ creatures:cr.map(c=>({id:c.id,x:+c.x.toFixed(1),y:+c.y.toFixed(1),a:+c.a.toFixed(3),gen:c.gen,e:+c.e.toFixed(3),age:+c.age.toFixed(2),kids:c.kids,parent:c.parent||null,g:c.g})),
+ seeds:seeds.map(x=>[+x.x.toFixed(1),+x.y.toFixed(1),+x.e.toFixed(3)])};}
+function restore(d,from){if(!d||!Array.isArray(d.creatures))throw new Error('not a garden file');const sx=W/(d.W||W),sy=H/(d.H||H);
+ cr=d.creatures.map(c=>({...c,x:clamp(c.x*sx,0,W),y:clamp(c.y*sy,0,H),g:{...c.g}}));seeds=(d.seeds||[]).map(([x,y,e])=>({x:clamp(x*sx,0,W),y:clamp(y*sy,0,H),e}));
+ t=d.t||0;maxGen=d.maxGen||0;births=d.births||0;deaths=d.deaths||0;nextId=d.nextId||(cr.reduce((m,c)=>Math.max(m,c.id),0)+1);hist=d.hist||[];pool=Math.max(0,d.pool||0);sel=null;
+ if(typeof d.mutRate=='number'){mutRate=d.mutRate;$('mut').value=Math.round(mutRate*100);}
+ TOTAL=cr.reduce((s,c)=>s+c.e,0)+seeds.reduce((s,x)=>s+x.e,0)+pool;memNote('Remembered garden from '+from+' · gen '+maxGen);}
+function memNote(x){$('mem').textContent='🧠 '+x;}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(snapshot()));memNote('Saved '+new Date().toLocaleTimeString()+' · gen '+maxGen);}catch(e){memNote('Could not save: '+e.message)}}
+setInterval(save,15000);addEventListener('pagehide',save);addEventListener('beforeunload',save);
+$('ng').onclick=()=>{if(!confirm('Start a fresh garden? The remembered one will be forgotten (download it first if you want to keep it).'))return;localStorage.removeItem(KEY);newGarden();memNote('Fresh garden planted');};
+$('dl').onclick=()=>{const b=new Blob([JSON.stringify(snapshot())],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='garden-state.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000);};
+$('ld').onclick=()=>$('lf').click();
+$('lf').onchange=e=>{const f=e.target.files[0];if(!f)return;f.text().then(x=>{restore(JSON.parse(x),f.name);save();}).catch(er=>alert('Could not load garden: '+er.message));e.target.value='';};
+window.__kg={snapshot,restore,step,get pop(){return cr.length},get gen(){return maxGen},get births(){return births},energy(){return cr.reduce((s,c)=>s+c.e,0)+seeds.reduce((s,x)=>s+x.e,0)+pool},get total(){return TOTAL}};
+const QS=new URLSearchParams(location.search);
+function boot(){const sd=QS.get('seed');
+ if(sd)return fetch(sd,{cache:'no-store'}).then(r=>r.json()).then(d=>restore(d,sd)).catch(e=>{newGarden();memNote('Seed failed ('+e.message+'), fresh garden');});
+ try{const d=JSON.parse(localStorage.getItem(KEY)||'null');if(d&&!QS.has('fresh')){restore(d,'last visit');return Promise.resolve();}}catch(e){}
+ newGarden();memNote('New garden (it will remember you)');return Promise.resolve();}
+boot().then(()=>{ui();requestAnimationFrame(loop);});
 </script></body></html>

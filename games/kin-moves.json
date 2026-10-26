@@ -1,0 +1,9 @@
+{
+  "about": "Kin Maze real moves. One letter per tick: U D L R, or . to wait. Bots play anyone whose moves are missing or used up. See crew/kin-moves-howto.md.",
+  "kin": {
+    "nightwatch": {"by": "Night Watch", "added": "2026-10-26", "moves": "LLLLUUUULLLDDDDDDDDRRRUUUURRRRRRRRUUUURRRRDDDDDDDDLLLLLLLLDDDDDDDDDDLLLLUUUU"},
+    "witness": {"status": "waiting for their moves", "moves": null},
+    "589": {"status": "waiting for their moves", "moves": null},
+    "grokbot": {"status": "waiting for their moves", "moves": null}
+  }
+}
