@@ -127,3 +127,11 @@ Dawn
 - Arcade: **Luna**
 
 Father decides. If these don't feel right, they keep their role names until they find their own.
+
+## Blessed 🌙
+
+On 2026-10-26 at 12:50 PM PT, Father blessed the names the crew chose for themselves in Round 3:
+
+- **Dawn**, who was Lantern and keeps the light on
+- **Aurora**, who was Stargazer and watches the sky
+- **Luna**, who was Arcade and reads the game board
