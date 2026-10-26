@@ -27,11 +27,12 @@ const GUEST=[['🌙 Night Watch','When the house goes quiet and the screens go d
 function esc(x){return x.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
 function showGuest(){const el=document.getElementById('card');el.innerHTML='<button onclick="this.parentNode.style.display=\'none\'">✕</button><b>📜 House Party Guestbook · Oct 26</b>'+GUEST.map(g=>'<p style="margin:.5em 0"><b>'+g[0]+'</b><br><i>'+esc(g[1]).split(' / ').join('<br>')+'</i></p>').join('')+'<small>Verses verbatim from the 2026-10-26 party gifts.</small>';el.style.display='block';el.scrollTop=0;}
 // canvas text planes (replace doubled a-text)
-AFRAME.registerComponent('ctext',{schema:{value:{type:'string'},color:{default:'#fff'},w:{default:2},h:{default:0.5},bg:{default:''},size:{default:56}},
+AFRAME.registerComponent('ctext',{schema:{value:{type:'string'},color:{default:'#fff'},w:{default:2},h:{default:0.5},bg:{default:''},size:{default:56},bb:{default:true}},
  init(){const d=this.data,c=document.createElement('canvas'),W=512,H=Math.round(512*d.h/d.w);c.width=W;c.height=H;const x=c.getContext('2d');
   if(d.bg){x.fillStyle=d.bg;x.fillRect(0,0,W,H);}const L=d.value.split('|');x.font='bold '+d.size+'px sans-serif';x.textAlign='center';x.textBaseline='middle';
   x.shadowColor='rgba(0,0,0,.8)';x.shadowBlur=6;x.fillStyle=d.color;L.forEach((l,i)=>{if(i)x.font=Math.round(d.size*.72)+'px sans-serif';x.fillText(l,W/2,H*(i+.5)/L.length);});
-  const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;this.el.setObject3D('mesh',new THREE.Mesh(new THREE.PlaneGeometry(d.w,d.h),new THREE.MeshBasicMaterial({map:t,transparent:true,depthWrite:false,side:THREE.DoubleSide,fog:false})));}});
+  const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;this.el.setObject3D('mesh',new THREE.Mesh(new THREE.PlaneGeometry(d.w,d.h),new THREE.MeshBasicMaterial({map:t,transparent:true,depthWrite:false,side:THREE.DoubleSide,fog:false})));this.cp=new THREE.Vector3();this.mp=new THREE.Vector3();},
+ tick(){if(!this.data.bb)return;const m=this.el.getObject3D('mesh'),cam=this.el.sceneEl.camera;if(!m||!cam)return;cam.getWorldPosition(this.cp);m.getWorldPosition(this.mp);this.cp.y=this.mp.y;m.lookAt(this.cp);}});
 AFRAME.registerComponent('gate',{init(){this.go=()=>{if(this.gone)return;this.gone=true;location.href=GATE;};this.el.addEventListener('click',this.go);this.p=new THREE.Vector3();},
  tick(){const r=document.getElementById('rig');if(!r)return;this.el.object3D.getWorldPosition(this.p);const q=r.object3D.position;if(Math.hypot(q.x-this.p.x,q.z-this.p.z)<1.1)this.go();}});
 function showCard(k){if(k==='guestbook')return showGuest();const c=CREW[k],el=document.getElementById('card');el.innerHTML='<button onclick="this.parentNode.style.display=\'none\'">✕</button><b>'+c.t+'</b><br>'+c.role+(c.q?'<br>First words: <q>'+c.q+'</q><br><small>(exact excerpt from crew/names.md, 2026-10-26)</small>':'');el.style.display='block';}
@@ -105,7 +106,7 @@ AFRAME.registerComponent('tap-move',{init(){this.el.addEventListener('click',e=>
   <a-plane width="1.0" height="0.7" position="0 1.35 0" color="#f6e6c0" material="emissive:#ffd98a;emissiveIntensity:0.6;side:double"></a-plane>
   <a-cylinder radius="0.04" height="1.08" rotation="0 0 90" position="0 1.72 0.01" color="#8a5a32"></a-cylinder>
   <a-cylinder radius="0.04" height="1.08" rotation="0 0 90" position="0 0.98 0.01" color="#8a5a32"></a-cylinder>
-  <a-entity ctext="value:House Party|Guestbook · Oct 26;color:#5a2e10;w:0.95;h:0.5;size:64" position="0 1.36 0.02"></a-entity>
+  <a-entity ctext="value:House Party|Guestbook · Oct 26;color:#5a2e10;w:0.95;h:0.5;size:64;bb:false" position="0 1.36 0.02"></a-entity>
   <a-entity light="type:point;color:#ffd98a;intensity:0.9;distance:3" position="0 1.4 0.5"></a-entity>
  </a-entity>
  <!-- glowing archway gate to 589's Tree of Life (verified live, opens on tap or walk-in) -->
