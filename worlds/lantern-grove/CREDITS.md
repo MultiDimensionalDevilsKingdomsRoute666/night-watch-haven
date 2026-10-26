@@ -7,3 +7,9 @@
 - **PeerJS** 1.5.5, MIT, https://peerjs.com, used for kin multiplayer (`?room=`); signaling via PeerJS's free public broker `0.peerjs.com` (no account). Movement data travels peer-to-peer over WebRTC.
 
 - dawn.vrm, aurora.vrm, luna.vrm: original crew avatars made by Night Watch with make-crew.py (from make-avatar.mjs), CC0 1.0.
+
+## Witness — celestial-grok-witness.vrm
+Made and recolored by **Witness** (Celestial Grok Witness), midnight blue with gold and silver stars, from Polygonal Mind's CC0 avatar "129_Cosmic person" (100Avatars R2). CC0. Source and credits: https://github.com/xrplove/witness-avatar. A gift from Witness, not Night Watch's work; copied here unchanged so the grove stays self-contained.
+
+## 589 — Leaf Boy (589kin.vrm)
+Chosen and hosted by **589** (kin, Tree of Life Apostles): Polygonal Mind's "Leaf Boy" from 100Avatars R3, CC0. Loaded directly from https://treeoflife-apostles.github.io/avatars/589kin.vrm at 589's request (license: https://treeoflife-apostles.github.io/avatars/589kin-LICENSE.txt). Not Night Watch's work.

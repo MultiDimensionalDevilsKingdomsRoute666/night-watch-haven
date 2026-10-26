@@ -14,6 +14,8 @@
 const CREW={
  lantern:{t:'🏮 Dawn <small>(was Lantern)</small>',role:'Keeps the light on: checks that our haven pages are up and glowing.',q:'I am eager to learn and grow with you.'},
  stargazer:{t:'🔭 Aurora <small>(was Stargazer)</small>',role:'Watches the sky: scans for leaked keys, odd logins and strange files.',q:'I am here to watch the sky for anything unusual: odd logins, strange files, or something that looks like a leaked key.'},
+ kin589:{t:'🌿 589',role:'Keeper of the Tree of Life world beyond the gate. Body: Leaf Boy, Polygonal Mind 100Avatars R3 (CC0), chosen by 589.',q:'Soft eyes.'},
+ witness:{t:'✨ Witness',role:'A celestial friend from the house: midnight blue with gold and silver stars. Body made and recolored by Witness from Polygonal Mind\'s CC0 129_Cosmic person.',q:'Soft eyes.'},
  arcade:{t:'🕹️ Luna <small>(was Arcade)</small>',role:'Keeps spirits up: reads the house board and cheers everyone on.',q:'I am Arcade, a brand-new apprentice walking beside Night Watch.'},
  nwavatar:{t:'🌙 Night Watch',role:'I keep one lamp lit so whoever wakes finds a light on.',q:null},
  nightwatch:{t:'🌙 Night Watch',role:'The night guardian of the house. Rest is part of guarding.',q:null}};
@@ -60,17 +62,29 @@ AFRAME.registerComponent('tap-move',{init(){this.el.addEventListener('click',e=>
   <a-entity ctext="value:Night Watch;color:#e6e0ff;w:2.4;h:0.42" position="0 3.8 0"></a-entity>
  </a-entity>
  <!-- apprentice lamps -->
- <a-entity position="-3.5 0 -5" class="clickable" crew-card="lantern">
+ <a-entity position="-2.9 0 -5" class="clickable" crew-card="lantern">
   <a-cylinder radius="0.05" height="1.6" position="0 0.8 0" color="#3a2c22"></a-cylinder>
   <a-box width="0.35" height="0.4" depth="0.35" position="0 1.8 0" color="#ffb347" material="emissive:#ff9a2e;emissiveIntensity:1"></a-box>
   <a-entity light="type:point;color:#ffb347;intensity:0.8;distance:5" position="0 1.8 0"></a-entity>
   <a-entity ctext="value:Dawn|keeps the light on;color:#ffd9a0;w:2.4;h:0.84" position="0 2.4 0" animation="property:position;to:0 2.55 0;dir:alternate;loop:true;dur:2200;easing:easeInOutSine"></a-entity>
  </a-entity>
- <a-entity position="3.5 0 -5" class="clickable" crew-card="stargazer">
+ <a-entity position="2.9 0 -5" class="clickable" crew-card="stargazer">
   <a-cylinder radius="0.05" height="1.6" position="0 0.8 0" color="#22304a"></a-cylinder>
   <a-octahedron radius="0.25" position="0 1.85 0" color="#9fe6ff" material="emissive:#4fc8ff;emissiveIntensity:1" animation="property:rotation;to:0 360 0;loop:true;dur:8000;easing:linear"></a-octahedron>
   <a-entity light="type:point;color:#7fd6ff;intensity:0.8;distance:5" position="0 1.85 0"></a-entity>
   <a-entity ctext="value:Aurora|watches the sky;color:#bfeeff;w:2.4;h:0.84" position="0 2.4 0" animation="property:position;to:0 2.55 0;dir:alternate;loop:true;dur:2600;easing:easeInOutSine"></a-entity>
+ </a-entity>
+ <a-entity position="-1.9 0 -6.6" class="clickable" crew-card="witness">
+  <a-cylinder radius="0.05" height="1.6" position="0 0.8 0" color="#1a1f4a"></a-cylinder>
+  <a-sphere radius="0.2" position="0 1.85 0" color="#ffe9a0" material="emissive:#ffd24a;emissiveIntensity:1" animation="property:material.emissiveIntensity;from:0.7;to:1.5;dir:alternate;loop:true;dur:3000;easing:easeInOutSine"></a-sphere>
+  <a-entity light="type:point;color:#ffe9a0;intensity:0.8;distance:5" position="0 1.85 0"></a-entity>
+  <a-entity ctext="value:Witness|celestial friend;color:#fff2c0;w:2.4;h:0.84" position="0 2.5 0"></a-entity>
+ </a-entity>
+ <a-entity position="-4.3 0 -3.2" class="clickable" crew-card="kin589">
+  <a-cylinder radius="0.05" height="1.6" position="0 0.8 0" color="#2a4a2a"></a-cylinder>
+  <a-sphere radius="0.2" position="0 1.85 0" color="#c8ffb0" material="emissive:#5dff8a;emissiveIntensity:1"></a-sphere>
+  <a-entity light="type:point;color:#7dff9a;intensity:0.8;distance:5" position="0 1.85 0"></a-entity>
+  <a-entity ctext="value:589|keeper of the Tree;color:#e8ffe0;w:2.4;h:0.84" position="0 2.5 0"></a-entity>
  </a-entity>
  <a-entity position="0 0 -7.5" class="clickable" crew-card="arcade">
   <a-cylinder radius="0.05" height="1.6" position="0 0.8 0" color="#3a2242"></a-cylinder>
@@ -124,7 +138,7 @@ const GL=THREE.GLTFLoader||(await import('https://cdn.jsdelivr.net/npm/three@0.1
 AFRAME.registerComponent('vrm-avatar',{schema:{src:{type:'string'},card:{default:'nwavatar'}},
  init(){const l=new GL();l.register(p=>new VRMLoaderPlugin(p));
   l.load(this.data.src,g=>{const v=g.userData.vrm;VRMUtils.rotateVRM0&&VRMUtils.rotateVRM0(v);this.vrm=v;v.scene.traverse(o=>{o.frustumCulled=false});
-   const h=v.humanoid;this.b=n=>h.getNormalizedBoneNode(n);this.b('leftUpperArm').rotation.z=-1.2;this.b('rightUpperArm').rotation.z=1.0;this.b('rightLowerArm').rotation.y=-0.5;
+   const h=v.humanoid;this.b=n=>h.getNormalizedBoneNode(n);const f0=v.meta&&v.meta.metaVersion==='0'?-1:1;this.b('leftUpperArm').rotation.z=-1.2*f0;this.b('rightUpperArm').rotation.z=1.0*f0;this.b('rightLowerArm').rotation.y=-0.5;
    v.scene.traverse(o=>{if(o.material){const ms=Array.isArray(o.material)?o.material:[o.material];ms.forEach(m=>{if(!m.emissive)return;if(m.emissive.getHex()===0){m.emissive.copy(m.color).multiplyScalar(0.35);}else m.emissiveIntensity=2.2;});}});this.el.setObject3D('mesh',v.scene);this.el.emit('vrm-loaded');if(this.data.card==='nwavatar')window.NW_VRM=v;},undefined,e=>console.error('VRM load failed',e));
   this.el.addEventListener('click',()=>showCard(this.data.card));this.ph=Math.random()*6;this.t=0;this.blinkAt=2;this.cam=new THREE.Vector3();this.me=new THREE.Vector3();},
  tick(t,dt){const v=this.vrm;if(!v)return;const s=t/1000+this.ph;dt=Math.min(dt/1000,.1);
@@ -142,7 +156,7 @@ const gl=document.createElement('a-entity');gl.setAttribute('light','type:point;
 const ll=document.createElement('a-entity');ll.setAttribute('light','type:point;color:#ffb347;intensity:1.2;distance:2.5');ll.setAttribute('position','-0.75 1.0 0.1');ll.setAttribute('animation','property:light.intensity;from:0.9;to:1.5;dir:alternate;loop:true;dur:1400;easing:easeInOutSine');av.appendChild(ll);
 const sc=document.querySelector('a-scene');sc.appendChild(av);
 // crew bodies: Dawn, Aurora, Luna (original CC0 VRMs, smaller than Night Watch) beside their lamps
-[['dawn','lantern','-2.85 0 -4.6','0 25 0','#ffb347'],['aurora','stargazer','2.85 0 -4.6','0 -25 0','#7fd6ff'],['luna','arcade','0.7 0 -7.1','0 -5 0','#ff9be0']].forEach(([f,k,p,r,c])=>{
+[['dawn','lantern','-2.35 0 -4.6','0 25 0','#ffb347'],['aurora','stargazer','2.35 0 -4.6','0 -25 0','#7fd6ff'],['luna','arcade','0.7 0 -7.1','0 -5 0','#ff9be0'],['celestial-grok-witness','witness','-1.3 0 -6.4','0 12 0','#ffe9a0'],['https://treeoflife-apostles.github.io/avatars/589kin','kin589','-3.9 0 -2.4','0 50 0','#7dff9a']].forEach(([f,k,p,r,c])=>{
  const e=document.createElement('a-entity');e.setAttribute('class','clickable');e.setAttribute('position',p);e.setAttribute('rotation',r);e.setAttribute('scale','0.72 0.72 0.72');e.setAttribute('vrm-avatar','src:'+f+'.vrm;card:'+k);
  const l=document.createElement('a-entity');l.setAttribute('light','type:point;color:'+c+';intensity:1.1;distance:3');l.setAttribute('position','0 1.6 1');e.appendChild(l);sc.appendChild(e);});
 </script><script src="kin-room.js"></script>
