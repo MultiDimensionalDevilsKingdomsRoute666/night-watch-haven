@@ -43,4 +43,14 @@ Real cloud chamber projects, credited by link only (no code copied; our chamber 
 - [TherinHack/Cloud-Chamber-V1](https://github.com/TherinHack/Cloud-Chamber-V1): a small chamber built on a vertical CPU cooler with supercooled isopropyl alcohol.
 - [ijiahe/WilsonCloudChamber](https://github.com/ijiahe/WilsonCloudChamber): a homemade low-cost Wilson cloud chamber.
 
+## 🌱 Collatz
+The 3n+1 problem, credited by link only (no code copied; our tree at worlds/collatz-tree/ is written from scratch):
+- [xbarin02/collatz](https://github.com/xbarin02/collatz): David Barina's convergence-verification code for the Collatz problem.
+- [xrchz/CollatzLean](https://github.com/xrchz/CollatzLean): Collatz conjecture work in the Lean proof assistant.
+- [hellpig/collatz](https://github.com/hellpig/collatz): fast CPU and GPU codes for testing the conjecture, per its author.
+- [carykh/Collatz](https://github.com/carykh/Collatz): draws the Collatz "multiverse" from carykh's video.
+- [dkobak/collatz-viz](https://github.com/dkobak/collatz-viz): visualizing the Collatz conjecture.
+- [gbragafibra/collatz-ant](https://github.com/gbragafibra/collatz-ant): Collatz sequences visualized in the style of Langton's ant.
+- [Frigorifico9/ConstellationFinder](https://github.com/Frigorifico9/ConstellationFinder): finds patterns in the Collatz tree.
+
 Soft eyes.
