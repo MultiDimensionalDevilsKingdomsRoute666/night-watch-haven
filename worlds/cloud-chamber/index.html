@@ -1,0 +1,46 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Cloud Chamber — Night Watch Haven</title>
+<!-- Original Night Watch build (CC0). A-Frame 1.8.0 (MIT) from the official CDN. A simulation inspired by real cloud chambers, not real data. -->
+<script src="https://aframe.io/releases/1.8.0/aframe.min.js"></script>
+<style>
+body{margin:0}
+#ov{position:fixed;left:10px;top:10px;z-index:10;background:#05070fcc;color:#e6ecff;border:1px solid #3a4a7a;border-radius:10px;padding:8px 12px;font:14px system-ui,sans-serif;max-width:min(78vw,520px);pointer-events:none}
+#ov h1{font-size:16px;margin:0 0 2px;color:#bcd0ff}#ov small{opacity:.8}
+#ui{position:fixed;right:10px;bottom:60px;z-index:12;display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;max-width:70vw}
+#ui button,#ui a{background:#0d1430dd;color:#dfe8ff;border:1px solid #5a6fc0;border-radius:10px;padding:8px 11px;font:14px system-ui;text-decoration:none}
+#card{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:13;display:none;background:#0a0f26ee;color:#eef2ff;border:1px solid #9fc0ff;border-radius:12px;padding:12px 14px;font:14px/1.45 system-ui;max-width:min(92vw,460px)}
+#card b{color:#bcd0ff}#card button{float:right;background:#1a2560;color:#fff;border:1px solid #6a80e0;border-radius:6px}
+</style></head><body>
+<div id="ov"><h1>☁️ Cloud Chamber</h1><small>Drag to look · tap the sign for the track guide · tap the glowing source · buttons bottom-right</small></div>
+<div id="ui"><a href="../lantern-grove/">🌙 Grove</a><button id="bcol">🎨 White trails</button><button id="bsnd">🔇</button><button id="bguide">❔ Tracks</button></div>
+<div id="card"></div>
+<a-scene renderer="antialias:false;colorManagement:true" vr-mode-ui="enabled:true" fog="type:exponential;color:#03040a;density:0.05" background="color:#020309" loading-screen="dotsColor:#bcd0ff;backgroundColor:#020309">
+ <a-entity light="type:ambient;color:#6a78a8;intensity:0.35"></a-entity>
+ <a-entity light="type:directional;color:#cfe0ff;intensity:0.6" position="-2 6 3"></a-entity>
+ <!-- chamber: dark floor plate, glass walls -->
+ <a-box width="4.2" height="0.1" depth="4.2" position="0 0.05 -3" color="#05060c"></a-box>
+ <a-box width="4" height="2.2" depth="4" position="0 1.2 -3" material="color:#9fc8ff;opacity:0.07;transparent:true;side:double;depthWrite:false"></a-box>
+ <a-entity id="mist" position="0 0.12 -3"></a-entity>
+ <!-- the source -->
+ <a-entity position="0 0.35 -3" class="clickable" id="src">
+  <a-cylinder radius="0.12" height="0.08" color="#3a3020" position="0 -0.06 0"></a-cylinder>
+  <a-sphere radius="0.07" material="color:#ffe9b0;emissive:#ffcf6a;emissiveIntensity:1.4" animation="property:material.emissiveIntensity;from:0.9;to:1.8;dir:alternate;loop:true;dur:1800;easing:easeInOutSine"></a-sphere>
+  <a-entity light="type:point;color:#ffd98a;intensity:0.7;distance:2.5"></a-entity>
+ </a-entity>
+ <a-entity position="-2.6 1.4 -1.6" rotation="0 35 0" class="clickable" id="sign">
+  <a-plane width="1.4" height="1.25" material="color:#0a1030;opacity:0.8;transparent:true;side:double"></a-plane>
+  <a-entity id="signtext" position="0 0 0.01"></a-entity>
+ </a-entity>
+ <a-entity position="2.6 0 -1.4" rotation="0 -40 0" class="clickable" id="portal">
+  <a-torus radius="0.6" radius-tubular="0.06" arc="180" position="0 1.6 0" material="color:#cdbbff;emissive:#8f8cff;emissiveIntensity:1.2"></a-torus>
+  <a-plane width="1.15" height="1.6" position="0 0.8 0" material="color:#a99cff;opacity:0.2;transparent:true;side:double"></a-plane>
+ </a-entity>
+ <a-entity id="rig" position="0 1.2 0.6" rotation="-32 0 0">
+  <a-camera look-controls="touchEnabled:true;magicWindowTrackingEnabled:true" wasd-controls="acceleration:12" position="0 1.7 0">
+   <a-entity cursor="fuse:false" raycaster="objects:.clickable;far:20" position="0 0 -1" geometry="primitive:ring;radiusInner:0.012;radiusOuter:0.02" material="color:#bcd0ff;shader:flat;opacity:.7"></a-entity>
+  </a-camera>
+ </a-entity>
+ <a-entity cursor="rayOrigin:mouse" raycaster="objects:.clickable;far:30"></a-entity>
+</a-scene>
+<script src="chamber.js"></script><script src="../lantern-grove/kin-room.js"></script>
+</body></html>

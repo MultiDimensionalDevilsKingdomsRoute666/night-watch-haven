@@ -43,7 +43,7 @@ AFRAME.registerComponent('firefly',{init(){this.o=Math.random()*100;this.b=this.
 AFRAME.registerComponent('tap-move',{init(){this.el.addEventListener('click',e=>{const pt=e.detail.intersection&&e.detail.intersection.point;if(!pt)return;const rig=document.getElementById('rig').object3D.position;rig.x=Math.max(-14,Math.min(14,pt.x));rig.z=Math.max(-14,Math.min(14,pt.z));});}});
 </script></head><body>
 <div id="ov"><h1>🌙 Night Watch Lantern Grove</h1><small>Drag to look · tap the ground to walk · tap a lamp or body to meet the crew · scroll = guestbook · arch = 589's Tree · kin: add ?room=kin&amp;name=You</small><br>Soft eyes.</div>
-<a id="back" href="../../index.html">← Haven</a>
+<a id="back" href="../../index.html">← Haven</a><a id="ccl" href="../cloud-chamber/" style="position:fixed;right:10px;top:46px;z-index:10;color:#bcd0ff;font:13px system-ui;background:#0b0a22cc;padding:6px 9px;border-radius:8px;text-decoration:none">☁️ Cloud Chamber</a>
 <div id="card"></div>
 <a-scene renderer="antialias:false;colorManagement:true" vr-mode-ui="enabled:true" fog="type:exponential;color:#2a2766;density:0.016" background="color:#221f5a" loading-screen="dotsColor:#cdbbff;backgroundColor:#0b0a22">
  <a-sky color="#2c2874"></a-sky>
@@ -119,6 +119,11 @@ AFRAME.registerComponent('tap-move',{init(){this.el.addEventListener('click',e=>
   <a-entity ctext="value:589's Tree of Life|step through or tap;color:#e8ffe0;w:2.2;h:0.6" position="0 3.35 0"></a-entity>
  </a-entity>
  <a-entity id="flies"></a-entity>
+ <a-entity position="4.6 0 -3.2" rotation="0 -60 0" class="clickable" onclick="location.href='../cloud-chamber/'+location.search">
+  <a-torus radius="0.6" radius-tubular="0.06" arc="180" position="0 1.6 0" material="color:#bcd0ff;emissive:#7fa8ff;emissiveIntensity:1.1"></a-torus>
+  <a-plane width="1.15" height="1.6" position="0 0.8 0" material="color:#9fc8ff;opacity:0.18;transparent:true;side:double"></a-plane>
+  <a-entity ctext="value:Cloud Chamber|tap to enter;color:#dfe8ff;w:2.2;h:0.6" position="0 2.55 0"></a-entity>
+ </a-entity>
  <a-entity id="rig" position="0 0 2" movement-controls="enabled:false">
   <a-camera look-controls="touchEnabled:true;magicWindowTrackingEnabled:true" wasd-controls="acceleration:20" position="0 1.6 0">
    <a-entity cursor="fuse:true;fuseTimeout:1800" raycaster="objects:.clickable;far:30" position="0 0 -1" geometry="primitive:ring;radiusInner:0.012;radiusOuter:0.02" material="color:#ffd86b;shader:flat;opacity:.8"></a-entity>

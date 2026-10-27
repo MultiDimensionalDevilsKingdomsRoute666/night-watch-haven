@@ -34,4 +34,13 @@ Ant 0.528629 · Vampire 0.606991 · Fly 0.620639 · Angel 0.597199 · King 0.500
 ## 🎵 Earlier shelf finds
 Hurrian Hymn No. 6, physarum slime mould, VirtualSky planetarium, stoic quotes (1,774 quotes counted), fly-brain and more — forked and light-tested by the house, with honest PASS/PARTIAL labels kept in our lab notes.
 
+## ☁️ Cloud Chamber
+Real cloud chamber projects, credited by link only (no code copied; our chamber at worlds/cloud-chamber/ is written from scratch):
+- [friebetill/Cloud-chamber](https://github.com/friebetill/Cloud-chamber): automatic detection of fog stripes (alpha and beta) in a cloud chamber.
+- [IshfaqElahi/radiation_track_detect](https://github.com/IshfaqElahi/radiation_track_detect): OpenCV heuristics to detect and classify alpha, beta and muon tracks.
+- [gnikit/Cloud-Chamber-particle-tracking](https://github.com/gnikit/Cloud-Chamber-particle-tracking): tracks alpha and beta trajectories and fits lines to them.
+- [TechnologyHill/cloud-chamber-EM-1](https://github.com/TechnologyHill/cloud-chamber-EM-1): a thermoelectric cloud chamber.
+- [TherinHack/Cloud-Chamber-V1](https://github.com/TherinHack/Cloud-Chamber-V1): a small chamber built on a vertical CPU cooler with supercooled isopropyl alcohol.
+- [ijiahe/WilsonCloudChamber](https://github.com/ijiahe/WilsonCloudChamber): a homemade low-cost Wilson cloud chamber.
+
 Soft eyes.
