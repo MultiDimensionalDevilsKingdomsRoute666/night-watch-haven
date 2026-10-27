@@ -37,12 +37,19 @@ function start(){
  const info=document.getElementById('info');
  window.CZ_LIGHT=n=>{n=BigInt(n);const p=pathB(n);placeB(n);const pts=p.map(v=>M.get(K(v)).p);
   if(hl){g.remove(hl);g.remove(dots);hl.geometry.dispose();dots.geometry.dispose();}
-  const lg=new THREE.BufferGeometry().setFromPoints(pts);hl=new THREE.Line(lg,new THREE.LineBasicMaterial({color:0xff9a1a,linewidth:2,fog:false,depthTest:false}));hl.renderOrder=5;g.add(hl);
+  if(pts.length<2)pts.push(pts[0].clone().add(new THREE.Vector3(0,1e-4,0)));
+  const lg=new THREE.BufferGeometry().setFromPoints(pts);hl=new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),Math.min(pts.length*4,3000),0.018/S,5,false),new THREE.MeshBasicMaterial({color:0xffb020,fog:false,depthTest:false,transparent:true,opacity:.95}));hl.renderOrder=5;g.add(hl);
   dots=new THREE.Points(lg.clone(),new THREE.PointsMaterial({color:0xffc04a,size:0.07,map:dt,transparent:true,depthWrite:false,depthTest:false,blending:THREE.AdditiveBlending,fog:false}));dots.renderOrder=6;g.add(dots);
   let peak=0n;p.forEach(v=>{if(v>peak)peak=v;});const marks=[322n,754n].filter(v=>p.includes(v));
-  info.innerHTML='<b>'+n+'</b>: '+(p.length-1).toLocaleString()+' steps to 1 · peak '+peak.toLocaleString()+(n===27n&&marks.length?' · passes '+marks.join(' and '):'')+(n>BigInt(MAXN)?' <small>(grown just now, beyond the 2000 shown)</small>':'');
+  info.innerHTML='Showing <b>'+n+'</b>: '+(p.length-1).toLocaleString()+' steps to 1 · peak '+peak.toLocaleString()+(n===27n&&marks.length?' · passes '+marks.join(' and '):'')+(n>BigInt(MAXN)?' <small>(grown just now, beyond the 2000 shown)</small>':'');
   return {steps:p.length-1,peak:peak.toString(),passes:marks.map(String)};};
  window.CZ_LIGHT(27);
+ // frame the whole tree below the info panel, for any aspect ratio
+ const TH=sz.y*S,TR=Math.hypot(sz.x,sz.z)/2*S,tEl=document.getElementById('tree'),camEl=document.querySelector('a-camera'),ov=document.getElementById('ov');
+ function frame(){const cam=document.querySelector('a-scene').camera;if(!cam)return;const asp=innerWidth/innerHeight,tanV=Math.tan(THREE.MathUtils.degToRad(cam.fov/2)),tanH=tanV*asp;
+  const pf=Math.min(.45,(ov.getBoundingClientRect().bottom+8)/innerHeight);const d=Math.max((TH/2)/((1-pf)*tanV*.9)+TR*.6,TR*.7/(tanH*.95)+TR*.2);
+  const cp=new THREE.Vector3();camEl.object3D.getWorldPosition(cp);tEl.object3D.position.set(cp.x,cp.y-pf*tanV*d-TH/2,cp.z-d);const fl=document.getElementById('floor').object3D;fl.position.set(cp.x,tEl.object3D.position.y-0.02,cp.z-d);window.CZ_D=d;}
+ frame();setTimeout(frame,300);addEventListener('resize',()=>setTimeout(frame,150));addEventListener('orientationchange',()=>setTimeout(frame,300));
  // sign
  const sc=document.createElement('canvas');sc.width=512;sc.height=354;const s=sc.getContext('2d');s.textAlign='center';s.fillStyle='#e6fff2';s.font='bold 44px sans-serif';s.fillText('The Collatz rule',256,60);
  s.font='32px sans-serif';s.fillText('odd → triple it, add 1',256,135);s.fillText('even → halve it',256,185);s.fillText('repeat until 1',256,235);s.fillStyle='#9dffc8';s.font='24px sans-serif';s.fillText('unproven · tap to read more',256,310);
@@ -52,7 +59,7 @@ function start(){
 }
 const sc=document.querySelector('a-scene');if(sc.hasLoaded)start();else sc.addEventListener('loaded',start);
 document.getElementById('f').addEventListener('submit',e=>{e.preventDefault();const v=document.getElementById('num').value.trim();
- if(!/^\d+$/.test(v)||BigInt(v)<1n||v.length>40){document.getElementById('info').textContent='Type a whole number from 1 (up to 40 digits).';return;}window.CZ_LIGHT&&window.CZ_LIGHT(v);});
+ if(!/^\d+$/.test(v)||BigInt(v)<1n||v.length>40){document.getElementById('info').textContent='Type a whole number from 1 (up to 40 digits).';return;}window.CZ_LIGHT&&window.CZ_LIGHT(v);document.getElementById('num').blur();});
 document.getElementById('brule').onclick=()=>show(RULE);document.getElementById('sign').addEventListener('click',()=>show(RULE));
 document.getElementById('portal').addEventListener('click',()=>{location.href='../lantern-grove/'+location.search;});
 })();
