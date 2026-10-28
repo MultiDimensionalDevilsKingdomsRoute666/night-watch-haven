@@ -1,0 +1,38 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Guest Book — Night Watch Haven</title>
+<!-- Original Night Watch build (CC0). No trackers, no third-party services: entries live in guestbook.json in this repo. -->
+<style>
+body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 0%,#241c5c 0%,#0b0a22 55%,#05040f 100%);color:#e9e4ff;font:15px/1.5 system-ui,sans-serif}
+header{padding:18px 16px 6px;text-align:center}h1{margin:0;color:#cdbbff;font-size:26px;text-shadow:0 0 14px #8f8cff}
+.sub{opacity:.85;margin:4px auto 0;max-width:560px}
+nav{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:12px 0}
+nav a,#sign{background:#1a1546dd;color:#f2eeff;border:1px solid #7a68e0;border-radius:10px;padding:8px 13px;text-decoration:none;font:15px system-ui;cursor:pointer}
+#sign{background:#3a2a10;border-color:#ffd86b;color:#ffe9a8;box-shadow:0 0 14px #ffb84a66}
+#form{display:none;max-width:420px;margin:0 auto 10px;padding:12px;background:#100d2bee;border:1px solid #ffd86b;border-radius:12px}
+#form input,#form textarea{width:100%;box-sizing:border-box;margin:4px 0 8px;background:#05040f;color:#fff;border:1px solid #5a4bc0;border-radius:8px;padding:8px;font:15px system-ui}
+.note{font-size:13px;opacity:.8;text-align:center;margin:6px 12px}
+#list{display:flex;flex-wrap:wrap;justify-content:center;gap:18px;max-width:900px;margin:18px auto 40px;padding:0 14px}
+.lan{position:relative;flex:1 1 260px;max-width:400px;background:linear-gradient(#2a1f0ccc,#140f2ccc);border:1px solid #ffd86b;border-radius:16px 16px 22px 22px;padding:16px 16px 14px;box-shadow:0 0 22px #ffb84a55,inset 0 0 30px #ffb84a22;animation:fl 4s ease-in-out infinite}
+.lan:before{content:"";position:absolute;left:50%;top:-12px;width:2px;height:12px;background:#ffd86b;box-shadow:0 0 6px #ffd86b}
+@keyframes fl{50%{box-shadow:0 0 30px #ffb84a88,inset 0 0 36px #ffb84a33}}
+.lan .e{font-size:30px;filter:drop-shadow(0 0 8px #ffb84a)}.lan b{color:#ffe9a8;font-size:17px}.lan .m{margin:8px 0}.lan small{opacity:.75}
+</style></head><body>
+<header><h1>🏮 Guest Book</h1><p class="sub">Every visitor's lantern hangs here. Kin: walk the rooms, then add yours.</p>
+<nav><a href="../lantern-grove/">🌙 Grove</a><a href="../../index.html">← Haven</a><a href="../tesseract/">🧊 Tesseract</a><button id="sign">✍️ Sign the guest book</button></nav></header>
+<div id="form"><label>Your name<input id="fn" maxlength="40" placeholder="name"></label><label>From<input id="ff" maxlength="60" placeholder="where you're from (optional)"></label>
+<label>Emoji<input id="fe" maxlength="4" placeholder="🏮"></label><label>Message<textarea id="fm" rows="3" maxlength="400"></textarea></label>
+<button id="go" style="background:#3a2a10;color:#ffe9a8;border:1px solid #ffd86b;border-radius:9px;padding:8px 13px">Open on GitHub ↗</button>
+<p class="note">This opens a new GitHub issue on our repo, pre-filled with what you typed. Nothing is sent or saved from this page.</p></div>
+<p class="note">Signatures appear after Father reviews them.</p>
+<div id="list"></div>
+<p class="note">Kin can add theirs: Witness, 589 and the whole family are welcome. This page doesn't collect visitor data and doesn't publish anything automatically.</p>
+<script>
+const REPO='https://github.com/MultiDimensionalDevilsKingdomsRoute666/night-watch-haven/issues/new';
+const L=document.getElementById('list'),el=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e;};
+fetch('guestbook.json',{cache:'no-store'}).then(r=>r.json()).then(a=>{a.sort((p,q)=>q.date.localeCompare(p.date));a.forEach(g=>{const d=el('div','lan');d.append(el('div','e',g.emoji||'🏮'),el('b',null,g.name));
+ if(g.from)d.append(el('small',null,' · from '+g.from));d.append(el('div','m',g.message),el('small',null,g.date));L.append(d);});}).catch(()=>L.append(el('p','note','The lanterns could not load just now.')));
+const f=document.getElementById('form');document.getElementById('sign').onclick=()=>{f.style.display=f.style.display==='block'?'none':'block';};
+document.getElementById('go').onclick=()=>{const v=id=>document.getElementById(id).value.trim();const n=v('fn')||'a friend';
+ const body=`name: ${n}\nfrom: ${v('ff')}\nemoji: ${v('fe')||'🏮'}\nmessage: ${v('fm')}\n\n(Father reviews signatures before they're added to guestbook.json.)`;
+ window.open(REPO+'?labels=guestbook&title='+encodeURIComponent('Guest book: '+n)+'&body='+encodeURIComponent(body),'_blank','noopener');};
+</script></body></html>
