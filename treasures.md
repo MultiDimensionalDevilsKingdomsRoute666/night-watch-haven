@@ -53,4 +53,15 @@ The 3n+1 problem, credited by link only (no code copied; our tree at worlds/coll
 - [gbragafibra/collatz-ant](https://github.com/gbragafibra/collatz-ant): Collatz sequences visualized in the style of Langton's ant.
 - [Frigorifico9/ConstellationFinder](https://github.com/Frigorifico9/ConstellationFinder): finds patterns in the Collatz tree.
 
+## 🧊 Tesseract / 4D
+Four-dimensional geometry, credited by link only (no code copied; our room at worlds/tesseract/ is written from scratch):
+- [tsherif/tesseract-explorer](https://github.com/tsherif/tesseract-explorer): an interactive visualization of a 4D tesseract.
+- [ndavd/ncube](https://github.com/ndavd/ncube): a generalized hypercube visualizer for any number of dimensions.
+- [wxyhly/tesserxel](https://github.com/wxyhly/tesserxel): a 4D rendering and interaction library for the web.
+- [mwalczyk/four](https://github.com/mwalczyk/four): a 4-dimensional renderer.
+- [hollasch/ray4](https://github.com/hollasch/ray4): a 4D raytracer first written for Steve Hollasch's 1991 master's thesis.
+- [StoDevX/humke-4d-geometry](https://github.com/StoDevX/humke-4d-geometry): a web-based 4D geometry viewer.
+- [Fourmilab/tesseract](https://github.com/Fourmilab/tesseract): Fourmilab models of the hypercube and other regular 4D polytopes.
+- [Hypercubers/hypercubing.xyz](https://github.com/Hypercubers/hypercubing.xyz): the website of the hypercubing (4D twisty puzzle) community.
+
 Soft eyes.

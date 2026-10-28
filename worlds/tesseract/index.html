@@ -1,0 +1,36 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Tesseract — Night Watch Haven</title>
+<!-- Original Night Watch build (CC0). A-Frame 1.8.0 (MIT) from the official CDN. -->
+<script src="https://aframe.io/releases/1.8.0/aframe.min.js"></script>
+<style>
+body{margin:0}
+#ov{position:fixed;left:8px;top:8px;right:8px;z-index:10;max-width:560px;background:#020a04d9;color:#d8ffe0;border:1px solid #2fbf5a;border-radius:10px;padding:8px 10px;font:14px system-ui,sans-serif}
+#ov h1{font-size:16px;margin:0 0 4px;color:#6dff8a}
+.row{display:flex;align-items:center;gap:8px;margin:3px 0}.row label{width:2.6em;color:#9dffb0}.row input{flex:1;accent-color:#3fff6a}.row span{width:2.4em;text-align:right;font-variant-numeric:tabular-nums}
+#ov button,#ui button,#ui a{background:#06240ddd;color:#d8ffe0;border:1px solid #3fdc6a;border-radius:9px;padding:8px 12px;font:15px system-ui;text-decoration:none;min-height:38px}
+#ui{position:fixed;right:10px;bottom:60px;z-index:12;display:flex;gap:6px}
+#card{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:13;display:none;background:#03140aee;color:#eaffee;border:1px solid #6dff8a;border-radius:12px;padding:12px 14px;font:14px/1.45 system-ui;max-width:min(92vw,460px)}
+#card b{color:#6dff8a}#card button{float:right;background:#0b3a18;color:#fff;border:1px solid #3fdc6a;border-radius:6px}
+</style></head><body>
+<div id="ov"><h1>🧊 Tesseract</h1>
+<div class="row"><label>XW</label><input id="sxw" type="range" min="0" max="2" step="0.05" value="0.6"><span id="vxw"></span></div>
+<div class="row"><label>YW</label><input id="syw" type="range" min="0" max="2" step="0.05" value="0.35"><span id="vyw"></span></div>
+<div class="row"><label>ZW</label><input id="szw" type="range" min="0" max="2" step="0.05" value="0.2"><span id="vzw"></span></div>
+<div class="row"><button id="bmode">🔀 Unfold (Dalí cross)</button><button id="bpause">⏸</button></div></div>
+<div id="ui"><a href="../lantern-grove/">🌙 Grove</a><button id="babout">❔ Shadow</button></div>
+<div id="card"></div>
+<a-scene renderer="antialias:true;colorManagement:true" vr-mode-ui="enabled:true" background="color:#010402" loading-screen="dotsColor:#6dff8a;backgroundColor:#010402">
+ <a-entity id="world"></a-entity>
+ <a-entity position="3 0 -3" rotation="0 -40 0" class="clickable" id="portal">
+  <a-torus radius="0.6" radius-tubular="0.06" arc="180" position="0 1.6 0" material="color:#cdbbff;emissive:#8f8cff;emissiveIntensity:1.2"></a-torus>
+  <a-plane width="1.15" height="1.6" position="0 0.8 0" material="color:#a99cff;opacity:0.2;transparent:true;side:double"></a-plane>
+ </a-entity>
+ <a-entity id="rig" position="0 0 0">
+  <a-camera look-controls="touchEnabled:true;magicWindowTrackingEnabled:true" wasd-controls="acceleration:12" position="0 1.6 0">
+   <a-entity cursor="fuse:false" raycaster="objects:.clickable;far:20" position="0 0 -1" geometry="primitive:ring;radiusInner:0.012;radiusOuter:0.02" material="color:#6dff8a;shader:flat;opacity:.6"></a-entity>
+  </a-camera>
+ </a-entity>
+ <a-entity cursor="rayOrigin:mouse" raycaster="objects:.clickable;far:30"></a-entity>
+</a-scene>
+<script src="tesseract.js"></script><script src="../lantern-grove/kin-room.js"></script>
+</body></html>
