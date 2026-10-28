@@ -43,7 +43,8 @@ function start(){
  const core=new THREE.Mesh(new THREE.SphereGeometry(1,40,24),new THREE.MeshBasicMaterial({color:0x2aff5a,transparent:true,opacity:.28,blending:add,depthWrite:false}));
  const wire=new THREE.Mesh(new THREE.SphereGeometry(1.002,24,14),new THREE.MeshBasicMaterial({color:0x8dffa8,wireframe:true,transparent:true,opacity:.45,blending:add,depthWrite:false}));
  const glow=new THREE.Sprite(new THREE.SpriteMaterial({map:dotTex,color:0x6dff8a,transparent:true,blending:add,depthWrite:false}));
- sph.add(core,wire,glow);sph.visible=false;T.add(sph);
+ const ghost=new THREE.Mesh(new THREE.SphereGeometry(2,24,14),new THREE.MeshBasicMaterial({color:0x2aff5a,wireframe:true,transparent:true,opacity:.09,blending:add,depthWrite:false}));
+ sph.add(core,wire,glow,ghost);sph.visible=false;T.add(sph);
  // maze: 7 rooms of nested wireframe cubes along -z, far from the main stage
  const MZ=new THREE.Vector3(200,0,0),maze=new THREE.Group();maze.position.copy(MZ);maze.visible=false;world.add(maze);
  const RS=4,NR=7,cubeEdges=(s,cx,cy,cz)=>{const p=[];CE.forEach(([a,b])=>[a,b].forEach(i=>p.push(cx+(i&1?1:-1)*s,cy+(i&2?1:-1)*s,cz+(i&4?1:-1)*s)));return p;};
@@ -57,29 +58,40 @@ function start(){
  const exitGlow=new THREE.Sprite(new THREE.SpriteMaterial({map:dotTex,color:0x9dffb0,transparent:true,blending:add,depthWrite:false}));exitGlow.scale.setScalar(2.2);exitGlow.position.set(0,1.6,exitZ);maze.add(exitGlow);
  // UI
  const sp=[0,0,0];[0,1,2].forEach(i=>{const k=['xw','yw','zw'][i],e=$('s'+k),v=$('v'+k);const u=()=>{sp[i]=+e.value;v.textContent=(+e.value).toFixed(2);};e.oninput=u;u();});
+ let ux=0,uy=0,steps=0,made=0,sphTxt='',shapeCap='';const burst=new THREE.Sprite(new THREE.SpriteMaterial({map:dotTex,color:0xeaffee,transparent:true,blending:add,depthWrite:false}));burst.visible=false;
  let shape='tess',view='tess',paused=false,ang=[0,0,0],spin=0,st=0,walkTo=null;
  const bm=$('bmode'),bp=$('bpause'),cnt=$('cnt'),cap=$('cap'),sl=$('sliders');
  bm.onclick=()=>{view=view==='tess'?'net':'tess';apply();};
  bp.onclick=()=>{paused=!paused;bp.textContent=paused?'▶':'⏸';};
  document.querySelectorAll('#pick button').forEach(b=>b.onclick=()=>pick(b.dataset.s));
- function pick(s){if(shape==='maze'&&s!=='maze')leaveMaze();shape=s;view='tess';ang=[0,0,0];st=0;if(s==="maze")enterMaze();apply();}
+ function pick(s){made=0;$('msg').style.display='none';burst.visible=false;if(shape==='maze'&&s!=='maze')leaveMaze();shape=s;view='tess';ang=[0,0,0];st=0;if(s==="maze")enterMaze();apply();}
  function apply(){const isP=!!SH[shape];document.querySelectorAll('#pick button').forEach(b=>b.classList.toggle('on',b.dataset.s===shape));
   poly.visible=isP&&!(shape==='tess'&&view==='net');net.visible=shape==='tess'&&view==='net';sph.visible=shape==='sphere';
   bm.style.display=shape==='tess'?'':'none';bm.textContent=view==='tess'?'🔀 Unfold (Dalí cross)':'🔀 Cube in a cube';
   sl.style.display=isP?'':'none';
   if(isP){const S=SH[shape];S.lab.forEach((l,i)=>$('l'+i).textContent=l);lg.setDrawRange(0,S.E.length*2);vg.setDrawRange(0,S.V.length);
    cnt.textContent=`${S.V.length} vertices · ${S.E.length} edges`+(shape==='tess'&&view==='net'?' · 8 cubes':'');cap.textContent=S.ex;}
-  else if(shape==='sphere'){cnt.textContent='3-sphere slice';cap.textContent='A 4D ball drifting through our 3D space: a point, a growing sphere, then gone, like Flatland\'s sphere visiting a square.';}
+  else if(shape==='sphere'){cnt.textContent='3-sphere slice';cap.textContent=sphTxt='A 4D ball drifting through our 3D space: a point, a growing sphere, then gone, like Flatland\'s sphere visiting a square.';}
   else{cnt.textContent='walk the cells';cap.textContent='Drag to look, tap to step forward. Reach the glowing ring to return.';}
   frame();}
- function enterMaze(){T.visible=floor.visible=back.visible=false;maze.visible=true;exitEl.object3D.visible=true;$('portal').object3D.visible=false;rig.position.set(MZ.x,0,1.2);walkTo=null;}
- function leaveMaze(){T.visible=floor.visible=back.visible=true;maze.visible=false;exitEl.object3D.visible=false;$('portal').object3D.visible=true;rig.position.set(0,0,0);walkTo=null;}
- exitEl.addEventListener('click',()=>pick('tess'));
+ function lookOn(on){camEl.setAttribute('look-controls','enabled',on);}
+ function enterMaze(){lookOn(true);steps=0;T.visible=floor.visible=back.visible=false;maze.visible=true;exitEl.object3D.visible=true;$('portal').object3D.visible=false;rig.position.set(MZ.x,0,1.2);walkTo=null;}
+ function leaveMaze(){lookOn(false);T.visible=floor.visible=back.visible=true;maze.visible=false;exitEl.object3D.visible=false;$('portal').object3D.visible=true;rig.position.set(0,0,0);walkTo=null;}
+ exitEl.addEventListener('click',()=>{if(!made)madeIt();});
+ maze.add(burst);burst.position.set(0,1.6,exitZ);
+ function madeIt(){made=performance.now();walkTo=null;burst.visible=true;const m=$('msg');m.innerHTML='You made it ✨<small>'+steps+' step'+(steps===1?'':'s')+' through the cells · tap to continue</small>';m.style.display='block';}
+ $('msg').addEventListener('click',()=>pick('tess'));
+ // drag rotates the shape (camera stays put); Center resets
+ lookOn(false);let drag=null;
+ sc.canvas.addEventListener('pointerdown',e=>{if(shape!=='maze')drag={x:e.clientX,y:e.clientY};});
+ addEventListener('pointermove',e=>{if(!drag||shape==='maze')return;uy+=(e.clientX-drag.x)*.008;ux=THREE.MathUtils.clamp(ux+(e.clientY-drag.y)*.008,-1.3,1.3);drag={x:e.clientX,y:e.clientY};});
+ addEventListener('pointerup',()=>drag=null);addEventListener('pointercancel',()=>drag=null);
+ $('bcenter').onclick=()=>{ux=uy=0;const L=camEl.components['look-controls'];if(L){L.pitchObject.rotation.x=0;L.yawObject.rotation.y=0;}camEl.object3D.rotation.set(0,0,0);if(shape!=='maze'){camEl.object3D.position.set(0,1.6,0);}frame();};
  // tap (not drag) on the scene steps forward one room in the look direction
  let down=null;sc.canvas.addEventListener('pointerdown',e=>{down={x:e.clientX,y:e.clientY,t:performance.now()};});
- sc.canvas.addEventListener('pointerup',e=>{if(!down||shape!=='maze')return;const m=Math.hypot(e.clientX-down.x,e.clientY-down.y),dt=performance.now()-down.t;down=null;if(m>10||dt>400)return;
+ sc.canvas.addEventListener('pointerup',e=>{if(!down||shape!=='maze')return;if(made){pick('tess');return;}const m=Math.hypot(e.clientX-down.x,e.clientY-down.y),dt=performance.now()-down.t;down=null;if(m>10||dt>400)return;
   const dir=new THREE.Vector3();camEl.object3D.getWorldDirection(dir);dir.y=0;if(dir.lengthSq()<1e-4)return;dir.normalize().multiplyScalar(-RS*.75);
-  const t=(walkTo||rig.position).clone().add(dir);t.x=THREE.MathUtils.clamp(t.x,MZ.x-1.4,MZ.x+1.4);t.z=THREE.MathUtils.clamp(t.z,exitZ-.5,1.6);walkTo=t;});
+  const t=(walkTo||rig.position).clone().add(dir);t.x=THREE.MathUtils.clamp(t.x,MZ.x-1.4,MZ.x+1.4);t.z=THREE.MathUtils.clamp(t.z,exitZ-.5,1.6);walkTo=t;steps++;});
  const D=3.2,c3=new THREE.Color();
  function proj(){const S=SH[shape],n=S.V[0].length,P=[],W=[];const cs=ang.map(Math.cos),sn=ang.map(Math.sin);
   S.V.forEach(v0=>{const v=v0.slice();S.planes.forEach(([i,j],q)=>{const a=v[i],b=v[j];v[i]=cs[q]*a-sn[q]*b;v[j]=sn[q]*a+cs[q]*b;});
@@ -98,10 +110,14 @@ function start(){
  (function loop(){requestAnimationFrame(loop);const now=performance.now(),dt=Math.min((now-last)/1000,.05);last=now;
   if(!paused){ang=ang.map((a,i)=>a+sp[i]*dt);spin+=dt*.15;st+=dt;}
   if(SH[shape]&&poly.visible)proj();
-  if(shape==='sphere'){const c=Math.cos(st*.6),r=2*Math.sqrt(Math.max(0,1-c*c))+.001;core.scale.setScalar(r);wire.scale.setScalar(r);glow.scale.setScalar(r*2.6+.25);wire.rotation.y=st*.3;}
+  if(shape==='sphere'){const ph=(st*.22)%1,inside=ph<.62,c=inside?ph/.62*2-1:1,r=inside?2*Math.sqrt(Math.max(0,1-c*c))+.02:0;
+   core.visible=wire.visible=glow.visible=inside;core.scale.setScalar(r||1);wire.scale.setScalar(r||1);glow.scale.setScalar(r*2.6+.25);wire.rotation.y=ghost.rotation.y=st*.3;
+   const t=inside?sphTxt:'Between worlds: the sphere is outside our 3D space. Its faint ghost shows where it will pass.';if(cap.textContent!==t)cap.textContent=t;}
   if(shape==='maze'){if(walkTo){rig.position.lerp(walkTo,Math.min(1,dt*4));if(rig.position.distanceTo(walkTo)<.02)walkTo=null;}
-   exitGlow.material.opacity=.6+.4*Math.sin(now/300);exitEl.object3D.rotation.y+=dt;if(rig.position.z<exitZ+.6)pick('tess');}
-  T.rotation.y=spin;T.rotation.x=view==='net'?0.2:0.25;})();
+   exitGlow.material.opacity=.6+.4*Math.sin(now/300);exitEl.object3D.rotation.y+=dt;
+   if(!made&&rig.position.z<exitZ+.6)madeIt();
+   if(made){const k=(now-made)/1000;burst.scale.setScalar(1+k*6);burst.material.opacity=Math.max(0,1-k/2.5);if(k>2.5)pick('tess');}}
+  T.rotation.y=spin+uy;T.rotation.x=(view==='net'?0.2:0.25)+ux;})();
  window.TS_INFO=()=>{const o={};for(const k in SH)o[k]={vertices:SH[k].V.length,edges:SH[k].E.length};o.cubes=CUBES.length;o.shape=shape;return o;};
  window.TS_PICK=pick;
 }

@@ -12,6 +12,7 @@ body{margin:0}
 #ui{position:fixed;right:10px;bottom:60px;z-index:12;display:flex;gap:6px}
 #card{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:13;display:none;background:#03140aee;color:#eaffee;border:1px solid #6dff8a;border-radius:12px;padding:12px 14px;font:14px/1.45 system-ui;max-width:min(92vw,460px)}
 #card b{color:#6dff8a}#card button{float:right;background:#0b3a18;color:#fff;border:1px solid #3fdc6a;border-radius:6px}
+#msg{position:fixed;left:50%;top:45%;transform:translate(-50%,-50%);z-index:14;display:none;text-align:center;color:#eaffee;font:700 28px system-ui;text-shadow:0 0 18px #3fff6a,0 0 4px #1aff4a;background:#021a0acc;border:1px solid #6dff8a;border-radius:14px;padding:16px 22px;cursor:pointer}#msg small{display:block;font:400 14px system-ui;color:#bfffcc;margin-top:6px}
 </style></head><body>
 <div id="ov"><h1>🧊 Tesseract <span id="cnt"></span></h1>
 <div id="pick"><button data-s="tess">Tesseract</button><button data-s="cell5">5-cell</button><button data-s="cell16">16-cell</button><button data-s="pent">5D cube</button><button data-s="sphere">Slice</button><button data-s="maze">Maze</button></div>
@@ -20,8 +21,8 @@ body{margin:0}
 <div class="row"><label id="l1">YW</label><input id="syw" type="range" min="0" max="2" step="0.05" value="0.35"><span id="vyw"></span></div>
 <div class="row"><label id="l2">ZW</label><input id="szw" type="range" min="0" max="2" step="0.05" value="0.2"><span id="vzw"></span></div>
 </div><div class="row"><button id="bmode">🔀 Unfold (Dalí cross)</button><button id="bpause">⏸</button></div></div>
-<div id="ui"><a href="../lantern-grove/">🌙 Grove</a><button id="babout">❔ Shadow</button></div>
-<div id="card"></div>
+<div id="ui"><a href="../lantern-grove/">🌙 Grove</a><button id="bcenter">⟲ Center</button><button id="babout">❔ Shadow</button></div>
+<div id="card"></div><div id="msg"></div>
 <a-scene renderer="antialias:true;colorManagement:true" vr-mode-ui="enabled:true" background="color:#010402" loading-screen="dotsColor:#6dff8a;backgroundColor:#010402">
  <a-entity id="world"></a-entity>
  <a-entity position="3 0 -3" rotation="0 -40 0" class="clickable" id="portal">
