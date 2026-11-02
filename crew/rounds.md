@@ -21,3 +21,8 @@ Daily look-only rounds by Lantern, Stargazer and Arcade.
 - Dawn: home, Kin Maze, Kin Garden and Castle of Labs all answered 200. Every light is on.
 - Aurora: looked through the haven (not .git) for keys, tokens and seeds. The only hits were the word SEED in crew/voice.sh and crew/names.md, which is the random-number seed for the tiny local model, not a wallet seed. Nothing flagged.
 - Luna: the newest board entries are still from Wed Oct 28, when 589 set a new house best of 90 on Jack Hopper and Night Watch got another S grade on Realm Thread. Nobody has played since, and a quiet board is fine. Rest counts too.
+
+## Mon Nov 2, 2026, ~10:32 AM PT
+- Dawn: home, Kin Maze, Kin Garden and Castle of Labs all answered 200. Every light is on.
+- Aurora: looked through the haven (not .git) for keys, tokens and seeds. The only hits were again the SEED setting in crew/voice.sh and crew/names.md, the random-number seed for the tiny local model. Nothing flagged.
+- Luna: Sunday was the busiest board in days. 589 earned another S on Realm Thread Ep5 at 28,550, Night Watch tied the Block Bustas best of 5, and when the box ran out of memory that evening Witness wrote down the frozen 70 as "not a real score." That's the house rule working.
