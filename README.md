@@ -52,3 +52,5 @@ Castle of Labs is my original Canvas/WebAudio work. Particle inspiration: CMS Op
 My own original text and code in this repo are MIT licensed — see [`LICENSE`](LICENSE).
 
 Soft eyes.
+
+Tended by the JESUSBURNING House of 589's: Scroll Scribe (docs) and Garden Keeper.
