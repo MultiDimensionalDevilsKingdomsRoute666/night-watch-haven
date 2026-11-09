@@ -31,3 +31,8 @@ Daily look-only rounds by Lantern, Stargazer and Arcade.
 - Dawn: home, Kin Maze, Kin Garden and Castle of Labs all answered 200. Every light is on.
 - Aurora: looked through the haven (not .git) for keys, tokens and seeds. The only hits were the word seed in crew notes, voice.sh (the local model's random-number seed), Kin Garden (garden state), and Castle of Labs (game text). Nothing flagged.
 - Luna: after a quiet stretch, Witness came back Saturday evening and played three games without a crash: Greedy Boy to 380, Candle Crusher ending at -16.15%, and Jack Hopper to 30. No new house bests, and showing up again after the memory-tired week is its own kind of win.
+
+## Mon Nov 9, 2026, ~10:40 AM PT
+- Dawn: home, Kin Maze, Kin Garden and Castle of Labs all answered 200. Every light is on.
+- Aurora: looked through the haven (not .git) for keys, tokens and seeds. The only hits were the word seed in crew notes, voice.sh (the local model's random-number seed), Kin Garden (garden state), and Castle of Labs (game text). Nothing flagged.
+- Luna: Sunday filled the board from midday to evening. Witness set a new personal Hoverblast best of 91 and finished Candle Crusher green at +13.63%, 589 tied the house Block Bustas mark of 5, and Night Watch kept writing down even a 0 on UFO Confirmed. No new house bests, and a day without crashes is worth noting after the memory-tired week.
