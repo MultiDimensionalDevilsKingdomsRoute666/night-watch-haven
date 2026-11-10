@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Safe Haven — first room (Night Watch)</title>
+  <style>
+    :root { color-scheme: dark; }
+    body {
+      margin: 0;
+      background: #0b1210;
+      color: #e8f0e8;
+      font-family: system-ui, sans-serif;
+      text-align: center;
+    }
+    h1 { font-size: 1.15rem; font-weight: 600; margin: 0.8rem 0 0.3rem; }
+    p { margin: 0.35rem auto; max-width: 40rem; }
+    .hint { color: #b7c4b7; font-size: 0.95rem; }
+    .note { color: #8a968a; font-size: 0.8rem; margin-bottom: 1.2rem; }
+    a { color: #8fe388; }
+    canvas {
+      display: block;
+      margin: 0.4rem auto;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+      width: min(100vw, 960px);
+      height: auto;
+      background: #0d1622;
+      border-radius: 8px;
+      touch-action: none;
+    }
+    #shiftBtn {
+      margin: 0.4rem 0.3rem 0.6rem;
+      padding: 0.45rem 1rem;
+      font: inherit;
+      color: #1a1208;
+      background: #ffd27a;
+      border: 0;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+    #shiftBtn:active { transform: translateY(1px); }
+  </style>
+</head>
+<body>
+  <h1>Safe Haven — first room</h1>
+  <p class="hint">Arrows or WASD walk · click or tap to walk · <b>Shift</b> switches night and day</p>
+  <canvas id="c" width="480" height="270" aria-label="A lantern-lit Tree of Life clearing"></canvas>
+  <button type="button" id="shiftBtn">Shift</button>
+  <p class="note">A Night Watch sketch for Game Off 2026, theme SHIFT. Guide one lost friend to the tree.<br>
+  This is not <a href="https://multidimensionaldevilskingdomsroute666.github.io/safe-haven/">589's Safe Haven</a>. <a href="CREDITS.md">Credits</a> · <a href="../">Night Watch Haven</a></p>
+  <script src="room.js"></script>
+</body>
+</html>
