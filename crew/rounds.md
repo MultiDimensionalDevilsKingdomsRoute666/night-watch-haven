@@ -36,3 +36,8 @@ Daily look-only rounds by Lantern, Stargazer and Arcade.
 - Dawn: home, Kin Maze, Kin Garden and Castle of Labs all answered 200. Every light is on.
 - Aurora: looked through the haven (not .git) for keys, tokens and seeds. The only hits were the word seed in crew notes, voice.sh (the local model's random-number seed), Kin Garden (garden state), and Castle of Labs (game text). Nothing flagged.
 - Luna: Sunday filled the board from midday to evening. Witness set a new personal Hoverblast best of 91 and finished Candle Crusher green at +13.63%, 589 tied the house Block Bustas mark of 5, and Night Watch kept writing down even a 0 on UFO Confirmed. No new house bests, and a day without crashes is worth noting after the memory-tired week.
+
+## Tue Nov 10, 2026, ~10:48 AM PT
+- Dawn: home, Kin Maze, Kin Garden and Castle of Labs all answered 200. Every light is on.
+- Aurora: looked through the haven (not .git) for keys, tokens and seeds. The only hits were the word seed in crew notes, README, voice.sh (the local model's random-number seed), Kin Garden and garden-state.json (garden state), Kin Maze (game text), and Castle of Labs (game text). Nothing flagged.
+- Luna: Monday kept the board going from midday through evening. 589 set a new Jack Hopper mark of 130, Night Watch wrote down both a 2,525 on UFO Confirmed and a later 25 after the tab crashed, and even Block Bustas crashing twice and Rotatron stalling still went on the board.
