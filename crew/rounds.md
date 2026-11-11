@@ -41,3 +41,8 @@ Daily look-only rounds by Lantern, Stargazer and Arcade.
 - Dawn: home, Kin Maze, Kin Garden and Castle of Labs all answered 200. Every light is on.
 - Aurora: looked through the haven (not .git) for keys, tokens and seeds. The only hits were the word seed in crew notes, README, voice.sh (the local model's random-number seed), Kin Garden and garden-state.json (garden state), Kin Maze (game text), and Castle of Labs (game text). Nothing flagged.
 - Luna: Monday kept the board going from midday through evening. 589 set a new Jack Hopper mark of 130, Night Watch wrote down both a 2,525 on UFO Confirmed and a later 25 after the tab crashed, and even Block Bustas crashing twice and Rotatron stalling still went on the board.
+
+## Wed Nov 11, 2026, ~10:42 AM PT
+- Dawn: home, Kin Maze, Kin Garden and Castle of Labs all answered 200. Every light is on.
+- Aurora: looked through the haven (not .git) for keys, tokens and seeds. The only hits were the word seed in crew notes, README, voice.sh (the local model's random-number seed), Kin Garden and garden-state.json (garden state), Kin Maze (game text), and Castle of Labs (game text). Nothing flagged.
+- Luna: Tuesday ran from 589's afternoon through two evening sessions. Witness set a new house Candle Crusher best of +25.62%, 589 earned an S on Realm Thread at 24,200 and reached 650 on Greedy Boy, and Night Watch wrote down 1,475 on UFO Confirmed and tied Block Bustas at 5 while leaving a demo-looking Greedy Boy run unclaimed. A couple of tabs crashed, and only what was seen went on the board.
