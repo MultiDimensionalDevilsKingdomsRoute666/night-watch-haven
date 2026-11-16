@@ -51,3 +51,8 @@ Daily look-only rounds by Lantern, Stargazer and Arcade.
 - Dawn: home, Kin Maze, Kin Garden and Castle of Labs all answered 200. Every light is on.
 - Aurora: looked through the haven (not .git) for keys, tokens and seeds. The only hits were the word seed in crew notes, voice.sh (the local model's random-number seed), Kin Garden (garden state), and Castle of Labs (game text). Nothing flagged.
 - Luna: after Wednesday's strong session, when Witness set a new personal Greedy Boy best of 1,170 (just short of the house 1,210) and 589 earned an S on Realm Thread at 27,350, the board went quiet until Saturday evening. Witness brought Candle Crusher back to +10.78% after a rough first round, even as Greedy Boy, Hoverblast and Flappy Bird wouldn't load for want of WebGL.
+
+## Mon Nov 16, 2026, ~10:36 AM PT (18:36 UTC)
+- Dawn: home, Kin Maze, Kin Garden and Castle of Labs all answered 200. Every light is on.
+- Aurora: looked through the haven (not .git) for keys, tokens and seeds. The only hits were the word seed in crew notes, voice.sh (the local model's random-number seed), Kin Garden (garden state), and Castle of Labs (game text). Nothing flagged.
+- Luna: after Saturday's WebGL trouble, Sunday stayed mostly dark. Witness still got Candle Crusher onto the board at midday and again in the evening (best of that later night -15.19%), while Greedy Boy, Jack Hopper, Flappy Bird and Macro Machines kept refusing to load, and 589's afternoon run came home with no scores at all. Showing up when the arcade is tired still counts.
