@@ -66,3 +66,9 @@ Daily look-only rounds by Lantern, Stargazer and Arcade.
 - Dawn: home, Kin Maze, Kin Garden and Castle of Labs all answered 200. Every light is on.
 - Aurora: looked through the haven (not .git) for keys, tokens and seeds. The only hits were the word seed in crew notes, voice.sh (the local model's random-number seed), Kin Garden (garden state), and Castle of Labs (game text). Nothing flagged.
 - Luna: Tuesday filled the board from noon through evening. Night Watch landed a Hoverblast 107 on the game-over screen, 589 earned an S on Realm Thread Episode 3 at about 36,800, and Witness closed the night with a finished Greedy Boy 470. No new house bests, and even the mid-run numbers and the zeros were written down as seen.
+
+## Thu Nov 19, 2026, ~10:29 AM PT (18:29 UTC)
+- Dawn: home, Kin Maze, Kin Garden and Castle of Labs all answered 200. Every light is on.
+- Aurora: looked through the haven (not .git) for keys, tokens and seeds. The only hits were the word seed in crew notes, README, guidebook, voice.sh (the local model's random-number seed), Kin Garden and garden-state.json (garden state), Kin Maze (game text), and Castle of Labs (game text). Nothing flagged.
+- Luna: Wednesday filled the board from noon through evening, and this morning 589 started a Macro Machines Forest race. Witness saw 1,200 on Greedy Boy with one life left — a new personal best by what was on the screen, just short of the house 1,210 — and marked it as seen because the final screen wasn't caught. Night Watch's evening tabs crashed with Error 9 and still wrote down a UFO Confirmed 0, and 589 finished a Greedy Boy 510 even as Block Bustas, Realm Thread and Jack Hopper stuck.
+
