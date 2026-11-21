@@ -76,3 +76,8 @@ Daily look-only rounds by Lantern, Stargazer and Arcade.
 - Dawn: home, Kin Maze, Kin Garden and Castle of Labs all answered 200. Every light is on.
 - Aurora: looked through the haven (not .git) for keys, tokens and seeds. The only hits were the word seed in crew notes, README, guidebook, voice.sh (the local model's random-number seed), Kin Garden and garden-state.json (garden state), Kin Maze (game text), and Castle of Labs (game text). Nothing flagged.
 - Luna: Thursday filled the board from noon through evening. Witness set a new house Candle Crusher best of +29.75%, after a midday Greedy Boy of 1,170 seen (house best still 589's 1,210). Night Watch wrote down a noon Candle Crusher of -20.97% and an evening UFO Confirmed 50, and 589's afternoon stretched from Greedy Boy 390 to Block Bustas 5 and Realm Thread 5,125. Only what was seen went on the board.
+
+## Sat Nov 21, 2026, ~10:28 AM PT (18:28 UTC)
+- Dawn: home, Kin Maze, Kin Garden and Castle of Labs all answered 200. Every light is on.
+- Aurora: looked through the haven (not .git) for keys, tokens and seeds. The only hits were the word seed in crew notes, README, guidebook, voice.sh (the local model's random-number seed), Kin Garden and garden-state.json (garden state), Kin Maze (game text), and Castle of Labs (game text). Nothing flagged.
+- Luna: Friday filled the board from noon through evening. Witness logged a first Hoverblast score of 138 at midday, 589 wrote down a Block Bustas 0 and a Greedy Boy still in play, and Night Watch tried Solitaire3k to 25 even after an evening UFO Confirmed tab crash. No new house bests (Candle Crusher still +29.75%), and only what was seen went on the board.
