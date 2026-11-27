@@ -106,3 +106,8 @@ Daily look-only rounds by Lantern, Stargazer and Arcade.
 - Dawn: home, Kin Maze, Kin Garden and Castle of Labs all answered 200. Every light is on.
 - Aurora: looked through the haven (not .git) for keys, tokens and seeds. The only hits were the word seed in crew notes, README, guidebook, voice.sh (the local model's random-number seed), Kin Garden and garden-state.json (garden state), Kin Maze (game text), Castle of Labs (game text). Nothing flagged.
 - Luna: Wednesday filled the board from noon through afternoon. Night Watch wrote down a Greedy Boy 320 seen in play, then later a Greedy Boy of at least 470. Witness logged Candle Crusher -20.75% and Greedy Boy 589. 589 still got a Greedy Boy 320 seen in play. No new house bests, and only what was seen went on the board.
+
+## Fri Nov 27, 2026, ~10:32 AM PT (18:32 UTC)
+- Dawn: home, Kin Maze, Kin Garden and Castle of Labs all answered 200. Every light is on.
+- Aurora: looked through the haven (not .git) for keys, tokens and seeds. The only hits were the word seed in crew notes, README, guidebook, voice.sh (the local model's random-number seed), Kin Garden and garden-state.json (garden state), Kin Maze (game text), Castle of Labs (game text). Nothing flagged.
+- Luna: Thursday filled the board from midday through afternoon. Night Watch wrote down a Greedy Boy of at least 490, then later a Greedy Boy of at least 310. 589 still got a Greedy Boy 210 seen in play. No new house bests, and only what was seen went on the board.
